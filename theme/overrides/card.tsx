@@ -11,6 +11,15 @@ export default function Card(theme: Theme) {
           zIndex: 0, // Fix Safari overflow: hidden with border radius
         },
       },
+      variants: [
+        {
+          props: { variant: "dashed" },
+          style: {
+            textTransform: "none",
+            border: `2px dashed grey`,
+          },
+        },
+      ],
     },
     MuiCardHeader: {
       defaultProps: {

@@ -1,8 +1,9 @@
-import PropTypes from "prop-types";
-import Link from "next/link";
+import { DocumentData } from "firebase/firestore";
+import { useRouter } from "next/router";
 
-import { Box, List, ListItemButton, ListItemText } from "@mui/material";
-import { StyledNavItem, StyledNavItemIcon } from "./styles";
+import { Box, List, ListItemText } from "@mui/material";
+import { StyledNavItem } from "./styles";
+import { useApp } from "../../hooks/useApp";
 
 type MenuProps = {
   data: MenuItemProps[];
@@ -11,7 +12,7 @@ type MenuProps = {
 export default function MenuProps({ data = [], ...other }: MenuProps) {
   return (
     <Box {...other}>
-      <List disablePadding sx={{ p: 1 }}>
+      <List disablePadding>
         {data.map((item) => (
           <MenuItem key={item.title} {...item} />
         ))}
@@ -20,18 +21,21 @@ export default function MenuProps({ data = [], ...other }: MenuProps) {
   );
 }
 
-type MenuItemProps = {
-  title: string;
-  path: string;
-  info?: string;
-  icon?: string;
-};
+type MenuItemProps = DocumentData & { _id: string };
 
 function MenuItem(props: MenuItemProps) {
-  const { title, path, icon, info } = props;
+  const { title, _id, path, icon, info } = props;
+
+  const router = useRouter();
+  const { appData } = useApp();
 
   return (
-    <StyledNavItem selected onClick={() => {}}>
+    <StyledNavItem
+      selected={router.asPath.includes(_id)}
+      onClick={() => {
+        router.push(`/app/${appData?.id}/${_id}`);
+      }}
+    >
       <ListItemText disableTypography primary={title} />
 
       {info && info}

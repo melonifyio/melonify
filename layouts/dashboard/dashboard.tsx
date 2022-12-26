@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 // @mui
 import { styled } from "@mui/material/styles";
 //
 import Nav from "./nav";
 import RequireAuth from "../require-auth";
+import AppProvider from "../app-provider";
 
 // ----------------------------------------------------------------------
 
-const APP_BAR_MOBILE = 64;
-const APP_BAR_DESKTOP = 92;
+const APP_BAR_MOBILE = 24;
+const APP_BAR_DESKTOP = 44;
 
 const StyledRoot = styled("div")({
   display: "flex",
@@ -36,16 +38,18 @@ type DashboardProps = {
 export default function DashboardLayout(props: DashboardProps) {
   const { children } = props;
   const [open, setOpen] = useState(false);
+  const { query } = useRouter();
+  const { appId } = query;
 
   return (
     <RequireAuth>
-      <StyledRoot>
-        {/* <Header onOpenNav={() => setOpen(true)} /> */}
-
-        <Nav openNav={open} onCloseNav={() => setOpen(false)} />
-
-        <Main>{children}</Main>
-      </StyledRoot>
+      <AppProvider appId={appId as string}>
+        <StyledRoot>
+          {/* <Header onOpenNav={() => setOpen(true)} /> */}
+          <Nav openNav={open} onCloseNav={() => setOpen(false)} />
+          <Main>{children}</Main>
+        </StyledRoot>
+      </AppProvider>
     </RequireAuth>
   );
 }

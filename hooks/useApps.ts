@@ -1,10 +1,4 @@
-import {
-  query,
-  collection,
-  limit,
-  QuerySnapshot,
-  DocumentData,
-} from "firebase/firestore";
+import { query, collection } from "firebase/firestore";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 
 import firestore from "../firebase/firestore";
@@ -14,7 +8,7 @@ const useApps = () => {
   const ref = query(collection(firestore, "apps"));
 
   // Provide the query to the hook
-  const q = useFirestoreQueryData(["products"], ref);
+  const q = useFirestoreQueryData(["products"], ref, { idField: "_id" });
 
   return q;
 };

@@ -1,20 +1,13 @@
 import { useEffect } from "react";
 // @mui
-import { styled, alpha } from "@mui/material/styles";
-import {
-  Box,
-  Link,
-  Button,
-  Drawer,
-  Typography,
-  Avatar,
-  Stack,
-} from "@mui/material";
+import { Box, Button, Drawer, Typography, Stack } from "@mui/material";
 
 import Menu from "../../components/menu";
-import Logo from "../../components/logo";
+import ProjectPopover from "../../components/project-popover";
 import AccountPopover from "../../components/account-popover";
 import useResponsive from "../../hooks/useResponsive";
+import useCollections from "../../hooks/useCollections";
+import StartCollectionModal from "../../sections/app/start-collection-modal";
 
 const NAV_WIDTH = 280;
 
@@ -27,6 +20,8 @@ export default function Nav(props: NavProps) {
   const { openNav, onCloseNav } = props;
   const isDesktop = useResponsive("up", "lg");
 
+  const collections = useCollections();
+
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -35,26 +30,24 @@ export default function Nav(props: NavProps) {
   }, []);
 
   const renderContent = (
-    <Stack height="100%">
-      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
-        <Logo />
+    <Stack height="100%" gap={4} p={2}>
+      <Box>
+        <ProjectPopover />
       </Box>
 
-      <Box sx={{ px: 1, py: 3 }}>
-        <Menu
-          data={[
-            {
-              title: "dashboard",
-              path: "/",
-              icon: "",
-            },
-          ]}
-        />
+      {collections.data && collections.data.length > 0 && (
+        <Box>
+          <Menu data={collections.data} />
+        </Box>
+      )}
+
+      <Box>
+        <StartCollectionModal />
       </Box>
 
       <Box sx={{ flexGrow: 1 }} />
 
-      <Box sx={{ mb: 3, mx: 2.5 }}>
+      <Box>
         <AccountPopover />
       </Box>
     </Stack>

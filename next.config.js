@@ -10,6 +10,7 @@ const nextConfig = {
   ) {
     return {
       "/": { page: "/" },
+      "/login": { page: "/" },
     };
   },
 };

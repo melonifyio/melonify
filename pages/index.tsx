@@ -6,6 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import useApps from "../hooks/useApps";
 import Simple from "../layouts/simple";
 import Card from "../components/card";
+import CreateAppModal from "../sections/apps/create-app-modal";
 
 export default function Home() {
   const apps = useApps();
@@ -36,12 +37,15 @@ export default function Home() {
           <Stack direction="row" gap={2}>
             {apps.data.map((item) => (
               <Card
-                key={item.id}
+                key={item._id}
                 title={item.title}
                 label={item.label}
                 onClick={() => router.push(`/app/${item.id}`)}
               />
             ))}
+
+            {/* <Card label="Create new app" title="Create" onClick={() => {}} /> */}
+            <CreateAppModal />
           </Stack>
         </Simple>
       </>
