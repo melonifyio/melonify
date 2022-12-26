@@ -31,7 +31,7 @@ function MenuItem(props: MenuItemProps) {
   const { title, path, icon, info } = props;
 
   return (
-    <StyledNavItem onClick={() => {}}>
+    <StyledNavItem selected onClick={() => {}}>
       <ListItemText disableTypography primary={title} />
 
       {info && info}

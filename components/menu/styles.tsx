@@ -1,8 +1,12 @@
 // @mui
 import { styled } from "@mui/material/styles";
-import { ListItemIcon, ListItemButton } from "@mui/material";
+import {
+  ListItemIcon,
+  ListItemButton,
+  ListItemButtonProps,
+} from "@mui/material";
 
-export const StyledNavItem = styled((props: any) => (
+export const StyledNavItem = styled((props: ListItemButtonProps) => (
   <ListItemButton {...props} />
 ))(({ theme }) => ({
   ...theme.typography.body2,

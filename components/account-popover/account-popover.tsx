@@ -56,7 +56,7 @@ export default function AccountPopover() {
 
   return (
     <>
-      <Card>
+      <Card variant="outlined" sx={{ boxShadow: "none" }}>
         <CardActionArea onClick={handleOpen}>
           <Stack direction="row" alignItems="center" p={1} gap={1}>
             <Box>
@@ -85,8 +85,8 @@ export default function AccountPopover() {
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        transformOrigin={{ vertical: "bottom", horizontal: "right" }}
         PaperProps={{
           sx: {
             p: 0,

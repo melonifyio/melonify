@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import { useAuthUser } from "@react-query-firebase/auth";
+import CircularProgress from "@mui/material/CircularProgress";
+import Stack from "@mui/material/Stack";
 
 import auth from "../firebase/auth";
 
@@ -15,7 +17,16 @@ export default function RequireAuthLayout(props: RequireAuthProps) {
   const user = useAuthUser(["user"], auth);
 
   if (user.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Stack
+        direction="row"
+        height="100vh"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <CircularProgress size={24} />
+      </Stack>
+    );
   }
 
   if (!user.data) {

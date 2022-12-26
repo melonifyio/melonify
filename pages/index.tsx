@@ -1,16 +1,27 @@
 import Stack from "@mui/material/Stack";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import useApps from "../hooks/useApps";
 import Simple from "../layouts/simple";
-
 import Card from "../components/card";
 
 export default function Home() {
   const apps = useApps();
   const router = useRouter();
 
-  if (apps.isLoading) return <div>Loading...</div>;
+  if (apps.isLoading)
+    return (
+      <Stack
+        direction="row"
+        height="100vh"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <CircularProgress size={24} />
+      </Stack>
+    );
 
   if (apps.data) {
     return (

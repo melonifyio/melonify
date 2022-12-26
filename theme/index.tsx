@@ -33,7 +33,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     []
   );
 
-  const theme = createTheme(themeOptions);
+  const theme = createTheme(themeOptions as any);
   theme.components = componentsOverride(theme);
 
   return (

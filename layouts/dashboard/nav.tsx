@@ -11,7 +11,6 @@ import {
   Stack,
 } from "@mui/material";
 
-import Scrollbar from "../../components/scrollbar";
 import Menu from "../../components/menu";
 import Logo from "../../components/logo";
 import AccountPopover from "../../components/account-popover";
@@ -36,16 +35,7 @@ export default function Nav(props: NavProps) {
   }, []);
 
   const renderContent = (
-    <Scrollbar
-      sx={{
-        height: 1,
-        "& .simplebar-content": {
-          height: 1,
-          display: "flex",
-          flexDirection: "column",
-        },
-      }}
-    >
+    <Stack height="100%">
       <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
         <Logo />
       </Box>
@@ -64,10 +54,10 @@ export default function Nav(props: NavProps) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      <Box sx={{ mb: 5, mx: 2.5 }}>
+      <Box sx={{ mb: 3, mx: 2.5 }}>
         <AccountPopover />
       </Box>
-    </Scrollbar>
+    </Stack>
   );
 
   return (
