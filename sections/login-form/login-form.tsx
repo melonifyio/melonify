@@ -51,7 +51,7 @@ export function LoginForm() {
         />
       </Stack>
 
-      <Stack
+      {/* <Stack
         direction="row"
         alignItems="center"
         justifyContent="space-between"
@@ -61,7 +61,7 @@ export function LoginForm() {
         <Link variant="subtitle2" underline="hover">
           Forgot password?
         </Link>
-      </Stack>
+      </Stack> */}
 
       <LoadingButton
         fullWidth
