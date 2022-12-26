@@ -3,6 +3,7 @@ import { useState } from "react";
 import { styled } from "@mui/material/styles";
 //
 import Nav from "./nav";
+import RequireAuth from "../require-auth";
 
 // ----------------------------------------------------------------------
 
@@ -37,12 +38,14 @@ export default function DashboardLayout(props: DashboardProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <StyledRoot>
-      {/* <Header onOpenNav={() => setOpen(true)} /> */}
+    <RequireAuth>
+      <StyledRoot>
+        {/* <Header onOpenNav={() => setOpen(true)} /> */}
 
-      <Nav openNav={open} onCloseNav={() => setOpen(false)} />
+        <Nav openNav={open} onCloseNav={() => setOpen(false)} />
 
-      <Main>{children}</Main>
-    </StyledRoot>
+        <Main>{children}</Main>
+      </StyledRoot>
+    </RequireAuth>
   );
 }

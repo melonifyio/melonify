@@ -14,17 +14,10 @@ import {
 import Scrollbar from "../../components/scrollbar";
 import Menu from "../../components/menu";
 import Logo from "../../components/logo";
+import AccountPopover from "../../components/account-popover";
 import useResponsive from "../../hooks/useResponsive";
 
 const NAV_WIDTH = 280;
-
-const StyledAccount = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(2, 2.5),
-  borderRadius: Number(theme.shape.borderRadius) * 1.5,
-  backgroundColor: alpha(theme.palette.grey[500], 0.12),
-}));
 
 type NavProps = {
   openNav: boolean;
@@ -56,35 +49,24 @@ export default function Nav(props: NavProps) {
       <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
         <Logo />
       </Box>
-      <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none">
-          <StyledAccount>
-            <Avatar src="" alt="photoURL" />
 
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
-                displayName
-              </Typography>
-
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                role
-              </Typography>
-            </Box>
-          </StyledAccount>
-        </Link>
+      <Box sx={{ px: 1, py: 3 }}>
+        <Menu
+          data={[
+            {
+              title: "dashboard",
+              path: "/",
+              icon: "",
+            },
+          ]}
+        />
       </Box>
 
-      <Menu
-        data={[
-          {
-            title: "dashboard",
-            path: "/dashboard/app",
-            icon: "",
-          },
-        ]}
-      />
-
       <Box sx={{ flexGrow: 1 }} />
+
+      <Box sx={{ mb: 5, mx: 2.5 }}>
+        <AccountPopover />
+      </Box>
     </Scrollbar>
   );
 
