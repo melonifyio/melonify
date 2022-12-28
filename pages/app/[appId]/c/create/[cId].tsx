@@ -1,7 +1,10 @@
 import * as React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useFirestoreDocumentMutation } from "@react-query-firebase/firestore";
+import {
+  useFirestoreDocumentMutation,
+  useFirestoreDocument,
+} from "@react-query-firebase/firestore";
 import { collection, getFirestore, doc as fsdoc } from "firebase/firestore";
 import { useForm, Controller } from "react-hook-form";
 
@@ -17,20 +20,6 @@ type CreateCollectionFormData = {
 };
 
 export default function CreateCollection() {
-  return (
-    <>
-      <Head>
-        <title>Melonify</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Dashboard>
-        <CreateCollectionContent />
-      </Dashboard>
-    </>
-  );
-}
-
-const CreateCollectionContent = () => {
   const [openToast, setOpenToast] = React.useState(false);
   const { firebase, appData } = useApp();
   const router = useRouter();
@@ -47,6 +36,7 @@ const CreateCollectionContent = () => {
   });
 
   const firestore = getFirestore(firebase);
+
   const ref = fsdoc(firestore, `_melonify_/config/collections/${cId}`);
   const mutation = useFirestoreDocumentMutation(ref);
 
@@ -74,7 +64,7 @@ const CreateCollectionContent = () => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
-        Create a collection
+        Create collection
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,5 +100,17 @@ const CreateCollectionContent = () => {
         message="Saved"
       />
     </Container>
+  );
+}
+
+CreateCollection.getLayout = function getLayout(page: React.ReactElement) {
+  return (
+    <>
+      <Head>
+        <title>Melonify</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Dashboard>{page}</Dashboard>
+    </>
   );
 };

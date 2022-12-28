@@ -35,11 +35,9 @@ export default function Nav(props: NavProps) {
         <ProjectPopover />
       </Box>
 
-      {collections.data && collections.data.length > 0 && (
-        <Box>
-          <Menu data={collections.data} />
-        </Box>
-      )}
+      <Box>
+        <Menu data={collections.data || []} isLoading={collections.isLoading} />
+      </Box>
 
       <Box>
         <StartCollectionModal />

@@ -1,18 +1,26 @@
 import { DocumentData } from "firebase/firestore";
 import { useRouter } from "next/router";
 
-import { Box, List, ListItemText } from "@mui/material";
+import { Box, List, ListItemText, Skeleton } from "@mui/material";
 import { StyledNavItem } from "./styles";
 import { useApp } from "../../hooks/useApp";
 
 type MenuProps = {
   data: MenuItemProps[];
+  isLoading?: boolean;
 };
 
-export default function MenuProps({ data = [], ...other }: MenuProps) {
+export default function MenuProps({
+  data = [],
+  isLoading,
+  ...other
+}: MenuProps) {
   return (
     <Box {...other}>
       <List disablePadding>
+        {isLoading &&
+          [0, 1, 2].map((item) => <MenuItemPlaceholder key={item} />)}
+
         {data.map((item) => (
           <MenuItem key={item.title} {...item} />
         ))}
@@ -35,10 +43,21 @@ function MenuItem(props: MenuItemProps) {
       onClick={() => {
         router.push(`/app/${appData?.id}/${_id}`);
       }}
+      sx={{
+        width: "100%",
+      }}
     >
       <ListItemText disableTypography primary={title} />
 
       {info && info}
     </StyledNavItem>
+  );
+}
+
+function MenuItemPlaceholder() {
+  return (
+    <Box height={34}>
+      <Skeleton width="70%" />
+    </Box>
   );
 }
