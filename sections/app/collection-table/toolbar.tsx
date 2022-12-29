@@ -3,6 +3,7 @@ import { useFirestoreCollectionMutation } from "@react-query-firebase/firestore"
 import { getFirestore, collection } from "firebase/firestore";
 
 import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
 import {
   GridToolbarContainer,
   GridToolbarFilterButton,
@@ -39,7 +40,9 @@ export const Toolbar: React.FunctionComponent<{
         onSuccess={handleSuccess}
         isSubmitting={mutation.isLoading}
         model={model}
-        Trigger={<Button>Add item</Button>}
+        Trigger={
+          <Button startIcon={<AddIcon fontSize="small" />}>Add new item</Button>
+        }
       />
     </GridToolbarContainer>
   );

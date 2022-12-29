@@ -7,7 +7,7 @@ import {
 } from "react-hook-form";
 
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
@@ -114,6 +114,12 @@ export function SmartList<T>(props: SmartListProps<T>) {
           ))}
         </List>
       </Droppable>
+
+      {items.length === 0 && (
+        <Stack direction="row" justifyContent="center" p={10}>
+          <Typography>Empty</Typography>
+        </Stack>
+      )}
     </Paper>
   );
 }

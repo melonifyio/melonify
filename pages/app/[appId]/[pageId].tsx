@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { Container, Typography, Stack, IconButton } from "@mui/material";
-import { Settings as SettingIcon } from "@mui/icons-material";
+import SettingIcon from "@mui/icons-material/SettingsOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { useApp } from "../../../hooks/useApp";
@@ -37,7 +37,7 @@ export default function GenericPage() {
             router.push(`/app/${appData?.id}/c/edit/${pageId}`);
           }}
         >
-          <SettingIcon />
+          <SettingIcon fontSize="small" />
         </IconButton>
       </Stack>
 
