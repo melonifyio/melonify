@@ -14,13 +14,12 @@ const NAV_WIDTH = 280;
 type NavProps = {
   openNav: boolean;
   onCloseNav: () => void;
+  items: any;
 };
 
 export default function Nav(props: NavProps) {
-  const { openNav, onCloseNav } = props;
+  const { openNav, onCloseNav, items } = props;
   const isDesktop = useResponsive("up", "lg");
-
-  const collections = useCollections();
 
   useEffect(() => {
     if (openNav) {
@@ -36,7 +35,7 @@ export default function Nav(props: NavProps) {
       </Box>
 
       <Box>
-        <Menu data={collections.data || []} isLoading={collections.isLoading} />
+        <Menu data={items || []} />
       </Box>
 
       <Box>

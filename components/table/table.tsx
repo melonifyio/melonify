@@ -1,4 +1,7 @@
 import * as React from "react";
+import { useFirestoreCollectionMutation } from "@react-query-firebase/firestore";
+import { getFirestore, collection } from "firebase/firestore";
+
 import {
   DataGrid,
   GridColDef,
@@ -9,26 +12,27 @@ import {
 import { Button, Box } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 
+import FormModal from "../../sections/shared/form-modal";
+import { FieldProps } from "../form-field/types";
+import { useApp } from "../../hooks/useApp";
+
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
   {
     field: "firstName",
     headerName: "First name",
     width: 150,
-    editable: true,
   },
   {
     field: "lastName",
     headerName: "Last name",
     width: 150,
-    editable: true,
   },
   {
     field: "age",
     headerName: "Age",
     type: "number",
     width: 110,
-    editable: true,
   },
   {
     field: "fullName",
@@ -57,15 +61,44 @@ const CustomToolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
     React.SetStateAction<HTMLButtonElement | null>
   >;
-}> = ({ setFilterButtonEl }) => (
-  <GridToolbarContainer sx={{ justifyContent: "space-between" }}>
-    <GridToolbarFilterButton ref={setFilterButtonEl} />
-    <Button size="small" startIcon={<AddIcon />}>
-      Add new item
-    </Button>
-  </GridToolbarContainer>
-);
-export default function DataGridDemo() {
+  collectionName: string;
+  model: {
+    fields: Record<string, FieldProps>;
+  };
+}> = ({ setFilterButtonEl, collectionName, model }) => {
+  const { firebase } = useApp();
+  const firestore = getFirestore(firebase);
+
+  const ref = collection(firestore, collectionName);
+  const mutation = useFirestoreCollectionMutation(ref);
+
+  const handleSuccess = (data: any) => {
+    mutation.mutate(data);
+  };
+
+  return (
+    <GridToolbarContainer sx={{ justifyContent: "space-between" }}>
+      <GridToolbarFilterButton ref={setFilterButtonEl} />
+
+      <FormModal
+        onSuccess={handleSuccess}
+        isSubmitting={mutation.isLoading}
+        model={model}
+      />
+    </GridToolbarContainer>
+  );
+};
+
+type SmartTableProps = {
+  collectionName: string;
+  model: {
+    fields: Record<string, FieldProps>;
+  };
+};
+
+export default function SmartTable(props: SmartTableProps) {
+  const { collectionName, model } = props;
+
   const [filterButtonEl, setFilterButtonEl] =
     React.useState<HTMLButtonElement | null>(null);
 
@@ -81,6 +114,8 @@ export default function DataGridDemo() {
           },
           toolbar: {
             setFilterButtonEl,
+            model,
+            collectionName,
           },
         }}
         rows={rows}

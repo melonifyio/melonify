@@ -9,3 +9,7 @@ export type FieldProps = {
     options?: string[];
   };
 };
+
+export type ModelProps = {
+  fields: Record<string, FieldProps>;
+};

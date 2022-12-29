@@ -3,11 +3,12 @@ import { useRouter } from "next/router";
 
 import { Container, Typography, Stack, IconButton } from "@mui/material";
 import { Settings as SettingIcon } from "@mui/icons-material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { useApp } from "../../../hooks/useApp";
 import Dashboard from "../../../layouts/dashboard";
 import usePage from "../../../hooks/usePage";
-import SmartTable from "../../../components/table/table";
+import CollectionTable from "../../../sections/app/collection-table";
 
 export default function GenericPage() {
   const { appData } = useApp();
@@ -15,6 +16,16 @@ export default function GenericPage() {
   const pageId = router.query.pageId;
 
   const page = usePage({ id: pageId as string });
+
+  if (page.isLoading) {
+    return (
+      <Stack direction="row" p={10} alignItems="center" justifyContent="center">
+        <CircularProgress size={24} />
+      </Stack>
+    );
+  }
+
+  if (!page.data) return <div>Page not found</div>;
 
   return (
     <Container>
@@ -30,7 +41,10 @@ export default function GenericPage() {
         </IconButton>
       </Stack>
 
-      <SmartTable />
+      <CollectionTable
+        collectionName={page.data._id}
+        model={{ fields: page.data.schema }}
+      />
     </Container>
   );
 }

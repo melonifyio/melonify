@@ -10,7 +10,7 @@ const nextConfig = {
   ) {
     return {
       "/": { page: "/" },
-      "/login": { page: "/" },
+      "/login": { page: "/login" },
     };
   },
 };

@@ -7,7 +7,14 @@ import {
 } from "@react-query-firebase/firestore";
 import { getFirestore, doc as fsdoc } from "firebase/firestore";
 
-import { Container, Typography, Snackbar, Alert } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Snackbar,
+  Alert,
+  Stack,
+  CircularProgress,
+} from "@mui/material";
 
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
@@ -49,7 +56,11 @@ export default function EditCollection() {
   };
 
   if (document.isLoading) {
-    return <>Loading</>;
+    return (
+      <Stack direction="row" p={10} alignItems="center" justifyContent="center">
+        <CircularProgress size={24} />
+      </Stack>
+    );
   }
 
   if (!document) return <>No document found</>;

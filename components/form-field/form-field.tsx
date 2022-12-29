@@ -6,22 +6,13 @@ import {
   UseFormHandleSubmit,
 } from "react-hook-form";
 
-import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import FormLabel from "@mui/material/FormLabel";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import DraftsIcon from "@mui/icons-material/Drafts";
 
 import { FieldProps } from "../form-field/types";
-import FormModal from "../../sections/shared/form-modal";
-import Droppable from "../../components/dragndrop/droppable";
-import Draggable from "../../components/dragndrop/draggable";
+import { SmartList } from "../list/list";
 
 type FormFieldProps = FieldProps & {
   control: Control;
@@ -36,39 +27,28 @@ export default function FormField(props: FormFieldProps) {
   const renderField = ({ field }: any) => {
     // console.log(field);
 
+    const handleSave = (data: any) => {
+      setValue(fieldKey, {
+        ...field.value,
+        [data.fieldKey]: data,
+      });
+    };
+
     switch (type) {
       case "MAP":
         return (
-          <Paper>
-            <Stack direction="row" justifyContent="space-between" p={2}>
-              <Typography>{name}</Typography>
-
-              <FormModal
-                onSuccess={(data) => {
-                  setValue(fieldKey, {
-                    ...field.value,
-                    [data.fieldKey]: data,
-                  });
-                }}
-                model={config?.model || { fields: {} }}
-              />
-            </Stack>
-
-            <Droppable onDragEnd={() => {}}>
-              <List>
-                {Object.keys(field.value || {}).map((fieldKey, index) => (
-                  <Draggable key={fieldKey} id={fieldKey} index={index}>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <DraftsIcon />
-                      </ListItemIcon>
-                      <ListItemText primary={field.value[fieldKey].name} />
-                    </ListItemButton>
-                  </Draggable>
-                ))}
-              </List>
-            </Droppable>
-          </Paper>
+          <SmartList
+            title={name}
+            items={Object.keys(field.value || {}).map((fieldKey) => ({
+              id: fieldKey,
+              title: field.value[fieldKey].name,
+              ...field.value[fieldKey],
+            }))}
+            model={config?.model}
+            onCreate={handleSave}
+            onUpdate={handleSave}
+            CreateTrigger={<Button>Add item</Button>}
+          />
         );
 
       // TEXT

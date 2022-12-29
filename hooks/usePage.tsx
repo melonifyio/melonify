@@ -12,7 +12,9 @@ const usePage = ({ id }: UsePageProps) => {
   const firestore = getFirestore(firebase);
 
   const ref = fsdoc(firestore, `_melonify_/config/collections`, id);
-  const page = useFirestoreDocumentData(["apps", id], ref);
+  const page = useFirestoreDocumentData<any>(["apps", id], ref, {
+    idField: "_id",
+  });
 
   return page;
 };

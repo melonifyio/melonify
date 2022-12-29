@@ -13,6 +13,7 @@ export type FormProps = {
   model: {
     fields: Record<string, FieldProps>;
   };
+  Trigger?: JSX.Element;
 };
 
 export default function SmartForm(props: FormProps) {
@@ -40,7 +41,7 @@ export default function SmartForm(props: FormProps) {
   return (
     <form onSubmit={handleSubmitWithoutPropagation}>
       <Stack gap={4}>
-        {Object.keys(model.fields).map((fieldKey, index) => (
+        {Object.keys(model?.fields || {}).map((fieldKey, index) => (
           <FormField
             key={index}
             control={control}
@@ -50,7 +51,7 @@ export default function SmartForm(props: FormProps) {
           />
         ))}
 
-        <Box>
+        <Box minWidth={400}>
           <LoadingButton
             variant="contained"
             color="primary"
