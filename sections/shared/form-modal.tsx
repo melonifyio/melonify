@@ -10,7 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Form from "../../components/form";
 import { FormProps } from "../../components/form/form";
 
-export default function FormModal(props: FormProps) {
+export default function FormModal(props: FormProps & { Trigger: JSX.Element }) {
   const { onSuccess, Trigger, ...rest } = props;
 
   const [open, setOpen] = React.useState(false);

@@ -10,9 +10,12 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import FormLabel from "@mui/material/FormLabel";
+import Stack from "@mui/material/Stack";
+import { Avatar } from "@mui/material";
 
 import { FieldProps } from "../form-field/types";
 import { SmartList } from "../list/list";
+import { ImageUpload } from "../image-upload";
 
 type FormFieldProps = FieldProps & {
   control: Control;
@@ -24,16 +27,7 @@ export default function FormField(props: FormFieldProps) {
   const { fieldKey, type, name, config, control, setValue, handleSubmit } =
     props;
 
-  const renderField = ({ field }: any) => {
-    // console.log(field);
-
-    const handleSave = (data: any) => {
-      setValue(fieldKey, {
-        ...field.value,
-        [data.fieldKey]: data,
-      });
-    };
-
+  const renderField = ({ field, formState }: any) => {
     switch (type) {
       case "MAP":
         return (
@@ -45,9 +39,17 @@ export default function FormField(props: FormFieldProps) {
               ...field.value[fieldKey],
             }))}
             model={config?.model}
-            onCreate={handleSave}
-            onUpdate={handleSave}
-            CreateTrigger={<Button>Add item</Button>}
+            CreateComponent={<Button>Add item</Button>}
+          />
+        );
+
+      case "IMAGE":
+        return (
+          <ImageUpload
+            formState={formState}
+            fieldKey={fieldKey}
+            setValue={setValue}
+            {...field}
           />
         );
 

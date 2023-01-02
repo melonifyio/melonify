@@ -9,7 +9,7 @@ import { ThemeProvider } from "../theme";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
     },
   },
 });

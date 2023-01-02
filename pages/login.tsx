@@ -72,7 +72,7 @@ export default function LoginPage() {
                 width={22}
                 height={22}
               />
-              <span>Google</span>
+              <div>Continue with Google</div>
             </Stack>
           </Button>
         </Stack>

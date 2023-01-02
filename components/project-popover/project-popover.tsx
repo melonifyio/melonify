@@ -21,8 +21,8 @@ import { useApp } from "../../hooks/useApp";
 
 const MENU_OPTIONS = [
   {
+    id: "settings",
     label: "App Settings",
-    icon: "eva:home-fill",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function ProjectPopover() {
         <CardActionArea onClick={handleOpen}>
           <Stack direction="row" alignItems="center" p={1} gap={1}>
             <Box>
-              <Logo />
+              <Logo src={appData?.logo} title={appData?.title || ""} />
             </Box>
 
             <Box>
@@ -93,7 +93,13 @@ export default function ProjectPopover() {
       >
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem
+              key={option.label}
+              onClick={() => {
+                router.push(`/app/${appData?.id}/${option.id}`);
+                handleClose();
+              }}
+            >
               {option.label}
             </MenuItem>
           ))}

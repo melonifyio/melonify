@@ -1,5 +1,6 @@
 import * as React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { FirebaseStorage } from "firebase/storage";
 
 import { Stack, Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -13,7 +14,6 @@ export type FormProps = {
   model: {
     fields: Record<string, FieldProps>;
   };
-  Trigger?: JSX.Element;
 };
 
 export default function SmartForm(props: FormProps) {

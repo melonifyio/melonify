@@ -2,9 +2,10 @@
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import AccountPopover from "../../components/account-popover/account-popover";
+import Typography from "@mui/material/Typography";
 // components
 import Logo from "../../components/logo";
+import AccountPopover from "../../components/account-popover/account-popover";
 import RequireAuth from "../require-auth";
 
 type SimpleLayoutProps = {
@@ -21,7 +22,7 @@ export default function SimpleLayout({ children }: SimpleLayoutProps) {
           justifyContent="space-between"
         >
           <Box>
-            <Logo />
+            <Typography variant="h6">Melonify</Typography>
           </Box>
           <Box>
             <AccountPopover />

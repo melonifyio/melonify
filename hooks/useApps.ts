@@ -8,7 +8,16 @@ const useApps = () => {
   const ref = query(collection(firestore, "apps"));
 
   // Provide the query to the hook
-  const q = useFirestoreQueryData(["products"], ref, { idField: "_id" });
+  const q = useFirestoreQueryData(
+    ["_apps_"],
+    ref,
+    {
+      idField: "_id",
+    },
+    {
+      cacheTime: 0,
+    }
+  );
 
   return q;
 };

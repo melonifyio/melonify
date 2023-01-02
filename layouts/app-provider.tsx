@@ -13,7 +13,7 @@ import firestore from "../firebase/firestore";
 type AppDataProps = {
   id: string;
   title: string;
-  label: string;
+  logo?: string;
 };
 
 type AppContextProps = {
@@ -72,7 +72,6 @@ const AppProviderWithFirebase = React.memo(
       const firebaseConfig = {
         apiKey: appData.apiKey,
         authDomain: `${appData.projectId}.firebaseapp.com`,
-        // databaseURL: "https://melon-ui-7f38c-default-rtdb.firebaseio.com",
         projectId: appData.projectId,
         storageBucket: `${appData.projectId}.appspot.com`,
         appId: appData.appId,
@@ -86,8 +85,7 @@ const AppProviderWithFirebase = React.memo(
     const value = {
       appData: {
         id: appId,
-        title: appData.title,
-        label: appData.label,
+        ...appData,
       },
       firebase,
     };
