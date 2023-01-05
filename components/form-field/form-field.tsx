@@ -8,7 +8,6 @@ import {
 
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import FormLabel from "@mui/material/FormLabel";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -28,6 +27,8 @@ export default function FormField(props: FormFieldProps) {
     props;
 
   const renderField = ({ field, formState }: any) => {
+    const { errors } = formState;
+
     switch (type) {
       case "MAP":
         return (
@@ -68,10 +69,24 @@ export default function FormField(props: FormFieldProps) {
       // TEXT
       default:
         return (
-          <TextField variant="standard" id={fieldKey} label={name} {...field} />
+          <TextField
+            error={!!errors[fieldKey]}
+            helperText={errors[fieldKey]?.message}
+            variant="standard"
+            id={fieldKey}
+            label={name}
+            {...field}
+          />
         );
     }
   };
 
-  return <Controller name={fieldKey} control={control} render={renderField} />;
+  return (
+    <Controller
+      name={fieldKey}
+      control={control}
+      rules={{ required: config?.required }}
+      render={renderField}
+    />
+  );
 }

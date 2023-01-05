@@ -24,9 +24,17 @@ export default function StartCollectionModal() {
   return (
     <FormModal
       onSuccess={onSubmit}
+      initialValues={{
+        id: "",
+      }}
       model={{
         fields: {
-          id: { fieldKey: "id", name: "Collection ID", type: "TEXT" },
+          id: {
+            fieldKey: "id",
+            name: "Collection ID",
+            type: "TEXT",
+            config: { required: "Collection ID required." },
+          },
         },
       }}
       TriggerComponent={

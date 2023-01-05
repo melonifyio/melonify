@@ -1,10 +1,9 @@
 import * as React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FirebaseStorage } from "firebase/storage";
 
 import { Stack, Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { FieldProps, ModelProps } from "../form-field/types";
+import { ModelProps } from "../form-field/types";
 import FormField from "../form-field";
 
 export type FormProps = {

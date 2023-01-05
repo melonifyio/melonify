@@ -15,6 +15,7 @@ export type FieldProps = {
       fields: Record<string, FieldProps>;
     };
     options?: string[];
+    required?: boolean | string;
   };
   index?: number;
 };
