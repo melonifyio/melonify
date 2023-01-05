@@ -8,6 +8,7 @@ export type FieldProps = {
     };
     options?: string[];
   };
+  index?: number;
 };
 
 export type ModelProps = {
