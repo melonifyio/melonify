@@ -82,13 +82,13 @@ const palette = (mode: "light" | "dark") => ({
   grey: GREY,
   divider: alpha(GREY[500], 0.24),
   text: {
-    primary: GREY[800],
-    secondary: GREY[600],
+    primary: mode === "light" ? GREY[800] : GREY[200],
+    secondary: mode === "light" ? GREY[600] : GREY[500],
     disabled: GREY[500],
   },
   background: {
-    paper: "#fff",
-    default: GREY[100],
+    paper: mode === "light" ? GREY[100] : GREY[900],
+    default: mode === "light" ? GREY[100] : GREY[900],
     neutral: GREY[200],
   },
   action: {
