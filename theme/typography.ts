@@ -92,7 +92,7 @@ const typography = {
     fontWeight: 700,
     lineHeight: 1.5,
     fontSize: pxToRem(12),
-    textTransform: "uppercase",
+    // textTransform: "uppercase",
   },
   button: {
     fontWeight: 700,

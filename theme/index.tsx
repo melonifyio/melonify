@@ -9,7 +9,6 @@ import {
 } from "@mui/material/styles";
 //
 import palette from "./palette";
-import shadows from "./shadows";
 import typography from "./typography";
 import GlobalStyles from "./globalStyles";
 import componentsOverride from "./overrides";
@@ -26,12 +25,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       palette,
       shape: { borderRadius: 10 },
       typography,
-      shadows: shadows(),
     }),
     []
   );
 
-  const theme = createTheme(themeOptions as any);
+  const theme = createTheme(themeOptions);
   theme.components = componentsOverride(theme);
 
   return (
