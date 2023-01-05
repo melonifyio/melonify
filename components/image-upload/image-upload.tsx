@@ -45,7 +45,7 @@ export const ImageUpload = (props: ImageUploadProps) => {
 
   return (
     <Stack direction="row" gap={2} alignItems="center">
-      <Avatar src={value} sx={{ width: 56, height: 56, borderRadius: 2 }} />
+      <Avatar src={value} sx={{ width: 56, height: 56, borderRadius: 1 }} />
       <LoadingButton
         variant="contained"
         component="label"
