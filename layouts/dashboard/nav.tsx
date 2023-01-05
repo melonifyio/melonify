@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 // @mui
-import { Box, Button, Drawer, IconButton, Stack } from "@mui/material";
-import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { Box, Drawer, Stack } from "@mui/material";
 
 import Menu from "../../components/menu";
 import ProjectPopover from "../../components/project-popover";
@@ -22,11 +19,8 @@ type NavProps = {
 };
 
 export default function Nav(props: NavProps) {
-  const theme = useTheme();
   const { openNav, onCloseNav, items } = props;
   const isDesktop = useResponsive("up", "lg");
-
-  const colorMode = useColorMode();
 
   useEffect(() => {
     if (openNav) {
@@ -52,18 +46,6 @@ export default function Nav(props: NavProps) {
       <Box sx={{ flexGrow: 1 }} />
 
       <Box>
-        <IconButton
-          sx={{ ml: 1 }}
-          onClick={colorMode.toggleColorMode}
-          color="inherit"
-        >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          )}
-        </IconButton>
-
         <AccountPopover />
       </Box>
     </Stack>

@@ -84,7 +84,6 @@ export function SmartList<T>(props: SmartListProps<T>) {
               justifyContent="space-between"
               alignItems="center"
               pr={1}
-              pl={1}
             >
               <ListSubheader component="div" id="nested-list-subheader">
                 {title}

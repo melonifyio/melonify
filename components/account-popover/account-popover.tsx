@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuthUser } from "@react-query-firebase/auth";
 import { useAuthSignOut } from "@react-query-firebase/auth";
 // @mui
-import { alpha } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Divider,
@@ -14,9 +14,14 @@ import {
   Popover,
   Card,
   CardActionArea,
+  Switch,
+  FormControlLabel,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 
 import auth from "../../firebase/auth";
+import { useColorMode } from "../../hooks/useColorMode";
 
 // ----------------------------------------------------------------------
 
@@ -38,9 +43,11 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const theme = useTheme();
   const user = useAuthUser(["user"], auth);
   const logout = useAuthSignOut(auth);
   const [open, setOpen] = useState<HTMLButtonElement | null>();
+  const colorMode = useColorMode();
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
@@ -120,6 +127,39 @@ export default function AccountPopover() {
               {option.label}
             </MenuItem>
           ))}
+
+          {/* <MenuItem>
+            <FormControlLabel
+              labelPlacement="end"
+              componentsProps={{
+                typography: {
+                  fontSize: "small",
+                },
+              }}
+              control={
+                <Switch
+                  size="small"
+                  checked={theme.palette.mode === "dark"}
+                  onChange={colorMode.toggleColorMode}
+                />
+              }
+              label="Dark Mode"
+            />
+          </MenuItem> */}
+
+          <MenuItem onClick={colorMode.toggleColorMode}>
+            <Stack direction="row" justifyContent="space-between" width="100%">
+              <span>Dark Mode</span>
+              <Switch
+                edge="end"
+                size="small"
+                checked={theme.palette.mode === "dark"}
+                inputProps={{
+                  "aria-labelledby": "switch-list-label-bluetooth",
+                }}
+              />
+            </Stack>
+          </MenuItem>
         </Stack>
 
         <Divider sx={{ borderStyle: "dashed" }} />
