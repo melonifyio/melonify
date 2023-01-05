@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
 import { ModelProps } from "../form-field/types";
-import FormModal from "../../sections/shared/form-modal";
+import FormModal from "../../sections/form-modal";
 
 type SmartListActionsProps<T> = {
   model: ModelProps;
@@ -27,7 +27,7 @@ export default function SmartListActions<T>(props: SmartListActionsProps<T>) {
         onSuccess={handleSuccess}
         initialValues={item}
         model={model}
-        Trigger={
+        TriggerComponent={
           <IconButton>
             <EditIcon fontSize="small" />
           </IconButton>

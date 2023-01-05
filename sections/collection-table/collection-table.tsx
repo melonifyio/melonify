@@ -5,7 +5,7 @@ import { getFirestore, collection, query } from "firebase/firestore";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, LinearProgress } from "@mui/material";
 
-import { useApp } from "../../../hooks/useApp";
+import { useApp } from "../../hooks/useApp";
 
 import { Toolbar } from "./toolbar";
 import { SmartTableProps } from "./types";

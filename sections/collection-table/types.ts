@@ -1,4 +1,4 @@
-import { FieldProps } from "../../../components/form-field/types";
+import { FieldProps } from "../../components/form-field/types";
 
 export type SmartTableProps = {
   collectionName: string;

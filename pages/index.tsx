@@ -7,7 +7,7 @@ import useApps from "../hooks/useApps";
 import Simple from "../layouts/simple";
 
 import firestore from "../firebase/firestore";
-import CollectionList from "../sections/app/collection-list/collection-list";
+import CollectionList from "../sections/collection-list/collection-list";
 
 export default function AppsPage() {
   const apps = useApps();

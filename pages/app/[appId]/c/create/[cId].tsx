@@ -6,14 +6,12 @@ import {
   useFirestoreDocument,
 } from "@react-query-firebase/firestore";
 import { collection, getFirestore, doc as fsdoc } from "firebase/firestore";
-import { useForm, Controller } from "react-hook-form";
 
 import { Container, Typography, TextField, Snackbar, Box } from "@mui/material";
-import LoadingButton from "@mui/lab/LoadingButton";
 
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
-import { Stack } from "@mui/system";
+import Form from "../../../../../components/form";
 
 type CreateCollectionFormData = {
   title: string;
@@ -24,16 +22,6 @@ export default function CreateCollection() {
   const { firebase, appData } = useApp();
   const router = useRouter();
   const { cId } = router.query;
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CreateCollectionFormData>({
-    defaultValues: {
-      title: "",
-    },
-  });
 
   const firestore = getFirestore(firebase);
 
@@ -67,31 +55,48 @@ export default function CreateCollection() {
         Create collection
       </Typography>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack gap={2} alignItems="flex-start">
-          <Controller
-            name="title"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <TextField
-                label="Collection Name"
-                error={errors.title?.type === "required"}
-                {...field}
-              />
-            )}
-          />
-
-          <LoadingButton
-            type="submit"
-            variant="contained"
-            loading={mutation.isLoading}
-            color="primary"
-          >
-            Create
-          </LoadingButton>
-        </Stack>
-      </form>
+      <Form
+        onSuccess={onSubmit}
+        model={{
+          fields: {
+            title: {
+              fieldKey: "title",
+              name: "Collection Name",
+              type: "TEXT",
+            },
+            schema: {
+              fieldKey: "schema",
+              name: "Schema",
+              type: "MAP",
+              config: {
+                model: {
+                  fields: {
+                    fieldKey: {
+                      fieldKey: "fieldKey",
+                      name: "Field Key",
+                      type: "TEXT",
+                    },
+                    name: {
+                      fieldKey: "name",
+                      name: "Name",
+                      type: "TEXT",
+                    },
+                    type: {
+                      fieldKey: "type",
+                      name: "Type",
+                      type: "ENUM",
+                      config: {
+                        options: ["TEXT", "NUMBER", "ENUM", "MAP"],
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        }}
+        isSubmitting={mutation.isLoading}
+      />
 
       <Snackbar
         open={openToast}

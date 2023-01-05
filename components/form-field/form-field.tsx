@@ -6,15 +6,12 @@ import {
   UseFormHandleSubmit,
 } from "react-hook-form";
 
-import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import FormLabel from "@mui/material/FormLabel";
-import Stack from "@mui/material/Stack";
-import { Avatar } from "@mui/material";
 
 import { FieldProps } from "../form-field/types";
-import { SmartList } from "../list/list";
+import { Map } from "../map";
 import { ImageUpload } from "../image-upload";
 
 type FormFieldProps = FieldProps & {
@@ -31,15 +28,13 @@ export default function FormField(props: FormFieldProps) {
     switch (type) {
       case "MAP":
         return (
-          <SmartList
-            title={name}
-            items={Object.keys(field.value || {}).map((fieldKey) => ({
-              id: fieldKey,
-              title: field.value[fieldKey].name,
-              ...field.value[fieldKey],
-            }))}
-            model={config?.model}
-            CreateComponent={<Button>Add item</Button>}
+          <Map
+            value={field.value}
+            fieldKey={fieldKey}
+            name={name}
+            type={type}
+            config={config}
+            setValue={setValue}
           />
         );
 

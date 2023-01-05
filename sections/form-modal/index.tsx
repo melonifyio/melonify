@@ -10,8 +10,10 @@ import AddIcon from "@mui/icons-material/Add";
 import Form from "../../components/form";
 import { FormProps } from "../../components/form/form";
 
-export default function FormModal(props: FormProps & { Trigger: JSX.Element }) {
-  const { onSuccess, Trigger, ...rest } = props;
+export default function FormModal(
+  props: FormProps & { TriggerComponent: JSX.Element }
+) {
+  const { onSuccess, TriggerComponent, ...rest } = props;
 
   const [open, setOpen] = React.useState(false);
 
@@ -30,7 +32,9 @@ export default function FormModal(props: FormProps & { Trigger: JSX.Element }) {
 
   return (
     <div>
-      <div onClick={handleClickOpen}>{Trigger && Trigger}</div>
+      <div onClick={handleClickOpen}>
+        {TriggerComponent && TriggerComponent}
+      </div>
 
       <Dialog open={open} onClose={handleClose} maxWidth="lg">
         <DialogTitle>Add</DialogTitle>

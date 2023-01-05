@@ -59,13 +59,13 @@ export default function ProjectPopover() {
                 <Typography variant="subtitle2" noWrap>
                   {appData?.title}
                 </Typography>
-                {/* <Typography
+                <Typography
                   variant="caption"
                   sx={{ color: "text.secondary" }}
                   noWrap
                 >
-                  {appData?.label}
-                </Typography> */}
+                  Master
+                </Typography>
               </Box>
             </Box>
           </Stack>

@@ -16,7 +16,11 @@ const Logo = (props: LogoProps) => {
   const { title, src } = props;
   const theme = useTheme();
 
-  const logo = <Avatar src={src}>{title ? title.charAt(0) : ""}</Avatar>;
+  const logo = (
+    <Avatar src={src} sx={{ borderRadius: 2, width: 44, height: 44 }}>
+      {title ? title.charAt(0) : ""}
+    </Avatar>
+  );
 
   return logo;
 };

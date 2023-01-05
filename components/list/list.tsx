@@ -14,7 +14,6 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 
 import Droppable from "../../components/dragndrop/droppable";
 import Draggable from "../../components/dragndrop/draggable";
-import { ModelProps } from "../form-field/types";
 
 import Actions from "./actions";
 
@@ -28,7 +27,6 @@ type SmartListProps<T> = {
   title: string;
   items: SmartListItemProps<T>[];
   onClickItem?: (item: SmartListItemProps<T>) => void;
-  model?: ModelProps;
   CreateComponent?: JSX.Element;
   ActionComponent?: (item: T) => JSX.Element;
 };

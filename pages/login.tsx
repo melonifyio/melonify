@@ -13,7 +13,7 @@ import useResponsive from "../hooks/useResponsive";
 import Logo from "../components/logo";
 import Iconify from "../components/iconify";
 // sections
-import { LoginForm } from "../sections/login";
+import { LoginForm } from "../sections/login-form";
 import AuthLayout from "../layouts/auth";
 
 const StyledContent = styled("div")(({ theme }) => ({

@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { AlertDialogProps } from "./types";
 
 export function AlertDialog(props: AlertDialogProps) {
-  const { onConfirm, title, description, Trigger } = props;
+  const { onConfirm, title, description, TriggerComponent } = props;
 
   const [open, setOpen] = React.useState(false);
 
@@ -28,7 +28,7 @@ export function AlertDialog(props: AlertDialogProps) {
 
   return (
     <div>
-      <div onClick={handleClickOpen}>{Trigger}</div>
+      <div onClick={handleClickOpen}>{TriggerComponent}</div>
       <Dialog
         open={open}
         onClose={handleClose}

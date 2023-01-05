@@ -14,12 +14,12 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
-import useApps from "../../../hooks/useApps";
-import { SmartList } from "../../../components/list/list";
-import { AlertDialog } from "../../../components/alert-dialog";
+import useApps from "../../hooks/useApps";
+import { SmartList } from "../../components/list/list";
+import { AlertDialog } from "../../components/alert-dialog";
 import { CollectionListProps, CollectionListItemProps } from "./types";
-import FormModal from "../../shared/form-modal";
-import { ModelProps } from "../../../components/form-field/types";
+import FormModal from "../form-modal";
+import { ModelProps } from "../../components/form-field/types";
 
 function ActionComponent<T>(props: CollectionListItemProps<T>) {
   const { model, item, firestore, collectionName, refetch } = props;
@@ -48,7 +48,7 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
         onSuccess={handleUpdateSuccess}
         initialValues={item}
         model={model}
-        Trigger={
+        TriggerComponent={
           <IconButton>
             <EditIcon fontSize="small" />
           </IconButton>
@@ -59,7 +59,7 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
         title="Are you sure?"
         description="Are you sure you want to delete this item?"
         onConfirm={handleDeleteSuccess}
-        Trigger={
+        TriggerComponent={
           <IconButton aria-label="delete">
             <DeleteIcon fontSize="small" />
           </IconButton>
@@ -100,20 +100,13 @@ export default function CollectionList(props: CollectionListProps) {
         onClickItem={(item) => {
           router.push(`/app/${item.id}`);
         }}
-        model={{
-          fields: {
-            title: {
-              fieldKey: "title",
-              name: "Title",
-              type: "TEXT",
-            },
-          },
-        }}
         CreateComponent={
           <FormModal
             onSuccess={handleCreateSuccess}
             model={model}
-            Trigger={<Button startIcon={<AddIcon />}>Create app</Button>}
+            TriggerComponent={
+              <Button startIcon={<AddIcon />}>Create app</Button>
+            }
           />
         }
         ActionComponent={(item) => (

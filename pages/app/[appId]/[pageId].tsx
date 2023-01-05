@@ -8,7 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useApp } from "../../../hooks/useApp";
 import Dashboard from "../../../layouts/dashboard";
 import usePage from "../../../hooks/usePage";
-import CollectionTable from "../../../sections/app/collection-table";
+import CollectionTable from "../../../sections/collection-table";
 
 export default function GenericPage() {
   const { appData } = useApp();

@@ -9,9 +9,9 @@ import {
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
 
-import FormModal from "../../shared/form-modal";
-import { FieldProps } from "../../../components/form-field/types";
-import { useApp } from "../../../hooks/useApp";
+import FormModal from "../form-modal";
+import { FieldProps } from "../../components/form-field/types";
+import { useApp } from "../../hooks/useApp";
 
 export const Toolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
@@ -40,7 +40,7 @@ export const Toolbar: React.FunctionComponent<{
         onSuccess={handleSuccess}
         isSubmitting={mutation.isLoading}
         model={model}
-        Trigger={
+        TriggerComponent={
           <Button startIcon={<AddIcon fontSize="small" />}>Add new item</Button>
         }
       />
