@@ -15,11 +15,11 @@ const getColumnFlex = (columnType: string): number => {
 };
 
 export const columns = (model: {
-  fields: Record<string, FieldProps & { index: number }>;
+  fields: Record<string, FieldProps>;
 }): GridColDef[] => {
   const fieldKeys = Object.keys(model.fields || {});
   const fieldKeysSorted = fieldKeys.sort(function (a, b) {
-    return model.fields[a].index - model.fields[b].index || 0;
+    return (model.fields[a].index || 0) - (model.fields[b].index || 0);
   });
 
   const transformedColumns = fieldKeysSorted.map((fieldKey) => ({
