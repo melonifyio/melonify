@@ -22,8 +22,18 @@ export function responsiveFontSizes({ sm, md, lg }: any) {
 
 // ----------------------------------------------------------------------
 
-const FONT_PRIMARY = "Public Sans, sans-serif"; // Google Font
-// const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
+const FONT_PRIMARY = [
+  "-apple-system",
+  "BlinkMacSystemFont",
+  '"Segoe UI"',
+  "Roboto",
+  '"Helvetica Neue"',
+  "Arial",
+  "sans-serif",
+  '"Apple Color Emoji"',
+  '"Segoe UI Emoji"',
+  '"Segoe UI Symbol"',
+].join(",");
 
 const typography = {
   fontFamily: FONT_PRIMARY,

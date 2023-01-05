@@ -70,7 +70,8 @@ const ERROR = {
   contrastText: "#fff",
 };
 
-const palette = {
+const palette = (mode: "light" | "dark") => ({
+  mode,
   common: { black: "#000", white: "#fff" },
   primary: PRIMARY,
   secondary: SECONDARY,
@@ -100,6 +101,6 @@ const palette = {
     hoverOpacity: 0.08,
     disabledOpacity: 0.48,
   },
-};
+});
 
 export default palette;
