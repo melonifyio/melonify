@@ -7,8 +7,9 @@ import {
 } from "react-hook-form";
 
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
+import TextField from "@mui/material/TextField";
 import FormLabel from "@mui/material/FormLabel";
+import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -42,8 +43,8 @@ export default function FormField(props: FormFieldProps) {
 
       case "ENUM":
         return (
-          <>
-            <FormLabel htmlFor={fieldKey}>{name}</FormLabel>
+          <FormControl variant="standard">
+            <InputLabel id={fieldKey}>{name}</InputLabel>
             <Select labelId={fieldKey} id={fieldKey} {...field}>
               {(config?.options || []).map((item) => (
                 <MenuItem key={item} value={item}>
@@ -51,7 +52,7 @@ export default function FormField(props: FormFieldProps) {
                 </MenuItem>
               ))}
             </Select>
-          </>
+          </FormControl>
         );
 
       case "IMAGE":
@@ -67,18 +68,10 @@ export default function FormField(props: FormFieldProps) {
       // TEXT
       default:
         return (
-          <>
-            <FormLabel htmlFor={fieldKey}>{name}</FormLabel>
-            <Input id={fieldKey} {...field} />
-          </>
+          <TextField variant="standard" id={fieldKey} label={name} {...field} />
         );
     }
   };
 
-  return (
-    <FormControl variant="standard">
-      <Controller name={fieldKey} control={control} render={renderField} />
-      {/* <FormHelperText>Helper text</FormHelperText> */}
-    </FormControl>
-  );
+  return <Controller name={fieldKey} control={control} render={renderField} />;
 }
