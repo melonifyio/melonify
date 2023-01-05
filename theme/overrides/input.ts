@@ -5,7 +5,6 @@ export default function Input(theme: Theme) {
     MuiInput: {
       styleOverrides: {
         root: {
-          borderRadius: 10,
           backgroundColor: "#fff",
           borderWidth: 1,
           borderStyle: "solid",

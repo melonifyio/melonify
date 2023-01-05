@@ -12,7 +12,6 @@ import palette from "./palette";
 import shadows from "./shadows";
 import typography from "./typography";
 import GlobalStyles from "./globalStyles";
-import customShadows from "./customShadows";
 import componentsOverride from "./overrides";
 
 // ----------------------------------------------------------------------
@@ -25,10 +24,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const themeOptions = useMemo(
     () => ({
       palette,
-      shape: { borderRadius: 6 },
+      shape: { borderRadius: 10 },
       typography,
       shadows: shadows(),
-      customShadows: customShadows(),
     }),
     []
   );

@@ -49,6 +49,7 @@ export const ImageUpload = (props: ImageUploadProps) => {
       <LoadingButton
         variant="contained"
         component="label"
+        size="small"
         loading={uploader.uploading}
       >
         Upload

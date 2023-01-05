@@ -48,7 +48,7 @@ export default function ProjectPopover() {
         variant="outlined"
         sx={{ boxShadow: "none", border: 0, backgroundColor: "transparent" }}
       >
-        <CardActionArea onClick={handleOpen}>
+        <CardActionArea disableRipple onClick={handleOpen}>
           <Stack direction="row" alignItems="center" p={1} gap={1}>
             <Box>
               <Logo src={appData?.logo} title={appData?.title || ""} />
@@ -94,6 +94,7 @@ export default function ProjectPopover() {
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem
+              disableRipple
               key={option.label}
               onClick={() => {
                 router.push(`/app/${appData?.id}/${option.id}`);
@@ -108,6 +109,7 @@ export default function ProjectPopover() {
         <Divider sx={{ borderStyle: "dashed" }} />
 
         <MenuItem
+          disableRipple
           onClick={() => {
             router.push("/");
           }}

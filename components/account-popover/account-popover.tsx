@@ -60,7 +60,7 @@ export default function AccountPopover() {
         variant="outlined"
         sx={{ boxShadow: "none", border: 0, backgroundColor: "transparent" }}
       >
-        <CardActionArea onClick={handleOpen}>
+        <CardActionArea disableRipple onClick={handleOpen}>
           <Stack direction="row" alignItems="center" p={1} gap={1}>
             <Box>
               <Avatar src={user.data?.photoURL || ""} alt="photoURL" />
@@ -116,7 +116,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem disableRipple key={option.label} onClick={handleClose}>
               {option.label}
             </MenuItem>
           ))}
@@ -124,7 +124,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+        <MenuItem disableRipple onClick={handleLogout} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

@@ -43,7 +43,7 @@ export default function SmartForm(props: FormProps) {
 
   return (
     <form onSubmit={handleSubmitWithoutPropagation}>
-      <Stack gap={4}>
+      <Stack gap={3}>
         {fieldKeysSorted.map((fieldKey, index) => (
           <FormField
             key={index}
