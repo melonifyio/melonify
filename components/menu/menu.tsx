@@ -39,7 +39,6 @@ function MenuItem(props: MenuItemProps) {
 
   return (
     <StyledNavItem
-      disableRipple
       selected={router.asPath.includes(_id)}
       onClick={() => {
         router.push(`/app/${appData?.id}/${_id}`);

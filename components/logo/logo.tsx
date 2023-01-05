@@ -17,7 +17,7 @@ const Logo = (props: LogoProps) => {
   const theme = useTheme();
 
   const logo = (
-    <Avatar src={src} sx={{ borderRadius: 2, width: 44, height: 44 }}>
+    <Avatar src={src} sx={{ borderRadius: 1, width: 44, height: 44 }}>
       {title ? title.charAt(0) : ""}
     </Avatar>
   );

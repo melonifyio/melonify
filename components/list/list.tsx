@@ -104,7 +104,6 @@ export function SmartList<T>(props: SmartListProps<T>) {
                 secondaryAction={ActionComponent && ActionComponent(item)}
               >
                 <ListItemButton
-                  disableRipple
                   onClick={() => onClickItem && onClickItem(item)}
                 >
                   <ListItemAvatar>
