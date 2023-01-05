@@ -1,4 +1,5 @@
 import * as React from "react";
+import { DropResult } from "react-beautiful-dnd";
 
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
@@ -29,14 +30,53 @@ type SmartListProps<T> = {
   onClickItem?: (item: SmartListItemProps<T>) => void;
   CreateComponent?: JSX.Element;
   ActionComponent?: (item: T) => JSX.Element;
+  renderTitle?: (item: T) => string;
+  getId?: (item: T) => string;
+  onReorder?: (newItems: SmartListItemProps<T>[]) => void;
+};
+
+// a little function to help us with reordering the result
+const reorder = (list: any, startIndex: number, endIndex: number) => {
+  const result = Array.from(list) as any;
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
 };
 
 export function SmartList<T>(props: SmartListProps<T>) {
-  const { title, items, onClickItem, CreateComponent, ActionComponent } = props;
+  const {
+    title,
+    items,
+    onClickItem,
+    CreateComponent,
+    ActionComponent,
+    renderTitle,
+    getId,
+    onReorder,
+  } = props;
+
+  const handleDragEnd = (result: DropResult) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const newItems = reorder(
+      items,
+      result.source.index,
+      result.destination.index
+    );
+
+    onReorder &&
+      onReorder(
+        newItems.map((item: object, index: number) => ({ ...item, index }))
+      );
+  };
 
   return (
     <Paper>
-      <Droppable onDragEnd={() => {}}>
+      <Droppable onDragEnd={handleDragEnd}>
         <List
           subheader={
             <Stack
@@ -54,7 +94,11 @@ export function SmartList<T>(props: SmartListProps<T>) {
           }
         >
           {items.map((item, index) => (
-            <Draggable key={item.id} id={item.id} index={index}>
+            <Draggable
+              key={getId ? getId(item) : item.id}
+              id={getId ? getId(item) : item.id}
+              index={index}
+            >
               <ListItem
                 disablePadding
                 secondaryAction={ActionComponent && ActionComponent(item)}
@@ -63,10 +107,14 @@ export function SmartList<T>(props: SmartListProps<T>) {
                   onClick={() => onClickItem && onClickItem(item)}
                 >
                   <ListItemAvatar>
-                    <Avatar>{item.title.charAt(0)}</Avatar>
+                    <Avatar>
+                      {renderTitle
+                        ? renderTitle(item).charAt(0)
+                        : item.title.charAt(0)}
+                    </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={item.title}
+                    primary={renderTitle ? renderTitle(item) : item.title}
                     secondary={item.subtitle}
                   />
                 </ListItemButton>

@@ -19,13 +19,13 @@ type MapProps = FieldProps & {
 
 type MapActionProps = {
   model: ModelProps;
-  item: any;
+  data: any;
   onUpdate: (data: any) => void;
   onDelete: (data: any) => void;
 };
 
 function ActionComponent<T>(props: MapActionProps) {
-  const { model, item, onUpdate, onDelete } = props;
+  const { model, data, onUpdate, onDelete } = props;
 
   const handleUpdateSuccess = (data: any) => {
     onUpdate(data);
@@ -39,7 +39,7 @@ function ActionComponent<T>(props: MapActionProps) {
     <Stack direction="row" gap={1}>
       <FormModal
         onSuccess={handleUpdateSuccess}
-        initialValues={item}
+        initialValues={data}
         model={model}
         TriggerComponent={
           <IconButton>
@@ -51,7 +51,7 @@ function ActionComponent<T>(props: MapActionProps) {
       <AlertDialog
         title="Are you sure?"
         description="Are you sure you want to delete this item?"
-        onConfirm={() => handleDeleteSuccess(item)}
+        onConfirm={() => handleDeleteSuccess(data)}
         TriggerComponent={
           <IconButton aria-label="delete">
             <DeleteIcon fontSize="small" />
@@ -65,19 +65,29 @@ function ActionComponent<T>(props: MapActionProps) {
 export function Map(props: MapProps) {
   const { fieldKey, value, name, config, setValue } = props;
 
+  const valueObj = value || {};
+  const valueKeys = Object.keys(value);
+  // sort by .index
+  const valueKeysSorted = valueKeys.sort(function (a, b) {
+    return valueObj[a].index - valueObj[b].index;
+  });
+
   return (
     <SmartList
       title={name}
-      items={Object.keys(value || {}).map((key) => ({
-        ...value[key],
-        id: key,
-        title: value[key].name,
+      items={valueKeysSorted.map((key) => ({
+        ...valueObj[key],
       }))}
+      renderTitle={(item) => item.name}
+      getId={(item) => item.fieldKey}
       CreateComponent={
         <FormModal
           model={config?.model || { fields: {} }}
           onSuccess={(data) => {
-            setValue(fieldKey, { ...value, [data.fieldKey]: data });
+            setValue(fieldKey, {
+              ...valueObj,
+              [data.fieldKey]: { ...data, index: valueKeys.length },
+            });
           }}
           TriggerComponent={<Button>Add item</Button>}
         />
@@ -85,18 +95,27 @@ export function Map(props: MapProps) {
       ActionComponent={(item) => (
         <ActionComponent
           model={config?.model || { fields: {} }}
-          item={item}
+          data={item}
           onUpdate={(data) => {
-            setValue(fieldKey, { ...value, [data.fieldKey]: data });
+            setValue(fieldKey, { ...valueObj, [data.fieldKey]: data });
           }}
           onDelete={(data) => {
-            const newData = value;
+            const newData = valueObj;
             delete newData[data.fieldKey];
 
             setValue(fieldKey, newData);
           }}
         />
       )}
+      onReorder={(data) => {
+        const reorderedData: any = {};
+
+        data.map((item) => {
+          reorderedData[item.fieldKey] = item;
+        });
+
+        setValue(fieldKey, reorderedData);
+      }}
     />
   );
 }
