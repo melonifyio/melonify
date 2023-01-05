@@ -19,6 +19,7 @@ import {
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
+import { FieldType } from "../../../../../components/form-field/types";
 
 export default function EditCollection() {
   const [openToast, setOpenToast] = React.useState(false);
@@ -102,7 +103,7 @@ export default function EditCollection() {
                       name: "Type",
                       type: "ENUM",
                       config: {
-                        options: ["TEXT", "NUMBER", "ENUM", "MAP"],
+                        options: Object.keys(FieldType),
                       },
                     },
                   },

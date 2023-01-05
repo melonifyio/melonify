@@ -4,16 +4,14 @@ import { FirebaseStorage } from "firebase/storage";
 
 import { Stack, Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { FieldProps } from "../form-field/types";
+import { FieldProps, ModelProps } from "../form-field/types";
 import FormField from "../form-field";
 
 export type FormProps = {
   onSuccess: SubmitHandler<any>;
   isSubmitting?: boolean;
   initialValues?: any;
-  model: {
-    fields: Record<string, FieldProps>;
-  };
+  model: ModelProps;
 };
 
 export default function SmartForm(props: FormProps) {

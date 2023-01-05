@@ -9,6 +9,8 @@ import {
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import FormLabel from "@mui/material/FormLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 import { FieldProps } from "../form-field/types";
 import { Map } from "../map";
@@ -38,6 +40,20 @@ export default function FormField(props: FormFieldProps) {
           />
         );
 
+      case "ENUM":
+        return (
+          <>
+            <FormLabel htmlFor={fieldKey}>{name}</FormLabel>
+            <Select labelId={fieldKey} id={fieldKey} {...field}>
+              {(config?.options || []).map((item) => (
+                <MenuItem key={item} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+          </>
+        );
+
       case "IMAGE":
         return (
           <ImageUpload
@@ -60,7 +76,7 @@ export default function FormField(props: FormFieldProps) {
   };
 
   return (
-    <FormControl>
+    <FormControl variant="standard">
       <Controller name={fieldKey} control={control} render={renderField} />
       {/* <FormHelperText>Helper text</FormHelperText> */}
     </FormControl>

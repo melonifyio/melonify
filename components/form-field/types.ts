@@ -1,7 +1,15 @@
+export enum FieldType {
+  TEXT = "TEXT",
+  NUMBER = "NUMBER",
+  IMAGE = "IMAGE",
+  ENUM = "ENUM",
+  MAP = "MAP",
+}
+
 export type FieldProps = {
   fieldKey: string;
   name: string;
-  type: "TEXT" | "NUMBER" | "MAP" | "ENUM" | "IMAGE";
+  type: keyof typeof FieldType;
   config?: {
     model?: {
       fields: Record<string, FieldProps>;
