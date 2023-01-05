@@ -19,6 +19,11 @@ export type FormProps = {
 export default function SmartForm(props: FormProps) {
   const { onSuccess, isSubmitting, initialValues, model } = props;
 
+  const fieldKeys = Object.keys(model.fields || {});
+  const fieldKeysSorted = fieldKeys.sort(function (a, b) {
+    return (model.fields[a].index || 0) - (model.fields[b].index || 0);
+  });
+
   const {
     control,
     handleSubmit,
@@ -41,7 +46,7 @@ export default function SmartForm(props: FormProps) {
   return (
     <form onSubmit={handleSubmitWithoutPropagation}>
       <Stack gap={4}>
-        {Object.keys(model?.fields || {}).map((fieldKey, index) => (
+        {fieldKeysSorted.map((fieldKey, index) => (
           <FormField
             key={index}
             control={control}
