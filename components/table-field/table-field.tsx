@@ -1,6 +1,8 @@
 import * as React from "react";
-import { FieldProps } from "../form-field/types";
 import { Avatar, Typography } from "@mui/material";
+
+import { FieldProps } from "../form-field/types";
+import { Date } from "../date";
 
 type TableFieldProps = {
   type: FieldProps["type"];
@@ -13,7 +15,10 @@ export function TableField(props: TableFieldProps) {
   const renderField = () => {
     switch (type) {
       case "IMAGE":
-        return <Avatar src={value} />;
+        return <Avatar src={value} sx={{ borderRadius: 1 }} />;
+
+      case "DATE":
+        return <Date>{value}</Date>;
 
       // TEXT
       default:

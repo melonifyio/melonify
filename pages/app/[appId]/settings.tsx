@@ -1,7 +1,6 @@
 import * as React from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { collection, getFirestore, doc as fsdoc } from "firebase/firestore";
+import { doc as fsdoc } from "firebase/firestore";
 
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
@@ -15,7 +14,6 @@ import { useFirestoreDocumentMutation } from "@react-query-firebase/firestore";
 import firestore from "../../../firebase/firestore";
 
 export default function Home() {
-  const router = useRouter();
   const { appData } = useApp();
 
   const ref = fsdoc(firestore, `apps/${appData?.id}`);
@@ -24,44 +22,45 @@ export default function Home() {
   });
 
   const handleSave = (data: any) => {
-    console.log(data);
     mutate(data);
   };
 
   return (
     <Container>
-      <Stack direction="row" gap={4} alignItems="center" mb={6}>
-        <Typography variant="h4">App Settings</Typography>
-      </Stack>
+      <Stack gap={4}>
+        <Stack direction="row" gap={4} alignItems="center">
+          <Typography variant="h4">App Settings</Typography>
+        </Stack>
 
-      <Container maxWidth="sm">
-        <Form
-          model={{
-            fields: {
-              logo: { fieldKey: "logo", name: "Logo", type: "IMAGE" },
-              title: { fieldKey: "title", name: "Title", type: "TEXT" },
-              apiKey: {
-                fieldKey: "apiKey",
-                name: "API Key",
-                type: "TEXT",
+        <Container maxWidth="sm">
+          <Form
+            model={{
+              fields: {
+                logo: { fieldKey: "logo", name: "Logo", type: "IMAGE" },
+                title: { fieldKey: "title", name: "Title", type: "TEXT" },
+                apiKey: {
+                  fieldKey: "apiKey",
+                  name: "API Key",
+                  type: "TEXT",
+                },
+                appId: {
+                  fieldKey: "appId",
+                  name: "App ID",
+                  type: "TEXT",
+                },
+                projectId: {
+                  fieldKey: "projectId",
+                  name: "Project ID",
+                  type: "TEXT",
+                },
               },
-              appId: {
-                fieldKey: "appId",
-                name: "App ID",
-                type: "TEXT",
-              },
-              projectId: {
-                fieldKey: "projectId",
-                name: "Project ID",
-                type: "TEXT",
-              },
-            },
-          }}
-          initialValues={appData}
-          onSuccess={handleSave}
-          isSubmitting={isLoading}
-        />
-      </Container>
+            }}
+            initialValues={appData}
+            onSuccess={handleSave}
+            isSubmitting={isLoading}
+          />
+        </Container>
+      </Stack>
     </Container>
   );
 }

@@ -66,7 +66,7 @@ export function Map(props: MapProps) {
   const { fieldKey, value, name, config, setValue } = props;
 
   const valueObj = value || {};
-  const valueKeys = Object.keys(value);
+  const valueKeys = Object.keys(valueObj);
   // sort by .index
   const valueKeysSorted = valueKeys.sort(function (a, b) {
     return valueObj[a].index - valueObj[b].index;

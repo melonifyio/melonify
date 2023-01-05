@@ -29,22 +29,24 @@ export default function GenericPage() {
 
   return (
     <Container>
-      <Stack direction="row" gap={4} alignItems="center" mb={6}>
-        <Typography variant="h4">{page.data?.title}</Typography>
+      <Stack gap={4}>
+        <Stack direction="row" gap={2} alignItems="center">
+          <Typography variant="h4">{page.data?.title}</Typography>
 
-        <IconButton
-          onClick={() => {
-            router.push(`/app/${appData?.id}/c/edit/${pageId}`);
-          }}
-        >
-          <SettingIcon fontSize="small" />
-        </IconButton>
+          <IconButton
+            onClick={() => {
+              router.push(`/app/${appData?.id}/c/edit/${pageId}`);
+            }}
+          >
+            <SettingIcon fontSize="small" />
+          </IconButton>
+        </Stack>
+
+        <CollectionTable
+          collectionName={page.data._id}
+          model={{ fields: page.data.schema }}
+        />
       </Stack>
-
-      <CollectionTable
-        collectionName={page.data._id}
-        model={{ fields: page.data.schema }}
-      />
     </Container>
   );
 }

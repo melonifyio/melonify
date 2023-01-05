@@ -4,6 +4,7 @@ export enum FieldType {
   IMAGE = "IMAGE",
   ENUM = "ENUM",
   MAP = "MAP",
+  DATE = "DATE",
 }
 
 export type FieldProps = {

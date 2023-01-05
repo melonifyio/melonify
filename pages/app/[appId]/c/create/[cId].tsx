@@ -1,17 +1,15 @@
 import * as React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import {
-  useFirestoreDocumentMutation,
-  useFirestoreDocument,
-} from "@react-query-firebase/firestore";
-import { collection, getFirestore, doc as fsdoc } from "firebase/firestore";
+import { useFirestoreDocumentMutation } from "@react-query-firebase/firestore";
+import { getFirestore, doc as fsdoc } from "firebase/firestore";
 
-import { Container, Typography, TextField, Snackbar, Box } from "@mui/material";
+import { Container, Typography, Stack, Snackbar } from "@mui/material";
 
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
+import { FieldType } from "../../../../../components/form-field/types";
 
 type CreateCollectionFormData = {
   title: string;
@@ -51,52 +49,55 @@ export default function CreateCollection() {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        Create collection
-      </Typography>
+      <Stack gap={4}>
+        <Typography variant="h4">Create collection</Typography>
 
-      <Form
-        onSuccess={onSubmit}
-        model={{
-          fields: {
-            title: {
-              fieldKey: "title",
-              name: "Collection Name",
-              type: "TEXT",
-            },
-            schema: {
-              fieldKey: "schema",
-              name: "Schema",
-              type: "MAP",
-              config: {
-                model: {
-                  fields: {
-                    fieldKey: {
-                      fieldKey: "fieldKey",
-                      name: "Field Key",
-                      type: "TEXT",
-                    },
-                    name: {
-                      fieldKey: "name",
-                      name: "Name",
-                      type: "TEXT",
-                    },
-                    type: {
-                      fieldKey: "type",
-                      name: "Type",
-                      type: "ENUM",
-                      config: {
-                        options: ["TEXT", "NUMBER", "ENUM", "MAP"],
+        <Form
+          onSuccess={onSubmit}
+          model={{
+            fields: {
+              title: {
+                fieldKey: "title",
+                name: "Collection Name",
+                type: "TEXT",
+                config: {
+                  required: "Collection Name required.",
+                },
+              },
+              schema: {
+                fieldKey: "schema",
+                name: "Schema",
+                type: "MAP",
+                config: {
+                  model: {
+                    fields: {
+                      fieldKey: {
+                        fieldKey: "fieldKey",
+                        name: "Field Key",
+                        type: "TEXT",
+                      },
+                      name: {
+                        fieldKey: "name",
+                        name: "Name",
+                        type: "TEXT",
+                      },
+                      type: {
+                        fieldKey: "type",
+                        name: "Type",
+                        type: "ENUM",
+                        config: {
+                          options: Object.keys(FieldType),
+                        },
                       },
                     },
                   },
                 },
               },
             },
-          },
-        }}
-        isSubmitting={mutation.isLoading}
-      />
+          }}
+          isSubmitting={mutation.isLoading}
+        />
+      </Stack>
 
       <Snackbar
         open={openToast}
