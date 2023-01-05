@@ -39,6 +39,9 @@ export default function Button(theme: Theme & any) {
           },
         },
       },
+      defaultProps: {
+        disableRipple: true,
+      },
     },
   };
 }

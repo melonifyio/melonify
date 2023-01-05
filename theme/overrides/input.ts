@@ -5,13 +5,21 @@ export default function Input(theme: Theme) {
     MuiInput: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
+          borderRadius: 10,
           backgroundColor: "#fff",
-          border: "1px solid pink",
-          fontSize: 16,
-          padding: "10px 12px",
-          width: "calc(100% - 24px)",
+          borderWidth: 1,
+          borderStyle: "solid",
+          borderColor: theme.palette.grey["400"],
+          padding: "6px 12px",
+          fontSize: 14,
+          marginTop: "4px !important",
+          "&.Mui-focused": {
+            borderColor: theme.palette.primary["main"],
+          },
         },
+      },
+      defaultProps: {
+        disableUnderline: true,
       },
     },
   };
