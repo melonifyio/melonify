@@ -13,9 +13,13 @@ import {
   DocumentData,
   QueryConstraint,
 } from "firebase/firestore";
-import { FirebaseError } from "firebase/app";
 
-import { DataGrid, GridSortModel, GridFilterModel } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridSortModel,
+  GridFilterModel,
+  GridEventListener,
+} from "@mui/x-data-grid";
 import { Box, LinearProgress } from "@mui/material";
 
 import { useApp } from "../../hooks/useApp";
@@ -23,11 +27,16 @@ import { useApp } from "../../hooks/useApp";
 import { Toolbar } from "./toolbar";
 import { SmartTableProps } from "./types";
 import { columns } from "./columns";
+import { DetailsDrawer } from "./details-drawer";
 
 const PAGE_SIZE = 10;
 
 export default function CollectionTable(props: SmartTableProps) {
   const { collectionName, model } = props;
+
+  const [activeDocumentId, setActiveDocumentId] = React.useState<
+    string | undefined
+  >(undefined);
 
   const [error, setError] = React.useState("");
   const [sortModel, setSortModel] = React.useState<GridSortModel>([
@@ -125,6 +134,10 @@ export default function CollectionTable(props: SmartTableProps) {
     setFilterModel(filterModel);
   }, []);
 
+  const handleRowClick: GridEventListener<"rowClick"> = (params) => {
+    setActiveDocumentId(params.id as string);
+  };
+
   React.useEffect(() => {
     const handleCount = async (q: Query<DocumentData>) => {
       try {
@@ -180,6 +193,15 @@ export default function CollectionTable(props: SmartTableProps) {
         onSortModelChange={handleSortModelChange}
         filterMode="server"
         onFilterModelChange={onFilterChange}
+        onRowClick={handleRowClick}
+      />
+
+      <DetailsDrawer
+        open={!!activeDocumentId}
+        collectionName={collectionName}
+        documentId={activeDocumentId || "unknown"}
+        onClose={() => setActiveDocumentId(undefined)}
+        model={model}
       />
     </Box>
   );

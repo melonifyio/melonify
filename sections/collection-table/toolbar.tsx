@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useTheme } from "@mui/material";
 import { useFirestoreCollectionMutation } from "@react-query-firebase/firestore";
-import { getFirestore, collection } from "firebase/firestore";
+import { getFirestore, collection, Timestamp } from "firebase/firestore";
 
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
@@ -29,6 +29,11 @@ function urlify(text: string, title?: string, color?: string) {
   });
 }
 
+const timestampsValues = {
+  createdAt: Timestamp.now(),
+  updatedAt: Timestamp.now(),
+};
+
 export const Toolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
     React.SetStateAction<HTMLButtonElement | null>
@@ -46,8 +51,9 @@ export const Toolbar: React.FunctionComponent<{
   const ref = collection(firestore, collectionName);
   const mutation = useFirestoreCollectionMutation(ref);
 
+  // create new document
   const handleSuccess = (data: any) => {
-    mutation.mutate(data);
+    mutation.mutate({ ...data, ...timestampsValues });
   };
 
   return (

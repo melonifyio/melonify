@@ -13,6 +13,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 
 import { FieldProps } from "../form-field/types";
 import { Map } from "../map";
@@ -48,7 +49,7 @@ export default function FormField(props: FormFieldProps) {
         const options = config?.options || {};
 
         return (
-          <FormControl variant="standard">
+          <FormControl variant="standard" error={!!errors[fieldKey]}>
             <InputLabel id={fieldKey}>{name}</InputLabel>
             <Select labelId={fieldKey} id={fieldKey} {...field}>
               {Object.keys(options).map((fieldKey) => (
@@ -57,6 +58,12 @@ export default function FormField(props: FormFieldProps) {
                 </MenuItem>
               ))}
             </Select>
+
+            {/* {!!errors[fieldKey] && (
+              <FormHelperText>
+                {errors[fieldKey]?.message || "Required."}
+              </FormHelperText>
+            )} */}
           </FormControl>
         );
 
@@ -83,7 +90,7 @@ export default function FormField(props: FormFieldProps) {
         return (
           <TextField
             error={!!errors[fieldKey]}
-            helperText={errors[fieldKey]?.message}
+            // helperText={errors[fieldKey]?.message}
             variant="standard"
             id={fieldKey}
             label={name}

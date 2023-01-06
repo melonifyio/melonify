@@ -17,8 +17,8 @@ export function TableField(props: TableFieldProps) {
       case "IMAGE":
         return <Avatar src={value} sx={{ borderRadius: 1 }} />;
 
-      case "DATE":
-        return <Date>{value}</Date>;
+      // case "DATE":
+      //   return <Date>{value}</Date>;
 
       // TEXT
       default:
