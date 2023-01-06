@@ -108,7 +108,7 @@ export function SmartList<T>(props: SmartListProps<T>) {
                 >
                   <ListItemAvatar>
                     <Avatar>
-                      {renderTitle
+                      {renderTitle && renderTitle(item)
                         ? renderTitle(item).charAt(0)
                         : item.title.charAt(0)}
                     </Avatar>
@@ -125,8 +125,8 @@ export function SmartList<T>(props: SmartListProps<T>) {
       </Droppable>
 
       {items.length === 0 && (
-        <Stack direction="row" justifyContent="center" p={10}>
-          <Typography>Empty</Typography>
+        <Stack direction="row" justifyContent="center" p={8}>
+          <Typography variant="caption">Empty</Typography>
         </Stack>
       )}
     </Paper>

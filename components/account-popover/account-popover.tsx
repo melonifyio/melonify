@@ -154,9 +154,9 @@ export default function AccountPopover() {
                 edge="end"
                 size="small"
                 checked={theme.palette.mode === "dark"}
-                inputProps={{
-                  "aria-labelledby": "switch-list-label-bluetooth",
-                }}
+                // inputProps={{
+                //   "aria-labelledby": "switch-list-label-bluetooth",
+                // }}
               />
             </Stack>
           </MenuItem>

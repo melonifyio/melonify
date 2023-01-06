@@ -5,7 +5,10 @@ export enum FieldType {
   ENUM = "ENUM",
   MAP = "MAP",
   DATE = "DATE",
+  BOOLEAN = "BOOLEAN",
 }
+
+export type OptionsProps = Record<string, { fieldKey: string; name: string }>;
 
 export type FieldProps = {
   fieldKey: string;
@@ -15,7 +18,7 @@ export type FieldProps = {
     model?: {
       fields: Record<string, FieldProps>;
     };
-    options?: string[];
+    options?: OptionsProps;
     required?: boolean | string;
   };
   index?: number;

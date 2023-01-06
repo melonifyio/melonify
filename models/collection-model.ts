@@ -1,4 +1,5 @@
-import { FieldType, ModelProps } from "../components/form-field/types";
+import { ModelProps } from "../components/form-field/types";
+import { fieldModel } from "./field-model";
 
 export const collectionModel: ModelProps = {
   fields: {
@@ -15,28 +16,7 @@ export const collectionModel: ModelProps = {
       name: "Schema",
       type: "MAP",
       config: {
-        model: {
-          fields: {
-            type: {
-              fieldKey: "type",
-              name: "Type",
-              type: "ENUM",
-              config: {
-                options: Object.keys(FieldType),
-              },
-            },
-            fieldKey: {
-              fieldKey: "fieldKey",
-              name: "Field Key",
-              type: "TEXT",
-            },
-            name: {
-              fieldKey: "name",
-              name: "Name",
-              type: "TEXT",
-            },
-          },
-        },
+        model: fieldModel,
       },
     },
   },

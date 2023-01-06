@@ -11,6 +11,8 @@ import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 import { FieldProps } from "../form-field/types";
 import { Map } from "../map";
@@ -43,13 +45,15 @@ export default function FormField(props: FormFieldProps) {
         );
 
       case "ENUM":
+        const options = config?.options || {};
+
         return (
           <FormControl variant="standard">
             <InputLabel id={fieldKey}>{name}</InputLabel>
             <Select labelId={fieldKey} id={fieldKey} {...field}>
-              {(config?.options || []).map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
+              {Object.keys(options).map((fieldKey) => (
+                <MenuItem key={fieldKey} value={options[fieldKey]?.name}>
+                  {options[fieldKey]?.name}
                 </MenuItem>
               ))}
             </Select>
@@ -63,6 +67,14 @@ export default function FormField(props: FormFieldProps) {
             fieldKey={fieldKey}
             setValue={setValue}
             {...field}
+          />
+        );
+
+      case "BOOLEAN":
+        return (
+          <FormControlLabel
+            control={<Switch checked={field.value} {...field} />}
+            label={name}
           />
         );
 
