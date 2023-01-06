@@ -106,9 +106,7 @@ export default function CollectionTable(props: SmartTableProps) {
     {
       idField: "_id",
     },
-    {
-      refetchInterval: 4000,
-    }
+    {}
   );
 
   const handlePageChange = (newPage: number) => {

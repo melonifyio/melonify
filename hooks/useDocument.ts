@@ -1,5 +1,8 @@
 import { getFirestore, doc as fsdoc } from "firebase/firestore";
-import { useFirestoreDocumentData } from "@react-query-firebase/firestore";
+import {
+  useFirestoreDocumentData,
+  useFirestoreDocumentMutation,
+} from "@react-query-firebase/firestore";
 
 import { useApp } from "./useApp";
 
@@ -17,7 +20,9 @@ const useDocument = ({ collectionName, id }: UseDocumentProps) => {
     idField: "_id",
   });
 
-  return document;
+  const mutation = useFirestoreDocumentMutation(ref);
+
+  return { document, mutation };
 };
 
 export default useDocument;

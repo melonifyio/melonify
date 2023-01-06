@@ -20,7 +20,7 @@ type DetailsProps = {
 export const DetailsDrawer = (props: DetailsProps) => {
   const { open, onClose, model, collectionName, documentId } = props;
 
-  const document = useDocument({
+  const { document, mutation } = useDocument({
     collectionName,
     id: documentId,
   });
@@ -44,7 +44,10 @@ export const DetailsDrawer = (props: DetailsProps) => {
         <Form
           model={model}
           initialValues={document.data}
-          onSuccess={() => {}}
+          onSuccess={(data) => {
+            mutation.mutate(data);
+          }}
+          isSubmitting={mutation.isLoading}
         />
       </Box>
     </Drawer>
