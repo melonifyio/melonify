@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useTheme } from "@mui/material";
 import { useFirestoreCollectionMutation } from "@react-query-firebase/firestore";
 import { getFirestore, collection } from "firebase/firestore";
 
@@ -12,6 +13,21 @@ import {
 import FormModal from "../form-modal";
 import { FieldProps } from "../../components/form-field/types";
 import { useApp } from "../../hooks/useApp";
+import { Box } from "@mui/system";
+
+function urlify(text: string, title?: string, color?: string) {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, function (url) {
+    return (
+      '<a href="' +
+        url +
+        '" target="_blank" style="color: ' +
+        color +
+        '; ">' +
+        title || url + "</a>"
+    );
+  });
+}
 
 export const Toolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
@@ -21,7 +37,9 @@ export const Toolbar: React.FunctionComponent<{
   model: {
     fields: Record<string, FieldProps>;
   };
-}> = ({ setFilterButtonEl, collectionName, model }) => {
+  error: string;
+}> = ({ setFilterButtonEl, collectionName, model, error }) => {
+  const theme = useTheme();
   const { firebase } = useApp();
   const firestore = getFirestore(firebase);
 
@@ -35,6 +53,20 @@ export const Toolbar: React.FunctionComponent<{
   return (
     <GridToolbarContainer sx={{ justifyContent: "space-between" }}>
       <GridToolbarFilterButton ref={setFilterButtonEl} />
+
+      <Box>
+        {
+          <div
+            dangerouslySetInnerHTML={{
+              __html: urlify(
+                error,
+                "Create an index for this query",
+                theme.palette.primary.main
+              ),
+            }}
+          />
+        }
+      </Box>
 
       <FormModal
         onSuccess={handleSuccess}

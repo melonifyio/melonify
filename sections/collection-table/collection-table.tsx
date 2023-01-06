@@ -7,12 +7,15 @@ import {
   limit,
   startAfter,
   orderBy,
+  where,
   getCountFromServer,
   Query,
   DocumentData,
+  QueryConstraint,
 } from "firebase/firestore";
+import { FirebaseError } from "firebase/app";
 
-import { DataGrid, GridSortModel } from "@mui/x-data-grid";
+import { DataGrid, GridSortModel, GridFilterModel } from "@mui/x-data-grid";
 import { Box, LinearProgress } from "@mui/material";
 
 import { useApp } from "../../hooks/useApp";
@@ -26,14 +29,41 @@ const PAGE_SIZE = 5;
 export default function CollectionTable(props: SmartTableProps) {
   const { collectionName, model } = props;
 
+  const [error, setError] = React.useState("");
   const [sortModel, setSortModel] = React.useState<GridSortModel>([
     { field: "createdAt", sort: "desc" },
   ]);
+  const [filterModel, setFilterModel] = React.useState<GridFilterModel>({
+    items: [],
+  });
   const [page, setPage] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
   const [filterButtonEl, setFilterButtonEl] =
     React.useState<HTMLButtonElement | null>(null);
+
+  let whereConstraints: QueryConstraint[] = [];
+
+  filterModel.items.length > 0 &&
+    filterModel.items.map((item) => {
+      if (item.value && item.value.length > 0) {
+        if (item.operatorValue === "startsWith") {
+          whereConstraints.push(where(item.columnField, ">=", item.value));
+          whereConstraints.push(
+            where(item.columnField, "<=", item.value + "\uf8ff")
+          );
+
+          if ((sortModel[0]?.field || "createdAt") !== item.columnField) {
+            whereConstraints.push(orderBy(item.columnField));
+          }
+        }
+
+        if (item.operatorValue === "equals") {
+          whereConstraints.push(where(item.columnField, "==", item.value));
+          // whereConstraints.push(orderBy(item.columnField));
+        }
+      }
+    });
 
   const { firebase } = useApp();
   const firestore = getFirestore(firebase);
@@ -41,13 +71,18 @@ export default function CollectionTable(props: SmartTableProps) {
   const col = collection(firestore, collectionName);
   const query_ = query(
     col,
+    ...whereConstraints,
     orderBy(sortModel[0]?.field || "createdAt", sortModel[0]?.sort || "desc"),
     limit(PAGE_SIZE)
   );
-  const queryCount_ = query(col, orderBy(sortModel[0]?.field || "createdAt"));
+  const queryCount_ = query(
+    col,
+    ...whereConstraints,
+    orderBy(sortModel[0]?.field || "createdAt")
+  );
 
   const documents = useFirestoreInfiniteQueryData(
-    [collectionName, sortModel],
+    [collectionName, sortModel, filterModel],
     query_,
     (data) => {
       const lastDocument = data[data.length - 1];
@@ -61,6 +96,9 @@ export default function CollectionTable(props: SmartTableProps) {
     },
     {
       idField: "_id",
+    },
+    {
+      refetchInterval: 4000,
     }
   );
 
@@ -83,21 +121,25 @@ export default function CollectionTable(props: SmartTableProps) {
     []
   );
 
+  const onFilterChange = React.useCallback((filterModel: GridFilterModel) => {
+    setFilterModel(filterModel);
+  }, []);
+
   React.useEffect(() => {
     const handleCount = async (q: Query<DocumentData>) => {
       try {
         const snapshot = await getCountFromServer(q);
 
-        // setError(undefined);
+        setError("");
         return snapshot.data().count;
-      } catch (err) {
-        // setError(err.message);
+      } catch (err: any) {
+        setError(err?.message);
         return 0;
       }
     };
 
     handleCount(queryCount_).then(setCount);
-  }, []);
+  }, [queryCount_]);
 
   return (
     <Box sx={{ height: "411px", width: "100%" }}>
@@ -115,6 +157,7 @@ export default function CollectionTable(props: SmartTableProps) {
             setFilterButtonEl,
             model,
             collectionName,
+            error,
           },
         }}
         initialState={{
@@ -135,6 +178,8 @@ export default function CollectionTable(props: SmartTableProps) {
         page={page}
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
+        filterMode="server"
+        onFilterModelChange={onFilterChange}
       />
     </Box>
   );
