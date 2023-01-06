@@ -24,7 +24,7 @@ import { Toolbar } from "./toolbar";
 import { SmartTableProps } from "./types";
 import { columns } from "./columns";
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 export default function CollectionTable(props: SmartTableProps) {
   const { collectionName, model } = props;
@@ -142,7 +142,7 @@ export default function CollectionTable(props: SmartTableProps) {
   }, [queryCount_]);
 
   return (
-    <Box sx={{ height: "411px", width: "100%" }}>
+    <Box sx={{ height: "68vh", width: "100%" }}>
       <DataGrid
         loading={documents.isLoading || documents.isFetching}
         components={{

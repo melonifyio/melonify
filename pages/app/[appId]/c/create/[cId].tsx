@@ -9,7 +9,7 @@ import { Container, Typography, Stack, Snackbar } from "@mui/material";
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
-import { FieldType } from "../../../../../components/form-field/types";
+import { collectionModel } from "../../../../../models/collection-model";
 
 type CreateCollectionFormData = {
   title: string;
@@ -54,47 +54,7 @@ export default function CreateCollection() {
 
         <Form
           onSuccess={onSubmit}
-          model={{
-            fields: {
-              title: {
-                fieldKey: "title",
-                name: "Collection Name",
-                type: "TEXT",
-                config: {
-                  required: "Collection Name required.",
-                },
-              },
-              schema: {
-                fieldKey: "schema",
-                name: "Schema",
-                type: "MAP",
-                config: {
-                  model: {
-                    fields: {
-                      fieldKey: {
-                        fieldKey: "fieldKey",
-                        name: "Field Key",
-                        type: "TEXT",
-                      },
-                      name: {
-                        fieldKey: "name",
-                        name: "Name",
-                        type: "TEXT",
-                      },
-                      type: {
-                        fieldKey: "type",
-                        name: "Type",
-                        type: "ENUM",
-                        config: {
-                          options: Object.keys(FieldType),
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          }}
+          model={collectionModel}
           isSubmitting={mutation.isLoading}
         />
       </Stack>

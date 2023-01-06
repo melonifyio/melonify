@@ -19,7 +19,7 @@ import {
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
-import { FieldType } from "../../../../../components/form-field/types";
+import { collectionModel } from "../../../../../models/collection-model";
 
 export default function EditCollection() {
   const [openToast, setOpenToast] = React.useState(false);
@@ -73,47 +73,7 @@ export default function EditCollection() {
 
         <Form
           onSuccess={onSubmit}
-          model={{
-            fields: {
-              title: {
-                fieldKey: "title",
-                name: "Collection Name",
-                type: "TEXT",
-                config: {
-                  required: "Collection Name required.",
-                },
-              },
-              schema: {
-                fieldKey: "schema",
-                name: "Schema",
-                type: "MAP",
-                config: {
-                  model: {
-                    fields: {
-                      fieldKey: {
-                        fieldKey: "fieldKey",
-                        name: "Field Key",
-                        type: "TEXT",
-                      },
-                      name: {
-                        fieldKey: "name",
-                        name: "Name",
-                        type: "TEXT",
-                      },
-                      type: {
-                        fieldKey: "type",
-                        name: "Type",
-                        type: "ENUM",
-                        config: {
-                          options: Object.keys(FieldType),
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          }}
+          model={collectionModel}
           initialValues={document.data}
           isSubmitting={mutation.isLoading}
         />
