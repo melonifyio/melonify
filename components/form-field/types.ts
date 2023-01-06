@@ -6,6 +6,7 @@ export enum FieldType {
   MAP = "MAP",
   // DATE = "DATE",
   BOOLEAN = "BOOLEAN",
+  SUBCOLLECTION = "SUBCOLLECTION",
 }
 
 export type OptionsProps = Record<string, { fieldKey: string; name: string }>;

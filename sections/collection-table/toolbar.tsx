@@ -14,20 +14,7 @@ import FormModal from "../form-modal";
 import { FieldProps } from "../../components/form-field/types";
 import { useApp } from "../../hooks/useApp";
 import { Box } from "@mui/system";
-
-function urlify(text: string, title?: string, color?: string) {
-  var urlRegex = /(https?:\/\/[^\s]+)/g;
-  return text.replace(urlRegex, function (url) {
-    return (
-      '<a href="' +
-        url +
-        '" target="_blank" style="color: ' +
-        color +
-        '; ">' +
-        title || url + "</a>"
-    );
-  });
-}
+import urlify from "../../utils/urlify";
 
 const timestampsValues = {
   createdAt: Timestamp.now(),

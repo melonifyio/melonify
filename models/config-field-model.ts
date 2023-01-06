@@ -3,19 +3,21 @@ import {
   ModelProps,
   OptionsProps,
 } from "../components/form-field/types";
-import { configFieldModel } from "./config-field-model";
+import { fieldModel } from "./field-model";
 import { optionModel } from "./option-model";
 
 const fieldTypeOptions: OptionsProps = {};
 
 Object.keys(FieldType).map((typeKey) => {
-  fieldTypeOptions[typeKey] = {
-    fieldKey: typeKey,
-    name: typeKey,
-  };
+  if (typeKey !== "SUBCOLLECTION") {
+    fieldTypeOptions[typeKey] = {
+      fieldKey: typeKey,
+      name: typeKey,
+    };
+  }
 });
 
-export const fieldModel: ModelProps = {
+export const configFieldModel: ModelProps = {
   fields: {
     type: {
       fieldKey: "type",
@@ -53,7 +55,7 @@ export const fieldModel: ModelProps = {
       name: "Schema",
       type: "MAP",
       config: {
-        model: configFieldModel,
+        model: { fields: {} },
       },
     },
   },

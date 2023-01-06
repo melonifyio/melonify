@@ -20,6 +20,7 @@ import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
 import { collectionModel } from "../../../../../models/collection-model";
+import removeEmpty from "../../../../../utils/remove-empty";
 
 export default function EditCollection() {
   const [openToast, setOpenToast] = React.useState(false);
@@ -36,7 +37,7 @@ export default function EditCollection() {
   const mutation = useFirestoreDocumentMutation(ref);
 
   const onSubmit = (data: any) => {
-    mutation.mutate(data, {
+    mutation.mutate(removeEmpty(data), {
       onSuccess: () => {
         setOpenToast(true);
       },

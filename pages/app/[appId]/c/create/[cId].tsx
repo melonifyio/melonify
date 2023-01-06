@@ -10,6 +10,7 @@ import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
 import { collectionModel } from "../../../../../models/collection-model";
+import removeEmpty from "../../../../../utils/remove-empty";
 
 type CreateCollectionFormData = {
   title: string;
@@ -27,7 +28,7 @@ export default function CreateCollection() {
   const mutation = useFirestoreDocumentMutation(ref);
 
   const onSubmit = (data: CreateCollectionFormData) => {
-    mutation.mutate(data, {
+    mutation.mutate(removeEmpty(data), {
       onSuccess: () => {
         setOpenToast(true);
       },
