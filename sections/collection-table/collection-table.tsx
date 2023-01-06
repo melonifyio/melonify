@@ -31,7 +31,7 @@ import { DetailsDrawer } from "./details-drawer";
 
 const PAGE_SIZE = 10;
 
-export default function CollectionTable(props: SmartTableProps) {
+function CollectionTable(props: SmartTableProps) {
   const { collectionName, model } = props;
 
   const [activeDocumentId, setActiveDocumentId] = React.useState<
@@ -204,3 +204,5 @@ export default function CollectionTable(props: SmartTableProps) {
     </Box>
   );
 }
+
+export default React.memo(CollectionTable);

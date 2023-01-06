@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Typography, Chip } from "@mui/material";
 
 import { FieldProps } from "../form-field/types";
 import { Date } from "../date";
@@ -16,6 +16,9 @@ export function TableField(props: TableFieldProps) {
     switch (type) {
       case "IMAGE":
         return <Avatar src={value} sx={{ borderRadius: 1 }} />;
+
+      case "ENUM":
+        return <Chip label={value} color="primary" />;
 
       // case "DATE":
       //   return <Date>{value}</Date>;

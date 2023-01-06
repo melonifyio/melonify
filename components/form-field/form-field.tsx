@@ -51,7 +51,12 @@ export default function FormField(props: FormFieldProps) {
         return (
           <FormControl variant="standard" error={!!errors[fieldKey]}>
             <InputLabel id={fieldKey}>{name}</InputLabel>
-            <Select labelId={fieldKey} id={fieldKey} {...field}>
+            <Select
+              labelId={fieldKey}
+              id={fieldKey}
+              {...field}
+              value={field.value || ""}
+            >
               {Object.keys(options).map((fieldKey) => (
                 <MenuItem key={fieldKey} value={options[fieldKey]?.name}>
                   {options[fieldKey]?.name}
@@ -80,7 +85,7 @@ export default function FormField(props: FormFieldProps) {
       case "BOOLEAN":
         return (
           <FormControlLabel
-            control={<Switch checked={field.value} {...field} />}
+            control={<Switch checked={field.value || false} {...field} />}
             label={name}
           />
         );
