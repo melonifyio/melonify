@@ -32,7 +32,7 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
   const deleteMutation = useFirestoreDocumentDeletion(ref);
 
   const handleUpdateSuccess = (data: any) => {
-    mutation.mutate(data, {
+    mutation.mutate(removeEmpty(data), {
       onSuccess: async () => {
         await refetch();
       },
