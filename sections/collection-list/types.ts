@@ -10,6 +10,7 @@ export type CollectionListProps = {
   firestore: Firestore;
   collectionName: string;
   model: ModelProps;
+  title?: string;
 };
 
 export type CollectionListItemProps<T> = CollectionListProps & {

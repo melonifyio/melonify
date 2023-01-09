@@ -49,7 +49,17 @@ export default function AppProvider(props: AppProviderProps) {
     );
   }
 
-  if (!app.data) return <div>app not found</div>;
+  if (!app.data)
+    return (
+      <Stack
+        direction="row"
+        height="100vh"
+        alignItems="center"
+        justifyContent="center"
+      >
+        App not found
+      </Stack>
+    );
 
   return (
     <AppProviderWithFirebase appData={app.data} appId={appId}>

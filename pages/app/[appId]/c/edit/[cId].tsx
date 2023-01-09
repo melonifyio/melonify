@@ -15,12 +15,18 @@ import {
   Stack,
   CircularProgress,
 } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import AddIcon from "@mui/icons-material/Add";
 
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
+import CollectionList from "../../../../../sections/collection-list";
 import { collectionModel } from "../../../../../models/collection-model";
 import removeEmpty from "../../../../../utils/remove-empty";
+import FormModal from "../../../../../sections/form-modal";
 
 export default function EditCollection() {
   const [openToast, setOpenToast] = React.useState(false);
@@ -72,12 +78,45 @@ export default function EditCollection() {
       <Stack gap={4}>
         <Typography variant="h4">Edit collection</Typography>
 
-        <Form
-          onSuccess={onSubmit}
-          model={collectionModel}
-          initialValues={document.data}
-          isSubmitting={mutation.isLoading}
-        />
+        <Grid container spacing={2}>
+          <Grid xs={8}>
+            <Form
+              onSuccess={onSubmit}
+              model={collectionModel}
+              initialValues={document.data}
+              isSubmitting={mutation.isLoading}
+            />
+          </Grid>
+
+          <Grid xs={4}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              {/* <Typography variant="subtitle1">Subcollections</Typography>
+
+              <FormModal
+                model={{ fields: {} }}
+                onSuccess={() => {}}
+                TriggerComponent={
+                  <Button size="small" startIcon={<AddIcon fontSize="small" />}>
+                    Start Collection
+                  </Button>
+                }
+              /> */}
+
+              <Box width="100%">
+                <CollectionList
+                  title="Subcollections"
+                  firestore={firestore}
+                  collectionName={`_melonify_/config/collections/${cId}/subcollections`}
+                  model={collectionModel}
+                />
+              </Box>
+            </Stack>
+          </Grid>
+        </Grid>
       </Stack>
 
       <Snackbar

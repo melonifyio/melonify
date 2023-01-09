@@ -17,6 +17,7 @@ export default function AppsPage() {
     <Container maxWidth="md">
       <CollectionList
         firestore={firestore}
+        title="Apps"
         collectionName="apps"
         model={{
           fields: {

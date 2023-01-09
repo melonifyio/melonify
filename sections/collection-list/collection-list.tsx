@@ -3,6 +3,7 @@ import {
   useFirestoreCollectionMutation,
   useFirestoreDocumentMutation,
   useFirestoreDocumentDeletion,
+  useFirestoreQueryData,
 } from "@react-query-firebase/firestore";
 import { collection, doc } from "firebase/firestore";
 
@@ -20,6 +21,7 @@ import { AlertDialog } from "../../components/alert-dialog";
 import { CollectionListProps, CollectionListItemProps } from "./types";
 import FormModal from "../form-modal";
 import { ModelProps } from "../../components/form-field/types";
+import removeEmpty from "../../utils/remove-empty";
 
 function ActionComponent<T>(props: CollectionListItemProps<T>) {
   const { model, item, firestore, collectionName, refetch } = props;
@@ -70,30 +72,35 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
 }
 
 export default function CollectionList(props: CollectionListProps) {
-  const { firestore, collectionName, model } = props;
+  const { firestore, collectionName, model, title } = props;
 
-  const apps = useApps();
   const router = useRouter();
 
   const ref = collection(firestore, collectionName);
+
+  // Provide the query to the hook
+  const documents = useFirestoreQueryData([collectionName], ref, {
+    idField: "_id",
+  });
+
   const mutation = useFirestoreCollectionMutation(ref);
 
   const handleCreateSuccess = (data: any) => {
-    mutation.mutate(data);
+    mutation.mutate(removeEmpty(data));
   };
 
-  if (apps.isLoading)
+  if (documents.isLoading)
     return (
       <Stack direction="row" alignItems="center" justifyContent="center">
         <CircularProgress size={24} />
       </Stack>
     );
 
-  if (apps.data) {
+  if (documents.data) {
     return (
       <SmartList
-        title="Apps"
-        items={apps.data.map((item) => ({
+        title={title || ""}
+        items={documents.data.map((item) => ({
           id: item._id,
           title: item.title,
         }))}
@@ -104,9 +111,7 @@ export default function CollectionList(props: CollectionListProps) {
           <FormModal
             onSuccess={handleCreateSuccess}
             model={model}
-            TriggerComponent={
-              <Button startIcon={<AddIcon />}>Create app</Button>
-            }
+            TriggerComponent={<Button startIcon={<AddIcon />}>Create</Button>}
           />
         }
         ActionComponent={(item) => (
@@ -115,7 +120,7 @@ export default function CollectionList(props: CollectionListProps) {
             item={item}
             firestore={firestore}
             collectionName={collectionName}
-            refetch={apps.refetch}
+            refetch={documents.refetch}
           />
         )}
       />

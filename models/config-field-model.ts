@@ -3,18 +3,15 @@ import {
   ModelProps,
   OptionsProps,
 } from "../components/form-field/types";
-import { fieldModel } from "./field-model";
 import { optionModel } from "./option-model";
 
 const fieldTypeOptions: OptionsProps = {};
 
 Object.keys(FieldType).map((typeKey) => {
-  if (typeKey !== "SUBCOLLECTION") {
-    fieldTypeOptions[typeKey] = {
-      fieldKey: typeKey,
-      name: typeKey,
-    };
-  }
+  fieldTypeOptions[typeKey] = {
+    fieldKey: typeKey,
+    name: typeKey,
+  };
 });
 
 export const configFieldModel: ModelProps = {
