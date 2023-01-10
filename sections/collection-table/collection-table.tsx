@@ -20,7 +20,7 @@ import {
   GridFilterModel,
   GridEventListener,
 } from "@mui/x-data-grid";
-import { Box, LinearProgress } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 
 import { useApp } from "../../hooks/useApp";
 
@@ -28,11 +28,12 @@ import { Toolbar } from "./toolbar";
 import { SmartTableProps } from "./types";
 import { columns } from "./columns";
 import { DetailsDrawer } from "./details-drawer";
+import { Stack } from "@mui/system";
 
 const PAGE_SIZE = 10;
 
 function CollectionTable(props: SmartTableProps) {
-  const { collectionName, model } = props;
+  const { collectionName, model, title } = props;
 
   const [activeDocumentId, setActiveDocumentId] = React.useState<
     string | undefined
@@ -154,6 +155,12 @@ function CollectionTable(props: SmartTableProps) {
 
   return (
     <Box sx={{ height: "68vh", width: "100%" }}>
+      {title && (
+        <Typography variant="subtitle1" my={2}>
+          {title}
+        </Typography>
+      )}
+
       <DataGrid
         loading={documents.isLoading || documents.isFetching}
         components={{

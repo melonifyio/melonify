@@ -10,6 +10,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Form from "../../components/form";
 import { ModelProps } from "../../components/form-field/types";
 import useDocument from "../../hooks/useDocument";
+import useDocuments from "../../hooks/useDocuments";
+import CollectionTable from "./collection-table";
 
 type DetailsProps = {
   open: boolean;
@@ -27,6 +29,10 @@ export const DetailsDrawer = (props: DetailsProps) => {
   const { document, mutation } = useDocument({
     collectionName,
     id: documentId,
+  });
+
+  const subcollections = useDocuments({
+    collectionName: `_melonify_/config/collections/${collectionName}/subcollections`,
   });
 
   const handleCloseToast = (
@@ -55,7 +61,7 @@ export const DetailsDrawer = (props: DetailsProps) => {
 
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box minWidth={400} maxWidth={600} p={4}>
+      <Box minWidth={600} maxWidth={800} p={4}>
         <Form
           model={model}
           initialValues={document.data}
@@ -68,6 +74,16 @@ export const DetailsDrawer = (props: DetailsProps) => {
           }}
           isSubmitting={mutation.isLoading}
         />
+
+        {subcollections.data &&
+          subcollections.data?.map((item) => (
+            <CollectionTable
+              key={item._id}
+              title={item.title}
+              collectionName={`${collectionName}/${documentId}/${item.title}`}
+              model={{ fields: item.schema }}
+            />
+          ))}
       </Box>
 
       <Snackbar

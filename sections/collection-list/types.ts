@@ -11,6 +11,7 @@ export type CollectionListProps = {
   collectionName: string;
   model: ModelProps;
   title?: string;
+  onClickItem?: (item: any) => void;
 };
 
 export type CollectionListItemProps<T> = CollectionListProps & {

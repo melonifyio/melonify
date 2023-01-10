@@ -43,6 +43,9 @@ export default function AppsPage() {
             },
           },
         }}
+        onClickItem={(item) => {
+          router.push(`/app/${item.id}`);
+        }}
       />
     </Container>
   );

@@ -72,7 +72,7 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
 }
 
 export default function CollectionList(props: CollectionListProps) {
-  const { firestore, collectionName, model, title } = props;
+  const { firestore, collectionName, model, title, onClickItem } = props;
 
   const router = useRouter();
 
@@ -98,15 +98,10 @@ export default function CollectionList(props: CollectionListProps) {
 
   if (documents.data) {
     return (
-      <SmartList
+      <SmartList<any>
         title={title || ""}
-        items={documents.data.map((item) => ({
-          id: item._id,
-          title: item.title,
-        }))}
-        onClickItem={(item) => {
-          router.push(`/app/${item.id}`);
-        }}
+        items={documents.data || []}
+        onClickItem={onClickItem}
         CreateComponent={
           <FormModal
             onSuccess={handleCreateSuccess}
