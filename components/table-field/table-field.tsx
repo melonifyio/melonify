@@ -20,6 +20,9 @@ export function TableField(props: TableFieldProps) {
       case "ENUM":
         return <Chip label={value} color="primary" />;
 
+      case "REFERENCE":
+        return <Typography>{value.title}</Typography>;
+
       // case "DATE":
       //   return <Date>{value}</Date>;
 

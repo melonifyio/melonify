@@ -18,6 +18,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { FieldProps } from "../form-field/types";
 import { Map } from "../map";
 import { ImageUpload } from "../image-upload";
+import { ComboBox } from "../combo-box";
 
 type FormFieldProps = FieldProps & {
   control: Control;
@@ -87,6 +88,16 @@ export default function FormField(props: FormFieldProps) {
           <FormControlLabel
             control={<Switch checked={field.value || false} {...field} />}
             label={name}
+          />
+        );
+
+      case "REFERENCE":
+        return (
+          <ComboBox
+            collectionName={config?.collectionName || "unknown"}
+            label={name}
+            setValue={setValue}
+            {...field}
           />
         );
 

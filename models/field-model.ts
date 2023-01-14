@@ -56,5 +56,10 @@ export const fieldModel: ModelProps = {
         model: configFieldModel,
       },
     },
+    "config.collectionName": {
+      fieldKey: "config.collectionName",
+      name: "Collection Name",
+      type: "TEXT",
+    },
   },
 };

@@ -6,6 +6,7 @@ export enum FieldType {
   MAP = "MAP",
   // DATE = "DATE",
   BOOLEAN = "BOOLEAN",
+  REFERENCE = "REFERENCE",
 }
 
 export type OptionsProps = Record<string, { fieldKey: string; name: string }>;
@@ -20,6 +21,7 @@ export type FieldProps = {
     };
     options?: OptionsProps;
     required?: boolean | string;
+    collectionName?: string;
   };
   index?: number;
 };

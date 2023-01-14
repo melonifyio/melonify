@@ -62,28 +62,30 @@ export const DetailsDrawer = (props: DetailsProps) => {
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box minWidth={600} maxWidth={800} p={4}>
-        <Form
-          model={model}
-          initialValues={document.data}
-          onSuccess={(data) => {
-            mutation.mutate(data, {
-              onSuccess: () => {
-                setOpenToast(true);
-              },
-            });
-          }}
-          isSubmitting={mutation.isLoading}
-        />
+        <Stack gap={2}>
+          <Form
+            model={model}
+            initialValues={document.data}
+            onSuccess={(data) => {
+              mutation.mutate(data, {
+                onSuccess: () => {
+                  setOpenToast(true);
+                },
+              });
+            }}
+            isSubmitting={mutation.isLoading}
+          />
 
-        {subcollections.data &&
-          subcollections.data?.map((item) => (
-            <CollectionTable
-              key={item._id}
-              title={item.title}
-              collectionName={`${collectionName}/${documentId}/${item.title}`}
-              model={{ fields: item.schema }}
-            />
-          ))}
+          {subcollections.data &&
+            subcollections.data?.map((item) => (
+              <CollectionTable
+                key={item._id}
+                title={item.title}
+                collectionName={`${collectionName}/${documentId}/${item.title}`}
+                model={{ fields: item.schema }}
+              />
+            ))}
+        </Stack>
       </Box>
 
       <Snackbar
