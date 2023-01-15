@@ -1,6 +1,8 @@
 import * as React from "react";
 import Head from "next/head";
 import { doc as fsdoc } from "firebase/firestore";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
@@ -12,9 +14,12 @@ import Dashboard from "../../../layouts/dashboard";
 import Form from "../../../components/form";
 import { useFirestoreDocumentMutation } from "@react-query-firebase/firestore";
 import firestore from "../../../firebase/firestore";
+import { appModel } from "../../../models/app-model";
+import removeEmpty from "../../../utils/remove-empty";
 
 export default function Home() {
   const { appData } = useApp();
+  const [openSuccessToast, setOpenSuccessToast] = React.useState(false);
 
   const ref = fsdoc(firestore, `apps/${appData?.id}`);
   const { mutate, isLoading } = useFirestoreDocumentMutation(ref, {
@@ -22,7 +27,22 @@ export default function Home() {
   });
 
   const handleSave = (data: any) => {
-    mutate(data);
+    mutate(removeEmpty(data), {
+      onSuccess: () => {
+        setOpenSuccessToast(true);
+      },
+    });
+  };
+
+  const handleCloseSuccessToast = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSuccessToast(false);
   };
 
   return (
@@ -34,33 +54,27 @@ export default function Home() {
 
         <Container maxWidth="sm">
           <Form
-            model={{
-              fields: {
-                logo: { fieldKey: "logo", name: "Logo", type: "IMAGE" },
-                title: { fieldKey: "title", name: "Title", type: "TEXT" },
-                apiKey: {
-                  fieldKey: "apiKey",
-                  name: "API Key",
-                  type: "TEXT",
-                },
-                appId: {
-                  fieldKey: "appId",
-                  name: "App ID",
-                  type: "TEXT",
-                },
-                projectId: {
-                  fieldKey: "projectId",
-                  name: "Project ID",
-                  type: "TEXT",
-                },
-              },
-            }}
+            model={appModel}
             initialValues={appData}
             onSuccess={handleSave}
             isSubmitting={isLoading}
           />
         </Container>
       </Stack>
+
+      <Snackbar
+        open={openSuccessToast}
+        autoHideDuration={6000}
+        onClose={handleCloseSuccessToast}
+      >
+        <Alert
+          onClose={handleCloseSuccessToast}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Saved.
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }

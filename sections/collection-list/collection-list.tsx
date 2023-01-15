@@ -85,6 +85,7 @@ export default function CollectionList(props: CollectionListProps) {
   // Provide the query to the hook
   const documents = useFirestoreQueryData([collectionName, constraints], q, {
     idField: "_id",
+    subscribe: true,
   });
 
   const mutation = useFirestoreCollectionMutation(

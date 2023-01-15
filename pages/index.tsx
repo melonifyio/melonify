@@ -28,21 +28,9 @@ export default function AppsPage() {
               fieldKey: "title",
               name: "Title",
               type: "TEXT",
-            },
-            apiKey: {
-              fieldKey: "apiKey",
-              name: "API Key",
-              type: "TEXT",
-            },
-            appId: {
-              fieldKey: "appId",
-              name: "App ID",
-              type: "TEXT",
-            },
-            projectId: {
-              fieldKey: "projectId",
-              name: "Project ID",
-              type: "TEXT",
+              config: {
+                required: true,
+              },
             },
           },
         }}
