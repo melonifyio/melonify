@@ -17,6 +17,7 @@ import Droppable from "../../components/dragndrop/droppable";
 import Draggable from "../../components/dragndrop/draggable";
 
 import Actions from "./actions";
+import stringToColour from "../../utils/string-to-color";
 
 type SmartListItemProps<T> = T & {
   id: string;
@@ -107,7 +108,16 @@ export function SmartList<T>(props: SmartListProps<T>) {
                   onClick={() => onClickItem && onClickItem(item)}
                 >
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar
+                      sx={{
+                        backgroundColor: stringToColour(
+                          renderTitle ? renderTitle(item) : item.title
+                        ),
+                        fontFamily: "Tahoma",
+                        fontSize: "small",
+                        fontWeight: "bold",
+                      }}
+                    >
                       {renderTitle && renderTitle(item)
                         ? renderTitle(item).charAt(0)
                         : item.title.charAt(0)}
