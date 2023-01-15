@@ -1,4 +1,4 @@
-import { Firestore } from "firebase/firestore";
+import { Firestore, QueryConstraint } from "firebase/firestore";
 import {
   QueryObserverResult,
   RefetchOptions,
@@ -12,11 +12,12 @@ export type CollectionListProps = {
   model: ModelProps;
   title?: string;
   onClickItem?: (item: any) => void;
+  constraints?: QueryConstraint[];
 };
 
 export type CollectionListItemProps<T> = CollectionListProps & {
   item: T & {
-    id: string;
+    _id: string;
   };
   refetch: (
     options?: RefetchOptions & RefetchQueryFilters<any>

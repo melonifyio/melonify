@@ -18,6 +18,7 @@ const getColumnWidth = (columnType: string): number => {
 
 const getColumnFlex = (columnType: string): number => {
   if (columnType === "TEXT") return 1;
+  if (columnType === "REFERENCE") return 1;
 
   return 0;
 };

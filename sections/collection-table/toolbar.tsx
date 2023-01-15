@@ -15,11 +15,7 @@ import { FieldProps } from "../../components/form-field/types";
 import { useApp } from "../../hooks/useApp";
 import { Box } from "@mui/system";
 import urlify from "../../utils/urlify";
-
-const timestampsValues = {
-  createdAt: Timestamp.now(),
-  updatedAt: Timestamp.now(),
-};
+import useMe from "../../hooks/useAuth";
 
 export const Toolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
@@ -34,9 +30,21 @@ export const Toolbar: React.FunctionComponent<{
   const theme = useTheme();
   const { firebase } = useApp();
   const firestore = getFirestore(firebase);
+  const me = useMe();
 
   const ref = collection(firestore, collectionName);
   const mutation = useFirestoreCollectionMutation(ref);
+
+  const timestampsValues = {
+    createdAt: Timestamp.now(),
+    updatedAt: Timestamp.now(),
+    owner: {
+      uid: me?.data?.uid,
+      email: me?.data?.email,
+      displayName: me?.data?.displayName,
+      photoURL: me?.data?.photoURL,
+    },
+  };
 
   // create new document
   const handleSuccess = (data: any) => {

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { where } from "firebase/firestore";
 
 import Container from "@mui/material/Container";
 
@@ -8,10 +9,11 @@ import Simple from "../layouts/simple";
 
 import firestore from "../firebase/firestore";
 import CollectionList from "../sections/collection-list/collection-list";
+import useMe from "../hooks/useAuth";
 
 export default function AppsPage() {
-  const apps = useApps();
   const router = useRouter();
+  const me = useMe();
 
   return (
     <Container maxWidth="md">
@@ -19,6 +21,7 @@ export default function AppsPage() {
         firestore={firestore}
         title="Apps"
         collectionName="apps"
+        constraints={[where("owner.uid", "==", me.data?.uid)]}
         model={{
           fields: {
             title: {
@@ -44,7 +47,7 @@ export default function AppsPage() {
           },
         }}
         onClickItem={(item) => {
-          router.push(`/app/${item.id}`);
+          router.push(`/app/${item._id}`);
         }}
       />
     </Container>

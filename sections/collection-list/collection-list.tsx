@@ -5,7 +5,7 @@ import {
   useFirestoreDocumentDeletion,
   useFirestoreQueryData,
 } from "@react-query-firebase/firestore";
-import { collection, doc } from "firebase/firestore";
+import { collection, doc, Timestamp, query } from "firebase/firestore";
 
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -22,11 +22,12 @@ import { CollectionListProps, CollectionListItemProps } from "./types";
 import FormModal from "../form-modal";
 import { ModelProps } from "../../components/form-field/types";
 import removeEmpty from "../../utils/remove-empty";
+import useMe from "../../hooks/useAuth";
 
 function ActionComponent<T>(props: CollectionListItemProps<T>) {
   const { model, item, firestore, collectionName, refetch } = props;
 
-  const ref = doc(firestore, collectionName, item.id);
+  const ref = doc(firestore, collectionName, item._id);
   const mutation = useFirestoreDocumentMutation(ref);
 
   const deleteMutation = useFirestoreDocumentDeletion(ref);
@@ -72,21 +73,37 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
 }
 
 export default function CollectionList(props: CollectionListProps) {
-  const { firestore, collectionName, model, title, onClickItem } = props;
+  const { firestore, collectionName, model, title, onClickItem, constraints } =
+    props;
 
   const router = useRouter();
+  const me = useMe();
 
-  const ref = collection(firestore, collectionName);
+  const collectionRef = collection(firestore, collectionName);
+  const q = query(collectionRef, ...(constraints || []));
 
   // Provide the query to the hook
-  const documents = useFirestoreQueryData([collectionName], ref, {
+  const documents = useFirestoreQueryData([collectionName, constraints], q, {
     idField: "_id",
   });
 
-  const mutation = useFirestoreCollectionMutation(ref);
+  const mutation = useFirestoreCollectionMutation(
+    collection(firestore, collectionName)
+  );
+
+  const timestampsValues = {
+    createdAt: Timestamp.now(),
+    updatedAt: Timestamp.now(),
+    owner: {
+      uid: me?.data?.uid,
+      email: me?.data?.email,
+      displayName: me?.data?.displayName,
+      photoURL: me?.data?.photoURL,
+    },
+  };
 
   const handleCreateSuccess = (data: any) => {
-    mutation.mutate(removeEmpty(data));
+    mutation.mutate(removeEmpty({ ...data, ...timestampsValues }));
   };
 
   if (documents.isLoading)
