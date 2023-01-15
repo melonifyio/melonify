@@ -23,6 +23,7 @@ type SmartListItemProps<T> = T & {
   id: string;
   title: string;
   subtitle?: string;
+  logo?: string;
 };
 
 type SmartListProps<T> = {
@@ -34,6 +35,7 @@ type SmartListProps<T> = {
   renderTitle?: (item: T) => string;
   getId?: (item: T) => string;
   onReorder?: (newItems: SmartListItemProps<T>[]) => void;
+  squareAvatar?: boolean;
 };
 
 // a little function to help us with reordering the result
@@ -55,6 +57,7 @@ export function SmartList<T>(props: SmartListProps<T>) {
     renderTitle,
     getId,
     onReorder,
+    squareAvatar,
   } = props;
 
   const handleDragEnd = (result: DropResult) => {
@@ -109,7 +112,12 @@ export function SmartList<T>(props: SmartListProps<T>) {
                 >
                   <ListItemAvatar>
                     <Avatar
+                      src={item?.logo}
+                      variant={squareAvatar ? "square" : "rounded"}
                       sx={{
+                        borderRadius: 1,
+                        width: 44,
+                        height: 44,
                         backgroundColor: stringToColour(
                           renderTitle ? renderTitle(item) : item.title
                         ),

@@ -120,6 +120,7 @@ export default function CollectionList(props: CollectionListProps) {
         title={title || ""}
         items={documents.data || []}
         onClickItem={onClickItem}
+        squareAvatar
         CreateComponent={
           <FormModal
             onSuccess={handleCreateSuccess}
