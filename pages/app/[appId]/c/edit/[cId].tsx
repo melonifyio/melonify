@@ -81,7 +81,7 @@ export default function EditCollection() {
         <Grid container spacing={2}>
           <Grid xs={8}>
             <Form
-              onSuccess={onSubmit}
+              onSubmit={onSubmit}
               model={collectionModel}
               initialValues={document.data}
               isSubmitting={mutation.isLoading}
@@ -94,18 +94,6 @@ export default function EditCollection() {
               justifyContent="space-between"
               alignItems="center"
             >
-              {/* <Typography variant="subtitle1">Subcollections</Typography>
-
-              <FormModal
-                model={{ fields: {} }}
-                onSuccess={() => {}}
-                TriggerComponent={
-                  <Button size="small" startIcon={<AddIcon fontSize="small" />}>
-                    Start Collection
-                  </Button>
-                }
-              /> */}
-
               <Box width="100%">
                 <CollectionList
                   title="Subcollections"

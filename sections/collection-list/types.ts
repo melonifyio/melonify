@@ -19,7 +19,6 @@ export type CollectionListItemProps<T> = CollectionListProps & {
   item: T & {
     _id: string;
   };
-  refetch: (
-    options?: RefetchOptions & RefetchQueryFilters<any>
-  ) => Promise<any>;
+  onUpdateSuccess?: () => void;
+  onDeleteSuccess?: () => void;
 };

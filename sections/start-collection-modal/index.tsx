@@ -15,6 +15,8 @@ type StartCollectionFormData = {
 export default function StartCollectionModal() {
   const router = useRouter();
 
+  const [open, setOpen] = React.useState(false);
+
   const { appData } = useApp();
 
   const onSubmit = (data: StartCollectionFormData) => {
@@ -23,7 +25,10 @@ export default function StartCollectionModal() {
 
   return (
     <FormModal
-      onSuccess={onSubmit}
+      onSubmit={onSubmit}
+      open={open}
+      onTriggerClick={() => setOpen(true)}
+      onClose={() => setOpen(false)}
       initialValues={{
         id: "",
       }}

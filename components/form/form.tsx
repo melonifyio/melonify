@@ -7,14 +7,14 @@ import { ModelProps } from "../form-field/types";
 import FormField from "../form-field";
 
 export type FormProps = {
-  onSuccess: SubmitHandler<any>;
+  onSubmit: SubmitHandler<any>;
   isSubmitting?: boolean;
   initialValues?: any;
   model: ModelProps;
 };
 
 export default function SmartForm(props: FormProps) {
-  const { onSuccess, isSubmitting, initialValues, model } = props;
+  const { onSubmit, isSubmitting, initialValues, model } = props;
 
   const fieldKeys = Object.keys(model.fields || {});
   const fieldKeysSorted = fieldKeys.sort(function (a, b) {
@@ -31,7 +31,7 @@ export default function SmartForm(props: FormProps) {
   });
 
   const forwardSave = (data: any) => {
-    onSuccess(data);
+    onSubmit(data);
   };
 
   const handleSubmitWithoutPropagation = (e: any) => {

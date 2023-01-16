@@ -106,8 +106,7 @@ function CollectionTable(props: SmartTableProps) {
     },
     {
       idField: "_id",
-    },
-    {}
+    }
   );
 
   const handlePageChange = (newPage: number) => {

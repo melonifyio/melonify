@@ -32,6 +32,8 @@ export const Toolbar: React.FunctionComponent<{
   const firestore = getFirestore(firebase);
   const me = useMe();
 
+  const [open, setOpen] = React.useState(false);
+
   const ref = collection(firestore, collectionName);
   const mutation = useFirestoreCollectionMutation(ref);
 
@@ -70,7 +72,10 @@ export const Toolbar: React.FunctionComponent<{
       </Box>
 
       <FormModal
-        onSuccess={handleSuccess}
+        onSubmit={handleSuccess}
+        open={open}
+        onTriggerClick={() => setOpen(true)}
+        onClose={() => setOpen(false)}
         isSubmitting={mutation.isLoading}
         model={model}
         TriggerComponent={

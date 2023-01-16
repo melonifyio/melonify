@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useRouter } from "next/router";
 import {
   useFirestoreCollectionMutation,
@@ -5,7 +6,13 @@ import {
   useFirestoreDocumentDeletion,
   useFirestoreQueryData,
 } from "@react-query-firebase/firestore";
-import { collection, doc, Timestamp, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  Timestamp,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
 
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -19,35 +26,50 @@ import { SmartList } from "../../components/list/list";
 import { AlertDialog } from "../../components/alert-dialog";
 import { CollectionListProps, CollectionListItemProps } from "./types";
 import FormModal from "../form-modal";
-import { ModelProps } from "../../components/form-field/types";
 import removeEmpty from "../../utils/remove-empty";
 import useMe from "../../hooks/useAuth";
 
 function ActionComponent<T>(props: CollectionListItemProps<T>) {
-  const { model, item, firestore, collectionName, refetch } = props;
+  const {
+    model,
+    item,
+    firestore,
+    collectionName,
+    onUpdateSuccess,
+    onDeleteSuccess,
+  } = props;
+
+  const [open, setOpen] = React.useState(false);
 
   const ref = doc(firestore, collectionName, item._id);
-  const mutation = useFirestoreDocumentMutation(ref);
-
+  const updateMutation = useFirestoreDocumentMutation(ref);
   const deleteMutation = useFirestoreDocumentDeletion(ref);
 
-  const handleUpdateSuccess = (data: any) => {
-    mutation.mutate(removeEmpty(data), {
-      onSuccess: async () => {
-        await refetch();
+  const handleUpdate = (data: any) => {
+    updateMutation.mutate(removeEmpty(data), {
+      onSuccess: () => {
+        setOpen(false);
+        onUpdateSuccess && onUpdateSuccess();
       },
     });
   };
 
-  const handleDeleteSuccess = () => {
-    deleteMutation.mutate();
-    refetch();
+  const handleDelete = () => {
+    deleteMutation.mutate(undefined, {
+      onSuccess: () => {
+        onDeleteSuccess && onDeleteSuccess();
+      },
+    });
   };
 
   return (
     <Stack direction="row" gap={1}>
       <FormModal
-        onSuccess={handleUpdateSuccess}
+        onSubmit={handleUpdate}
+        isSubmitting={updateMutation.isLoading}
+        open={open}
+        onTriggerClick={() => setOpen(true)}
+        onClose={() => setOpen(false)}
         initialValues={item}
         model={model}
         TriggerComponent={
@@ -60,7 +82,7 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
       <AlertDialog
         title="Are you sure?"
         description="Are you sure you want to delete this item?"
-        onConfirm={handleDeleteSuccess}
+        onConfirm={handleDelete}
         TriggerComponent={
           <IconButton aria-label="delete">
             <DeleteIcon fontSize="small" />
@@ -75,6 +97,8 @@ export default function CollectionList(props: CollectionListProps) {
   const { firestore, collectionName, model, title, onClickItem, constraints } =
     props;
 
+  const [open, setOpen] = React.useState(false);
+
   const router = useRouter();
   const me = useMe();
 
@@ -87,9 +111,7 @@ export default function CollectionList(props: CollectionListProps) {
     subscribe: true,
   });
 
-  const mutation = useFirestoreCollectionMutation(
-    collection(firestore, collectionName)
-  );
+  const mutation = useFirestoreCollectionMutation(collectionRef);
 
   const timestampsValues = {
     createdAt: Timestamp.now(),
@@ -102,9 +124,23 @@ export default function CollectionList(props: CollectionListProps) {
     },
   };
 
-  const handleCreateSuccess = (data: any) => {
-    mutation.mutate(removeEmpty({ ...data, ...timestampsValues }));
+  const handleCreate = (data: any) => {
+    mutation.mutate(removeEmpty({ ...data, ...timestampsValues }), {
+      onSuccess: () => {
+        setOpen(false);
+      },
+    });
   };
+
+  // React.useEffect(() => {
+  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       console.log(doc.data());
+  //     });
+  //   });
+
+  //   return () => unsubscribe();
+  // }, [q]);
 
   if (documents.isLoading)
     return (
@@ -122,7 +158,11 @@ export default function CollectionList(props: CollectionListProps) {
         squareAvatar
         CreateComponent={
           <FormModal
-            onSuccess={handleCreateSuccess}
+            open={open}
+            onSubmit={handleCreate}
+            onClose={() => setOpen(false)}
+            onTriggerClick={() => setOpen(true)}
+            isSubmitting={mutation.isLoading}
             model={model}
             TriggerComponent={<Button startIcon={<AddIcon />}>Create</Button>}
           />
@@ -133,7 +173,8 @@ export default function CollectionList(props: CollectionListProps) {
             item={item}
             firestore={firestore}
             collectionName={collectionName}
-            refetch={documents.refetch}
+            onUpdateSuccess={() => {}}
+            onDeleteSuccess={() => {}}
           />
         )}
       />

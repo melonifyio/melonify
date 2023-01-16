@@ -27,6 +27,8 @@ type MapActionProps = {
 function ActionComponent<T>(props: MapActionProps) {
   const { model, data, onUpdate, onDelete } = props;
 
+  const [open, setOpen] = React.useState(false);
+
   const handleUpdateSuccess = (data: any) => {
     onUpdate(data);
   };
@@ -38,7 +40,10 @@ function ActionComponent<T>(props: MapActionProps) {
   return (
     <Stack direction="row" gap={1}>
       <FormModal
-        onSuccess={handleUpdateSuccess}
+        onSubmit={handleUpdateSuccess}
+        open={open}
+        onTriggerClick={() => setOpen(true)}
+        onClose={() => setOpen(false)}
         initialValues={data}
         model={model}
         TriggerComponent={
@@ -65,6 +70,8 @@ function ActionComponent<T>(props: MapActionProps) {
 export function Map(props: MapProps) {
   const { fieldKey, value, name, config, setValue } = props;
 
+  const [open, setOpen] = React.useState(false);
+
   const valueObj = value || {};
   const valueKeys = Object.keys(valueObj);
   // sort by .index
@@ -83,7 +90,10 @@ export function Map(props: MapProps) {
       CreateComponent={
         <FormModal
           model={config?.model || { fields: {} }}
-          onSuccess={(data) => {
+          open={open}
+          onTriggerClick={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          onSubmit={(data) => {
             setValue(fieldKey, {
               ...valueObj,
               [data.fieldKey]: { ...data, index: valueKeys.length },

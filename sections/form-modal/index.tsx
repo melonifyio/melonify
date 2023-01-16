@@ -8,35 +8,28 @@ import Form from "../../components/form";
 import { FormProps } from "../../components/form/form";
 
 export default function FormModal(
-  props: FormProps & { TriggerComponent: JSX.Element }
+  props: FormProps & {
+    open: boolean;
+    onTriggerClick: () => void;
+    onClose: () => void;
+    TriggerComponent: JSX.Element;
+  }
 ) {
-  const { onSuccess, TriggerComponent, ...rest } = props;
+  const { open, onTriggerClick, onClose, onSubmit, TriggerComponent, ...rest } =
+    props;
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSuccess = (data: any) => {
-    onSuccess(data);
-    handleClose();
+  const handleSubmit = (data: any) => {
+    onSubmit(data);
   };
 
   return (
     <div>
-      <div onClick={handleClickOpen}>
-        {TriggerComponent && TriggerComponent}
-      </div>
+      <div onClick={onTriggerClick}>{TriggerComponent && TriggerComponent}</div>
 
-      <Dialog open={open} onClose={handleClose} maxWidth="lg">
+      <Dialog open={open} onClose={onClose} maxWidth="lg">
         <DialogTitle>Add</DialogTitle>
         <DialogContent>
-          <Form onSuccess={handleSuccess} {...rest} />
+          <Form {...rest} onSubmit={handleSubmit} />
         </DialogContent>
       </Dialog>
     </div>

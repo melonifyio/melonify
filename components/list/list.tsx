@@ -11,16 +11,14 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import DraftsIcon from "@mui/icons-material/Drafts";
 
 import Droppable from "../../components/dragndrop/droppable";
 import Draggable from "../../components/dragndrop/draggable";
 
-import Actions from "./actions";
 import stringToColour from "../../utils/string-to-color";
 
 type SmartListItemProps<T> = T & {
-  id: string;
+  _id: string;
   title: string;
   subtitle?: string;
   logo?: string;
@@ -99,8 +97,8 @@ export function SmartList<T>(props: SmartListProps<T>) {
         >
           {items.map((item, index) => (
             <Draggable
-              key={getId ? getId(item) : item.id}
-              id={getId ? getId(item) : item.id}
+              key={getId ? getId(item) : item._id}
+              id={getId ? getId(item) : item._id}
               index={index}
             >
               <ListItem
