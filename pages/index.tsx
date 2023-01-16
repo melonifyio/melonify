@@ -4,7 +4,6 @@ import { where } from "firebase/firestore";
 
 import Container from "@mui/material/Container";
 
-import useApps from "../hooks/useApps";
 import Simple from "../layouts/simple";
 
 import firestore from "../firebase/firestore";

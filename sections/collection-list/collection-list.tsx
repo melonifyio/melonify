@@ -15,7 +15,6 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
-import useApps from "../../hooks/useApps";
 import { SmartList } from "../../components/list/list";
 import { AlertDialog } from "../../components/alert-dialog";
 import { CollectionListProps, CollectionListItemProps } from "./types";
