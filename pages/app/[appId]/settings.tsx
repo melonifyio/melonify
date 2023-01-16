@@ -56,7 +56,7 @@ export default function Home() {
           <Form
             model={appModel}
             initialValues={appData}
-            onSuccess={handleSave}
+            onSubmit={handleSave}
             isSubmitting={isLoading}
           />
         </Container>
