@@ -66,7 +66,7 @@ export const DetailsDrawer = (props: DetailsProps) => {
           <Form
             model={model}
             initialValues={document.data}
-            onSuccess={(data) => {
+            onSubmit={(data) => {
               mutation.mutate(data, {
                 onSuccess: () => {
                   setOpenToast(true);
