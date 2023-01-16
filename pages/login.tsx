@@ -48,21 +48,13 @@ export default function LoginPage() {
   return (
     <Container maxWidth="xs">
       <StyledContent>
-        <Typography variant="h4" gutterBottom>
-          Sign in to Melonify
-        </Typography>
+        <Stack gap={2}>
+          <Typography variant="h4">Sign in to Melonify</Typography>
 
-        {/* <Typography variant="body2" sx={{ mb: 5 }}>
-            Don’t have an account? {""}
-            <Link variant="subtitle2">Get started</Link>
-          </Typography> */}
-
-        <Stack direction="row" spacing={2}>
           <Button
-            fullWidth
             size="large"
-            color="inherit"
-            variant="outlined"
+            variant="contained"
+            fullWidth
             onClick={handleLogin}
           >
             <Stack direction="row" gap={2} alignItems="center">
@@ -76,14 +68,6 @@ export default function LoginPage() {
             </Stack>
           </Button>
         </Stack>
-
-        {/* <Divider sx={{ my: 3 }}>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              OR
-            </Typography>
-          </Divider>
-
-          <LoginForm /> */}
       </StyledContent>
     </Container>
   );

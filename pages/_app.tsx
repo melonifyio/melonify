@@ -1,6 +1,7 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
+import Script from "next/script";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ThemeProvider } from "../theme";
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Script src="/static/drift.js" />
       <ThemeProvider>{mainContent}</ThemeProvider>
     </QueryClientProvider>
   );

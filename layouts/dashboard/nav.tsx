@@ -36,7 +36,9 @@ export default function Nav(props: NavProps) {
       </Box>
 
       <Box>
-        <Menu data={items || []} />
+        <Menu
+          data={[{ _id: "", title: "Dashboard", home: true }, ...items] || []}
+        />
       </Box>
 
       <Box>

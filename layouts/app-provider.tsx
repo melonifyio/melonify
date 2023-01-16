@@ -68,40 +68,36 @@ export default function AppProvider(props: AppProviderProps) {
   );
 }
 
-const AppProviderWithFirebase = React.memo(
-  ({
-    appId,
-    appData,
-    children,
-  }: {
-    appId: string;
-    appData: any;
-    children: React.ReactNode;
-  }) => {
-    const firebase = React.useMemo(() => {
-      const firebaseConfig = {
-        apiKey: appData.apiKey,
-        authDomain: `${appData.projectId}.firebaseapp.com`,
-        projectId: appData.projectId,
-        storageBucket: `${appData.projectId}.appspot.com`,
-        appId: appData.appId,
-      };
+const AppProviderWithFirebase = ({
+  appId,
+  appData,
+  children,
+}: {
+  appId: string;
+  appData: any;
+  children: React.ReactNode;
+}) => {
+  const firebaseConfig = {
+    apiKey: appData.apiKey,
+    authDomain: `${appData.projectId}.firebaseapp.com`,
+    projectId: appData.projectId,
+    storageBucket: `${appData.projectId}.appspot.com`,
+    appId: appData.appId,
+  };
 
-      return initializeApp(firebaseConfig, appId);
-    }, [appId, appData.apiKey, appData.appId, appData.projectId]);
+  const firebase = initializeApp(firebaseConfig, appId);
 
-    console.log("app rendered");
+  console.log("app rendered");
 
-    const value = {
-      appData: {
-        id: appId,
-        ...appData,
-      },
-      firebase,
-    };
+  const value = {
+    appData: {
+      id: appId,
+      ...appData,
+    },
+    firebase,
+  };
 
-    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-  }
-);
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
 
 AppProviderWithFirebase.displayName = "MelonifyApp";

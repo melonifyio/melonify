@@ -16,8 +16,8 @@ export default function Home() {
 
   const renderStatusLabel = () => {
     if (firestoreStatus.isLoading) return "Checking...";
-    if (firestoreStatus.connected) return "Firebase connected";
-    if (!firestoreStatus.connected) return "Firebase not connected";
+    if (firestoreStatus.connected) return "Firestore connected";
+    if (!firestoreStatus.connected) return "Firestore not connected";
   };
 
   return (

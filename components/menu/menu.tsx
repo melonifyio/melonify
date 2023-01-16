@@ -32,14 +32,14 @@ export default function MenuProps({
 type MenuItemProps = DocumentData & { _id: string };
 
 function MenuItem(props: MenuItemProps) {
-  const { title, _id, path, icon, info } = props;
+  const { title, _id, home, path, icon, info } = props;
 
   const router = useRouter();
   const { appData } = useApp();
 
   return (
     <StyledNavItem
-      selected={router.asPath.includes(_id)}
+      selected={home ? router.asPath === `/app/${appData?.id}` : router.asPath.includes(_id)}
       onClick={() => {
         router.push(`/app/${appData?.id}/${_id}`);
       }}

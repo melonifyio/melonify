@@ -18,7 +18,7 @@ export const useFirestoreStatus = () => {
       setLoading(true);
 
       try {
-        await getDoc(docRef);
+        const res = await getDoc(docRef);
 
         setConnected(true);
         setError(undefined);
