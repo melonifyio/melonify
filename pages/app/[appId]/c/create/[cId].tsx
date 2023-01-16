@@ -54,7 +54,7 @@ export default function CreateCollection() {
         <Typography variant="h4">Create collection</Typography>
 
         <Form
-          onSuccess={onSubmit}
+          onSubmit={onSubmit}
           model={collectionModel}
           isSubmitting={mutation.isLoading}
         />
