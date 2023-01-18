@@ -5,33 +5,31 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import { AlertDialogProps } from "./types";
 
 export function AlertDialog(props: AlertDialogProps) {
-  const { onConfirm, title, description, TriggerComponent } = props;
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const {
+    open,
+    onConfirm,
+    title,
+    description,
+    TriggerComponent,
+    onClose,
+    isSubmitting,
+  } = props;
 
   const handleAgree = () => {
     onConfirm();
-    handleClose();
   };
 
   return (
     <div>
-      <div onClick={handleClickOpen}>{TriggerComponent}</div>
+      <div>{TriggerComponent}</div>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -42,15 +40,18 @@ export function AlertDialog(props: AlertDialogProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button
+          <Button variant="outlined" onClick={onClose}>
+            Cancel
+          </Button>
+          <LoadingButton
+            loading={isSubmitting}
             variant="contained"
-            color="primary"
+            color="error"
             onClick={handleAgree}
             autoFocus
           >
             Confirm
-          </Button>
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </div>

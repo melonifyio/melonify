@@ -12,6 +12,7 @@ import {
   Query,
   DocumentData,
   QueryConstraint,
+  onSnapshot,
 } from "firebase/firestore";
 
 import {
@@ -19,6 +20,7 @@ import {
   GridSortModel,
   GridFilterModel,
   GridEventListener,
+  GridSelectionModel,
 } from "@mui/x-data-grid";
 import { Box, LinearProgress, Typography } from "@mui/material";
 
@@ -152,6 +154,12 @@ function CollectionTable(props: SmartTableProps) {
     handleCount(queryCount_).then(setCount);
   }, [queryCount_]);
 
+  React.useEffect(() => {
+    const unsubscribe = onSnapshot(query_, (querySnapshot) => {});
+
+    return () => unsubscribe();
+  }, [query_, documents]);
+
   return (
     <Box sx={{ height: "68vh", width: "100%" }}>
       {title && (
@@ -175,6 +183,7 @@ function CollectionTable(props: SmartTableProps) {
             model,
             collectionName,
             error,
+            refetch: documents.refetch,
           },
         }}
         initialState={{
@@ -183,12 +192,11 @@ function CollectionTable(props: SmartTableProps) {
           },
         }}
         rows={(documents.data?.pages && documents.data?.pages[page]) || []}
-        columns={columns(model)}
+        columns={columns(model, collectionName, documents.refetch)}
         getRowId={(item) => item._id}
         pageSize={PAGE_SIZE}
         rowsPerPageOptions={[PAGE_SIZE]}
         rowCount={count}
-        checkboxSelection
         disableSelectionOnClick
         paginationMode="server"
         onPageChange={handlePageChange}
@@ -206,6 +214,7 @@ function CollectionTable(props: SmartTableProps) {
         documentId={activeDocumentId || "unknown"}
         onClose={() => setActiveDocumentId(undefined)}
         model={model}
+        refetch={documents.refetch}
       />
     </Box>
   );

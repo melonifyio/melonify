@@ -19,10 +19,11 @@ type DetailsProps = {
   model: ModelProps;
   collectionName: string;
   documentId: string;
+  refetch: () => void;
 };
 
 export const DetailsDrawer = (props: DetailsProps) => {
-  const { open, onClose, model, collectionName, documentId } = props;
+  const { open, onClose, model, collectionName, documentId, refetch } = props;
 
   const [openToast, setOpenToast] = React.useState(false);
 
@@ -70,6 +71,7 @@ export const DetailsDrawer = (props: DetailsProps) => {
               mutation.mutate(data, {
                 onSuccess: () => {
                   setOpenToast(true);
+                  refetch();
                 },
               });
             }}

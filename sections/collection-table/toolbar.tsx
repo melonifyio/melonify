@@ -8,6 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 import {
   GridToolbarContainer,
   GridToolbarFilterButton,
+  GridSelectionModel,
 } from "@mui/x-data-grid";
 
 import FormModal from "../form-modal";
@@ -16,6 +17,7 @@ import { useApp } from "../../hooks/useApp";
 import { Box } from "@mui/system";
 import urlify from "../../utils/urlify";
 import useMe from "../../hooks/useAuth";
+import removeEmpty from "../../utils/remove-empty";
 
 export const Toolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
@@ -26,7 +28,8 @@ export const Toolbar: React.FunctionComponent<{
     fields: Record<string, FieldProps>;
   };
   error: string;
-}> = ({ setFilterButtonEl, collectionName, model, error }) => {
+  refetch: () => void;
+}> = ({ setFilterButtonEl, collectionName, model, error, refetch }) => {
   const theme = useTheme();
   const { firebase } = useApp();
   const firestore = getFirestore(firebase);
@@ -50,7 +53,15 @@ export const Toolbar: React.FunctionComponent<{
 
   // create new document
   const handleSuccess = (data: any) => {
-    mutation.mutate({ ...data, ...timestampsValues });
+    mutation.mutate(
+      { ...removeEmpty(data), ...timestampsValues },
+      {
+        onSuccess: () => {
+          refetch();
+          setOpen(false);
+        },
+      }
+    );
   };
 
   return (

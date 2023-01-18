@@ -1,3 +1,8 @@
+import * as React from "react";
+import { getFirestore, doc } from "firebase/firestore";
+
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import {
   GridColDef,
   GridRenderCellParams,
@@ -5,13 +10,16 @@ import {
 } from "@mui/x-data-grid";
 import { FieldProps } from "../../components/form-field/types";
 import { TableField } from "../../components/table-field/table-field";
+import { AlertDialog } from "../../components/alert-dialog";
+import { useFirestoreDocumentDeletion } from "@react-query-firebase/firestore";
+import { useApp } from "../../hooks/useApp";
 
 const filterOperators = getGridStringOperators()
   .filter(({ value }) => ["startsWith", "equals"].includes(value))
   .reverse();
 
 const getColumnWidth = (columnType: string): number => {
-  if (columnType === "IMAGE") return 96;
+  if (columnType === "IMAGE") return 64;
 
   return 150;
 };
@@ -30,9 +38,61 @@ const getFilterable = (columnType: string): boolean => {
   return true;
 };
 
-export const columns = (model: {
-  fields: Record<string, FieldProps>;
-}): GridColDef[] => {
+const DeleteAction = ({
+  params,
+  collectionName,
+  documentId,
+  refetch,
+}: {
+  params: GridRenderCellParams<any>;
+  collectionName: string;
+  documentId: string;
+  refetch: () => void;
+}) => {
+  const [open, setOpen] = React.useState(false);
+
+  const { firebase } = useApp();
+  const firestore = getFirestore(firebase);
+  const ref = doc(firestore, collectionName, documentId);
+  const mutation = useFirestoreDocumentDeletion(ref);
+
+  return (
+    <AlertDialog
+      open={open}
+      onClose={() => setOpen(false)}
+      title="Are you sure?"
+      description="Are you sure you want to delete this item?"
+      onConfirm={() => {
+        mutation.mutate(undefined, {
+          onSuccess: () => {
+            refetch();
+            setOpen(false);
+          },
+        });
+      }}
+      isSubmitting={mutation.isLoading}
+      TriggerComponent={
+        <IconButton
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen(true);
+          }}
+        >
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      }
+    />
+  );
+};
+
+export const columns = (
+  model: {
+    fields: Record<string, FieldProps>;
+  },
+  collectionName: string,
+  refetch: () => void
+): GridColDef[] => {
   const fieldKeys = Object.keys(model.fields || {});
   const fieldKeysSorted = fieldKeys.sort(function (a, b) {
     return (model.fields[a].index || 0) - (model.fields[b].index || 0);
@@ -52,5 +112,22 @@ export const columns = (model: {
     },
   }));
 
-  return transformedColumns;
+  const actionColumn = {
+    field: "actions",
+    headerName: "",
+    width: 56,
+    filterable: false,
+    renderCell: (params: GridRenderCellParams<any>) => {
+      return (
+        <DeleteAction
+          params={params}
+          collectionName={collectionName}
+          documentId={params.id as string}
+          refetch={refetch}
+        />
+      );
+    },
+  };
+
+  return [...transformedColumns, actionColumn];
 };
