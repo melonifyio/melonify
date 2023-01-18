@@ -40,6 +40,7 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
   } = props;
 
   const [open, setOpen] = React.useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
 
   const ref = doc(firestore, collectionName, item._id);
   const updateMutation = useFirestoreDocumentMutation(ref);
@@ -58,6 +59,7 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
     deleteMutation.mutate(undefined, {
       onSuccess: () => {
         onDeleteSuccess && onDeleteSuccess();
+        setOpenAlertDialog(false);
       },
     });
   };
@@ -80,11 +82,22 @@ function ActionComponent<T>(props: CollectionListItemProps<T>) {
       />
 
       <AlertDialog
+        open={openAlertDialog}
+        onClose={() => {
+          setOpenAlertDialog(false);
+        }}
+        isSubmitting={deleteMutation.isLoading}
         title="Are you sure?"
         description="Are you sure you want to delete this item?"
         onConfirm={handleDelete}
         TriggerComponent={
-          <IconButton aria-label="delete">
+          <IconButton
+            aria-label="delete"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenAlertDialog(true);
+            }}
+          >
             <DeleteIcon fontSize="small" />
           </IconButton>
         }

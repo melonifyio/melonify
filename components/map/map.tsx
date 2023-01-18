@@ -28,6 +28,7 @@ function ActionComponent<T>(props: MapActionProps) {
   const { model, data, onUpdate, onDelete } = props;
 
   const [open, setOpen] = React.useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
 
   const handleUpdateSuccess = (data: any) => {
     onUpdate(data);
@@ -35,6 +36,7 @@ function ActionComponent<T>(props: MapActionProps) {
 
   const handleDeleteSuccess = (data: any) => {
     onDelete(data);
+    setOpenAlertDialog(false);
   };
 
   return (
@@ -54,11 +56,21 @@ function ActionComponent<T>(props: MapActionProps) {
       />
 
       <AlertDialog
+        open={openAlertDialog}
+        onClose={() => {
+          setOpenAlertDialog(false);
+        }}
         title="Are you sure?"
         description="Are you sure you want to delete this item?"
         onConfirm={() => handleDeleteSuccess(data)}
         TriggerComponent={
-          <IconButton aria-label="delete">
+          <IconButton
+            aria-label="delete"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenAlertDialog(true);
+            }}
+          >
             <DeleteIcon fontSize="small" />
           </IconButton>
         }
