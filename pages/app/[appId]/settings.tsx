@@ -1,6 +1,8 @@
 import * as React from "react";
 import Head from "next/head";
+import { useQuery } from "react-query";
 import { doc as fsdoc } from "firebase/firestore";
+import { httpsCallable } from "firebase/functions";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -16,10 +18,17 @@ import { useFirestoreDocumentMutation } from "@react-query-firebase/firestore";
 import firestore from "../../../firebase/firestore";
 import { appModel } from "../../../models/app-model";
 import removeEmpty from "../../../utils/remove-empty";
+import functions from "../../../firebase/functions";
 
 export default function Home() {
   const { appData } = useApp();
   const [openSuccessToast, setOpenSuccessToast] = React.useState(false);
+
+  const getProjectList = httpsCallable(functions, "getProjectList");
+
+  const projects = useQuery(["firebase-projects"], getProjectList);
+
+  console.log(projects);
 
   const ref = fsdoc(firestore, `apps/${appData?.id}`);
   const { mutate, isLoading } = useFirestoreDocumentMutation(ref, {
