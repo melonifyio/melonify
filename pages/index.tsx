@@ -20,7 +20,7 @@ const options = {
 
 const fetchProjects = () => {
   return axios.post(
-    "http://localhost:5001/melon-ui-7f38c/us-central1/getProjectList",
+    "https://us-central1-melon-ui-7f38c.cloudfunctions.net/getProjectList",
     undefined,
     options
   );
