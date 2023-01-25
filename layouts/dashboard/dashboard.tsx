@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useRouter } from "next/router";
+
 // @mui
 import { styled } from "@mui/material/styles";
 import { Stack } from "@mui/material";
@@ -10,6 +11,7 @@ import Nav from "./nav";
 import RequireAuth from "../require-auth";
 import AppProvider from "../app-provider";
 import useCollections from "../../hooks/useCollections";
+import auth from "../../firebase/auth";
 
 // ----------------------------------------------------------------------
 

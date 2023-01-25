@@ -16,7 +16,7 @@ import { FieldProps } from "../../components/form-field/types";
 import { useApp } from "../../hooks/useApp";
 import { Box } from "@mui/system";
 import urlify from "../../utils/urlify";
-import useMe from "../../hooks/useAuth";
+import useMe from "../../hooks/useMe";
 import removeEmpty from "../../utils/remove-empty";
 
 export const Toolbar: React.FunctionComponent<{

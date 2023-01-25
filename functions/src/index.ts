@@ -1,55 +1,90 @@
-import * as functions from "firebase-functions";
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import functions from "firebase-functions";
+import admin from "firebase-admin";
+import express from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
-// import {CloudBillingClient} from "@google-cloud/billing";
-// import {ApiKeysClient} from "@google-cloud/apikeys";
-import { ProjectsClient } from "@google-cloud/resource-manager";
 
-// Instantiates a client
-const resourcemanagerClient = new ProjectsClient();
+admin.initializeApp();
+const app = express();
 
-const corsHandler = cors({ origin: true });
+// Express middleware that validates Firebase ID Tokens passed in the Authorization HTTP header.
+// The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
+// `Authorization: Bearer <Firebase ID Token>`.
+// when decoded successfully, the ID Token content will be added as `req.user`.
+const validateFirebaseIdToken = async (req: any, res: any, next: any) => {
+  functions.logger.log("Check if request is authorized with Firebase ID token");
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
+  if (
+    (!req.headers.authorization ||
+      !req.headers.authorization.startsWith("Bearer ")) &&
+    !(req.cookies && req.cookies.__session)
+  ) {
+    functions.logger.error(
+      "No Firebase ID token was passed as a Bearer token in the Authorization header.",
+      "Make sure you authorize your request by providing the following HTTP header:",
+      "Authorization: Bearer <Firebase ID Token>",
+      'or by passing a "__session" cookie.'
+    );
+    res.status(403).send("Unauthorized");
+    return;
+  }
 
-// Retrieve projects list
-export const getProjectList = functions.https.onRequest(async (req, res) => {
-  corsHandler(req, res, async () => {
-    //   callListKeys();
-    //   callListProjects();
-    const request = {
-      query: "",
-    };
+  let idToken;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    functions.logger.log('Found "Authorization" header');
+    // Read the ID Token from the Authorization header.
+    idToken = req.headers.authorization.split("Bearer ")[1];
+  } else if (req.cookies) {
+    functions.logger.log('Found "__session" cookie');
+    // Read the ID Token from cookie.
+    idToken = req.cookies.__session;
+  } else {
+    // No cookie
+    res.status(403).send("Unauthorized");
+    return;
+  }
 
-    const iterable = await resourcemanagerClient.searchProjectsAsync(request);
+  try {
+    const decodedIdToken = await admin.auth().verifyIdToken(idToken);
+    functions.logger.log("ID Token correctly decoded", decodedIdToken);
+    req.user = decodedIdToken;
+    next();
+    return;
+  } catch (error) {
+    functions.logger.error("Error while verifying Firebase ID token:", error);
+    res.status(403).send("Unauthorized");
+    return;
+  }
+};
 
-    const projects = [];
-
-    for await (const response of iterable) {
-      projects.push(response);
-    }
-
-    console.log(projects);
-
-    res.status(200).send({ data: projects });
-  });
+app.use(cors({ origin: true }));
+app.use(cookieParser());
+app.use(validateFirebaseIdToken);
+app.get("/hello", (req, res) => {
+  // @ts-ignore
+  res.send(`Hello ${req.user.name}`);
 });
 
-// Create Project
-// export const callCreateProject = functions.https.onRequest(async (req, res) => {
-//   corsHandler(req, res, async () => {
-//     // Construct request
-//     const request = {
-//       project: {
-//         projectId: "melonify-test-project",
-//       },
-//     };
-
-//     // Run request
-//     const [operation] = await resourcemanagerClient.createProject(request);
-//     const [response] = await operation.promise();
-//     console.log(response);
-
-//     res.status(200).send({ data: [] });
-//   });
-// });
+// This HTTPS endpoint can only be accessed by your Firebase Users.
+// Requests need to be authorized by providing an `Authorization` HTTP header
+// with value `Bearer <Firebase ID Token>`.
+export const api = functions.https.onRequest(app);

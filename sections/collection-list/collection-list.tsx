@@ -27,7 +27,7 @@ import { AlertDialog } from "../../components/alert-dialog";
 import { CollectionListProps, CollectionListItemProps } from "./types";
 import FormModal from "../form-modal";
 import removeEmpty from "../../utils/remove-empty";
-import useMe from "../../hooks/useAuth";
+import useMe from "../../hooks/useMe";
 
 function ActionComponent<T>(props: CollectionListItemProps<T>) {
   const {

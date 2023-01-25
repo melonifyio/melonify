@@ -38,7 +38,7 @@ export default function LoginPage() {
         provider: new GoogleAuthProvider(),
       },
       {
-        onSuccess: () => {
+        onSuccess: (res) => {
           router.push("/");
         },
       }
