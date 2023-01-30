@@ -173,6 +173,16 @@ function CollectionTable(props: SmartTableProps) {
         components={{
           Toolbar,
           LoadingOverlay: LinearProgress,
+          NoRowsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              Empty
+            </Stack>
+          ),
+          NoResultsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              No results found
+            </Stack>
+          ),
         }}
         componentsProps={{
           panel: {

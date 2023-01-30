@@ -10,7 +10,7 @@ import EditIcon from "@mui/icons-material/EditOutlined";
 import { AlertDialog } from "../alert-dialog";
 import { FieldProps, ModelProps } from "../form-field/types";
 import { SmartList } from "../list/list";
-import FormModal from "../../sections/form-modal";
+import FormModal from "../../components/form-modal";
 
 type MapProps = FieldProps & {
   setValue: UseFormSetValue<any>;

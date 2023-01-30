@@ -7,7 +7,7 @@ import ProjectPopover from "../../components/project-popover";
 import AccountPopover from "../../components/account-popover";
 import useResponsive from "../../hooks/useResponsive";
 import useCollections from "../../hooks/useCollections";
-import StartCollectionModal from "../../sections/start-collection-modal";
+import StartCollectionModal from "../../components/start-collection-modal";
 import { useColorMode } from "../../hooks/useColorMode";
 
 const NAV_WIDTH = 280;

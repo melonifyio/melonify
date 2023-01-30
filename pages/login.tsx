@@ -13,7 +13,7 @@ import useResponsive from "../hooks/useResponsive";
 import Logo from "../components/logo";
 import Iconify from "../components/iconify";
 // sections
-import { LoginForm } from "../sections/login-form";
+import { LoginForm } from "../components/login-form";
 import AuthLayout from "../layouts/auth";
 
 const StyledContent = styled("div")(({ theme }) => ({
@@ -48,7 +48,7 @@ export default function LoginPage() {
   return (
     <Container maxWidth="xs">
       <StyledContent>
-        <Stack gap={2}>
+        <Stack gap={2} p={4}>
           <Typography variant="h4">Sign in to Melonify</Typography>
 
           <Button

@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import Simple from "../layouts/simple";
 
 import firestore from "../firebase/firestore";
-import CollectionList from "../sections/collection-list/collection-list";
+import CollectionList from "../components/collection-list/collection-list";
 import useMe from "../hooks/useMe";
 import functions from "../firebase/functions";
 

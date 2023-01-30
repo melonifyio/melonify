@@ -23,10 +23,10 @@ import AddIcon from "@mui/icons-material/Add";
 import { useApp } from "../../../../../hooks/useApp";
 import Dashboard from "../../../../../layouts/dashboard";
 import Form from "../../../../../components/form";
-import CollectionList from "../../../../../sections/collection-list";
+import CollectionList from "../../../../../components/collection-list";
 import { collectionModel } from "../../../../../models/collection-model";
 import removeEmpty from "../../../../../utils/remove-empty";
-import FormModal from "../../../../../sections/form-modal";
+import FormModal from "../../../../../components/form-modal";
 
 export default function EditCollection() {
   const [openToast, setOpenToast] = React.useState(false);
