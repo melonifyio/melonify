@@ -9,7 +9,7 @@ type MenuProps = {
   isLoading?: boolean;
 };
 
-export default function MenuProps({
+export default function Menu({
   data = [],
   isLoading,
   ...other

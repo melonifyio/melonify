@@ -1,37 +1,16 @@
 import React from "react";
 import Head from "next/head";
 
-import Stack from "@mui/material/Stack";
-import Chip from "@mui/material/Chip";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-
+import Container from "components/container";
 import Dashboard from "layouts/dashboard";
-import { useFirestoreStatus } from "hooks/use-firestore-status";
+import PageHeader from "sections/page-header";
+import FirebaseStatus from "sections/firebase-status";
 
 export default function Home() {
-  const firestoreStatus = useFirestoreStatus();
-
-  const renderStatusLabel = () => {
-    if (firestoreStatus.isLoading) return "Checking...";
-    if (firestoreStatus.connected) return "Firestore connected";
-    if (!firestoreStatus.connected) return "Firestore not connected";
-  };
-
   return (
     <Container>
-      <Stack gap={4}>
-        <Stack direction="row" gap={2} alignItems="center">
-          <Typography variant="h4">Dashboard</Typography>
-        </Stack>
-
-        <div>
-          <Chip
-            label={renderStatusLabel()}
-            color={firestoreStatus.connected ? "success" : undefined}
-          />
-        </div>
-      </Stack>
+      <PageHeader title="Dashboard" />
+      <FirebaseStatus />
     </Container>
   );
 }

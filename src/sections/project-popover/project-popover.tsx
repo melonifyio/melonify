@@ -1,22 +1,18 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-// @mui
 import {
   Box,
   Divider,
   Typography,
   Stack,
   MenuItem,
-  Avatar,
   Popover,
   Card,
   CardActionArea,
 } from "@mui/material";
 
-import Logo from "../logo";
-
-// ----------------------------------------------------------------------
+import Logo from "components/logo";
 
 const MENU_OPTIONS = [
   {
@@ -24,8 +20,6 @@ const MENU_OPTIONS = [
     label: "App Settings",
   },
 ];
-
-// ----------------------------------------------------------------------
 
 export default function ProjectPopover() {
   const [open, setOpen] = useState<HTMLButtonElement | null>();
@@ -49,13 +43,13 @@ export default function ProjectPopover() {
         <CardActionArea onClick={handleOpen}>
           <Stack direction="row" alignItems="center" p={1} gap={1}>
             <Box>
-              <Logo title={process.env.NEXT_PUBLIC_PROJECT_ID || ""} />
+              <Logo title={process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || ""} />
             </Box>
 
             <Box>
               <Box alignItems="flex-start">
                 <Typography variant="subtitle2" noWrap>
-                  {process.env.NEXT_PUBLIC_PROJECT_ID || ""}
+                  {process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || ""}
                 </Typography>
                 <Typography
                   variant="caption"

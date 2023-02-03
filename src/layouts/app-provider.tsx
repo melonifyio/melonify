@@ -1,9 +1,5 @@
 import * as React from "react";
 
-type AppContextProps = {};
-
-export const AppContext = React.createContext<AppContextProps>({});
-
 type AppProviderProps = {
   children: React.ReactNode;
 };

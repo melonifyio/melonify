@@ -20,8 +20,8 @@ import Box from "@mui/material/Box";
 
 import Dashboard from "layouts/dashboard";
 import Form from "components/form";
-import CollectionList from "components/collection-list";
-import { collectionModel } from "models/collection-model";
+import CollectionList from "sections/collection-list";
+import { collectionModel } from "constants/collection-model";
 import removeEmpty from "utils/remove-empty";
 import firestore from "config/firestore";
 
@@ -121,13 +121,5 @@ export default function EditCollection() {
 }
 
 EditCollection.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <>
-      <Head>
-        <title>Melonify</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Dashboard>{page}</Dashboard>
-    </>
-  );
+  return <Dashboard>{page}</Dashboard>;
 };

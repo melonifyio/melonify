@@ -7,10 +7,10 @@ import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
-import { AlertDialog } from "../alert-dialog";
-import { FieldProps, ModelProps } from "../form-field/types";
-import { SmartList } from "../list/list";
-import FormModal from "../../components/form-modal";
+import { AlertDialog } from "components/alert-dialog";
+import { FieldProps, ModelProps } from "components/form-field/types";
+import { SmartList } from "components/list/list";
+import FormModal from "components/form-modal";
 
 type MapProps = FieldProps & {
   setValue: UseFormSetValue<any>;

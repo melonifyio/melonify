@@ -8,7 +8,7 @@ import { Container, Typography, Stack, Snackbar } from "@mui/material";
 
 import Dashboard from "layouts/dashboard";
 import Form from "components/form";
-import { collectionModel } from "models/collection-model";
+import { collectionModel } from "constants/collection-model";
 import removeEmpty from "utils/remove-empty";
 import firestore from "config/firestore";
 
@@ -68,13 +68,5 @@ export default function CreateCollection() {
 }
 
 CreateCollection.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <>
-      <Head>
-        <title>Melonify</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Dashboard>{page}</Dashboard>
-    </>
-  );
+  return <Dashboard>{page}</Dashboard>;
 };

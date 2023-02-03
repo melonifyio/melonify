@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-// @mui
 import {
   Link,
   Stack,
@@ -11,10 +10,8 @@ import {
   Checkbox,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-// components
-import Iconify from "../../components/iconify";
 
-// ----------------------------------------------------------------------
+import Iconify from "components/iconify";
 
 export function LoginForm() {
   const router = useRouter();

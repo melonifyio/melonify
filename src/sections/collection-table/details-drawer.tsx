@@ -7,10 +7,10 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import Form from "../../components/form";
-import { ModelProps } from "../../components/form-field/types";
-import useDocument from "../../hooks/use-document";
-import useDocuments from "../../hooks/use-documents";
+import Form from "components/form";
+import { ModelProps } from "components/form-field/types";
+import useDocument from "hooks/use-document";
+import useDocuments from "hooks/use-documents";
 import CollectionTable from "./collection-table";
 
 type DetailsProps = {

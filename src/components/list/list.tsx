@@ -12,10 +12,10 @@ import ListSubheader from "@mui/material/ListSubheader";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
-import Droppable from "../../components/dragndrop/droppable";
-import Draggable from "../../components/dragndrop/draggable";
+import Droppable from "components/dragndrop/droppable";
+import Draggable from "components/dragndrop/draggable";
 
-import stringToColour from "../../utils/string-to-color";
+import stringToColour from "utils/string-to-color";
 
 type SmartListItemProps<T> = T & {
   _id: string;

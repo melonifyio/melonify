@@ -4,8 +4,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import Form from "../../components/form";
-import { FormProps } from "../../components/form/form";
+import Form from "components/form";
+import { FormProps } from "components/form/form";
 
 export default function FormModal(
   props: FormProps & {

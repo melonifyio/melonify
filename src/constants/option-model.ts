@@ -1,4 +1,4 @@
-import { ModelProps } from "../components/form-field/types";
+import { ModelProps } from "components/form-field/types";
 
 export const optionModel: ModelProps = {
   fields: {

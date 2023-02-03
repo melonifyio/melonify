@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 
 import Dashboard from "layouts/dashboard";
 import Form from "components/form";
-import { appModel } from "models/app-model";
+import { appModel } from "constants/app-model";
 
 export default function Home() {
   const [openSuccessToast, setOpenSuccessToast] = React.useState(false);
@@ -60,13 +60,5 @@ export default function Home() {
 }
 
 Home.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <>
-      <Head>
-        <title>Melonify</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Dashboard>{page}</Dashboard>
-    </>
-  );
+  return <Dashboard>{page}</Dashboard>;
 };

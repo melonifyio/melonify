@@ -3,18 +3,15 @@ import Head from "next/head";
 import { useAuthSignInWithPopup } from "@react-query-firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/router";
-// @mui
+
 import { styled } from "@mui/material/styles";
 import { Container, Typography, Stack, Button } from "@mui/material";
-// hooks
-import auth from "../config/auth";
-import useResponsive from "../hooks/use-responsive";
-// components
-import Logo from "../components/logo";
-import Iconify from "../components/iconify";
-// sections
-import { LoginForm } from "../components/login-form";
-import AuthLayout from "../layouts/auth";
+
+import auth from "config/auth";
+
+import Iconify from "components/iconify";
+
+import AuthLayout from "layouts/auth";
 
 const StyledContent = styled("div")(({ theme }) => ({
   maxWidth: 480,

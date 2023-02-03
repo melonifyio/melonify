@@ -4,7 +4,7 @@ import {
   RefetchOptions,
   RefetchQueryFilters,
 } from "react-query";
-import { ModelProps } from "../form-field/types";
+import { ModelProps } from "components/form-field/types";
 
 export type CollectionListProps = {
   firestore: Firestore;

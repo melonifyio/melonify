@@ -13,12 +13,11 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
 
-import { FieldProps } from "../form-field/types";
-import { Map } from "../map";
-import { ImageUpload } from "../image-upload";
-import { ComboBox } from "../combo-box";
+import { FieldProps } from "components/form-field/types";
+import { Map } from "components/map";
+import { ImageUpload } from "sections/image-upload";
+import { ComboBox } from "sections/combo-box";
 
 type FormFieldProps = FieldProps & {
   control: Control;

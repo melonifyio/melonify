@@ -3,8 +3,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Stack, Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { ModelProps } from "../form-field/types";
-import FormField from "../form-field";
+import { ModelProps } from "components/form-field/types";
+import FormField from "components/form-field";
 
 export type FormProps = {
   onSubmit: SubmitHandler<any>;

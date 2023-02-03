@@ -11,7 +11,7 @@ import {
   GridSelectionModel,
 } from "@mui/x-data-grid";
 
-import FormModal from "../form-modal";
+import FormModal from "components/form-modal";
 import { FieldProps } from "components/form-field/types";
 import { Box } from "@mui/system";
 import urlify from "utils/urlify";

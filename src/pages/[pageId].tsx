@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import Dashboard from "layouts/dashboard";
 import usePage from "hooks/use-page";
-import CollectionTable from "components/collection-table";
+import CollectionTable from "sections/collection-table";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -50,13 +50,5 @@ export default function GenericPage() {
 }
 
 GenericPage.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <>
-      <Head>
-        <title>Melonify</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Dashboard>{page}</Dashboard>
-    </>
-  );
+  return <Dashboard>{page}</Dashboard>;
 };

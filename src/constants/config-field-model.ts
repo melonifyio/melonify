@@ -2,8 +2,7 @@ import {
   FieldType,
   ModelProps,
   OptionsProps,
-} from "../components/form-field/types";
-import { configFieldModel } from "./config-field-model";
+} from "components/form-field/types";
 import { optionModel } from "./option-model";
 
 const fieldTypeOptions: OptionsProps = {};
@@ -15,7 +14,7 @@ Object.keys(FieldType).map((typeKey) => {
   };
 });
 
-export const fieldModel: ModelProps = {
+export const configFieldModel: ModelProps = {
   fields: {
     type: {
       fieldKey: "type",
@@ -53,13 +52,8 @@ export const fieldModel: ModelProps = {
       name: "Schema",
       type: "MAP",
       config: {
-        model: configFieldModel,
+        model: { fields: {} },
       },
-    },
-    "config.collectionName": {
-      fieldKey: "config.collectionName",
-      name: "Collection Name",
-      type: "TEXT",
     },
   },
 };

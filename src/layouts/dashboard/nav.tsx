@@ -2,13 +2,11 @@ import { useEffect } from "react";
 // @mui
 import { Box, Drawer, Stack } from "@mui/material";
 
-import Menu from "../../components/menu";
-import ProjectPopover from "../../components/project-popover";
-import AccountPopover from "../../components/account-popover";
-import useResponsive from "../../hooks/use-responsive";
-import useCollections from "../../hooks/use-collections";
-import StartCollectionModal from "../../components/start-collection-modal";
-import { useColorMode } from "../../hooks/use-color-mode";
+import Menu from "components/menu";
+import useResponsive from "hooks/use-responsive";
+import StartCollectionModal from "sections/start-collection-modal";
+import ProjectPopover from "sections/project-popover";
+import AccountPopover from "sections/account-popover";
 
 const NAV_WIDTH = 280;
 

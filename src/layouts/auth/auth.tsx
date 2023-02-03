@@ -4,7 +4,7 @@ import { useAuthUser } from "@react-query-firebase/auth";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import auth from "../../config/auth";
+import auth from "config/auth";
 
 type AuthLayoutProps = {
   children: React.ReactNode;

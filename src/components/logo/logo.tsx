@@ -1,10 +1,6 @@
-import PropTypes from "prop-types";
-import { forwardRef } from "react";
-import Link from "next/link";
-// @mui
 import { useTheme } from "@mui/material/styles";
 import { Avatar, Box } from "@mui/material";
-import stringToColour from "../../utils/string-to-color";
+import stringToColour from "utils/string-to-color";
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +22,7 @@ const Logo = (props: LogoProps) => {
         height: 44,
         backgroundColor: stringToColour(title),
         fontFamily: "Tahoma",
-        fontSize: "small",
+        fontSize: "medium",
         fontWeight: "bold",
       }}
     >

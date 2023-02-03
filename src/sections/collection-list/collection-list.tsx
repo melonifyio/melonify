@@ -22,12 +22,12 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
-import { SmartList } from "../list/list";
-import { AlertDialog } from "../alert-dialog";
+import { SmartList } from "components/list/list";
+import { AlertDialog } from "components/alert-dialog";
 import { CollectionListProps, CollectionListItemProps } from "./types";
-import FormModal from "../form-modal";
-import removeEmpty from "../../utils/remove-empty";
-import useMe from "../../hooks/use-me";
+import FormModal from "components/form-modal";
+import removeEmpty from "utils/remove-empty";
+import useMe from "hooks/use-me";
 
 function ActionComponent<T>(props: CollectionListItemProps<T>) {
   const {

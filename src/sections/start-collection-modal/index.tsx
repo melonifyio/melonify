@@ -2,9 +2,9 @@ import * as React from "react";
 import { useRouter } from "next/router";
 
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
 import AddIcon from "@mui/icons-material/Add";
-import FormModal from "../form-modal";
+
+import FormModal from "components/form-modal";
 
 type StartCollectionFormData = {
   id: string;

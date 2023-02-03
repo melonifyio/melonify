@@ -20,8 +20,8 @@ import {
   ListItemText,
 } from "@mui/material";
 
-import auth from "../../config/auth";
-import { useColorMode } from "../../hooks/use-color-mode";
+import auth from "config/auth";
+import { useColorMode } from "hooks/use-color-mode";
 
 // ----------------------------------------------------------------------
 
