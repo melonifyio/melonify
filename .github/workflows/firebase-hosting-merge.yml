@@ -8,7 +8,7 @@ name: Deploy to Firebase Hosting on merge
       - main
 env:
   NEXT_PUBLIC_FIREBASE_PROJECT_ID: melon-ui-7f38c
-  NEXT_PUBLIC_FIREBASE_PROJECT_WEB_API_KEY: "${{ secrets.FIREBASE_WEB_API_KEY }}"
+  NEXT_PUBLIC_FIREBASE_PROJECT_WEB_API_KEY: "${{ secrets.FIREBASE_PROJECT_WEB_API_KEY }}"
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
