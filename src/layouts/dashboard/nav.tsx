@@ -17,7 +17,7 @@ type NavProps = {
 };
 
 export default function Nav(props: NavProps) {
-  const { openNav, onCloseNav, items } = props;
+  const { openNav, onCloseNav, items = [] } = props;
   const isDesktop = useResponsive("up", "lg");
 
   useEffect(() => {
