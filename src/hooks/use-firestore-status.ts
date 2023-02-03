@@ -32,7 +32,7 @@ export const useFirestoreStatus = () => {
     } else {
       checkStatus();
     }
-  }, []);
+  }, [docRef]);
 
   return { connected, error, isLoading };
 };
