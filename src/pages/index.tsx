@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <Container>
       <PageHeader title="Dashboard" />
-      <FirebaseStatus />
+      {/* <FirebaseStatus /> */}
     </Container>
   );
 }
