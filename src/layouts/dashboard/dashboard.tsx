@@ -10,6 +10,7 @@ import useCollections from "hooks/use-collections";
 
 import { StyledMain, StyledRoot } from "./styled";
 import Header from "./header";
+import StartColectionFormModal from "sections/start-collection-form-modal/start-collection-form-modal";
 
 type DashboardProps = {
   children: React.ReactNode;
@@ -43,6 +44,7 @@ function DashboardLayout(props: DashboardProps) {
         onCloseNav={() => setOpen(false)}
       />
       <StyledMain>{children}</StyledMain>
+      <StartColectionFormModal />
     </StyledRoot>
   );
 }

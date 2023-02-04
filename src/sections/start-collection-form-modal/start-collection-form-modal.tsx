@@ -2,22 +2,19 @@ import * as React from "react";
 import { useRouter } from "next/router";
 
 import FormModal from "components/form-modal";
-
-type StartColectionFormModalProps = {
-  TriggerComponent: JSX.Element;
-};
+import { useStartCollectionModalStore } from "store/modals";
 
 type StartCollectionFormData = {
   id: string;
 };
 
-export default function StartColectionFormModal(
-  props: StartColectionFormModalProps
-) {
-  const { TriggerComponent } = props;
+export default function StartColectionFormModal() {
   const router = useRouter();
 
-  const [open, setOpen] = React.useState(false);
+  const open = useStartCollectionModalStore((state) => state.open);
+  const handleClose = useStartCollectionModalStore(
+    (state) => state.handleClose
+  );
 
   const onSubmit = (data: StartCollectionFormData) => {
     router.push(`/c/create/${data.id}`);
@@ -27,8 +24,7 @@ export default function StartColectionFormModal(
     <FormModal
       onSubmit={onSubmit}
       open={open}
-      onTriggerClick={() => setOpen(true)}
-      onClose={() => setOpen(false)}
+      onClose={handleClose}
       initialValues={{
         id: "",
       }}
@@ -42,7 +38,6 @@ export default function StartColectionFormModal(
           },
         },
       }}
-      TriggerComponent={TriggerComponent}
     />
   );
 }

@@ -10,9 +10,9 @@ import { FormProps } from "components/form/form";
 export default function FormModal(
   props: FormProps & {
     open: boolean;
-    onTriggerClick: () => void;
+    onTriggerClick?: () => void;
+    TriggerComponent?: JSX.Element;
     onClose: () => void;
-    TriggerComponent: JSX.Element;
   }
 ) {
   const { open, onTriggerClick, onClose, onSubmit, TriggerComponent, ...rest } =
@@ -24,7 +24,9 @@ export default function FormModal(
 
   return (
     <div>
-      <div onClick={onTriggerClick}>{TriggerComponent && TriggerComponent}</div>
+      {TriggerComponent && (
+        <div onClick={onTriggerClick}>{TriggerComponent}</div>
+      )}
 
       <Dialog open={open} onClose={onClose} maxWidth="lg">
         <DialogTitle>Add</DialogTitle>

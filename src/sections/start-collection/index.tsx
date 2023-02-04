@@ -2,17 +2,14 @@ import * as React from "react";
 
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-
-import StartColectionFormModal from "sections/start-collection-form-modal/start-collection-form-modal";
+import { useStartCollectionModalStore } from "store/modals";
 
 export default function StartCollection() {
+  const handleOpen = useStartCollectionModalStore((state) => state.handleOpen);
+
   return (
-    <StartColectionFormModal
-      TriggerComponent={
-        <Button size="small" startIcon={<AddIcon />}>
-          Start Collection
-        </Button>
-      }
-    />
+    <Button size="small" startIcon={<AddIcon />} onClick={handleOpen}>
+      Start Collection
+    </Button>
   );
 }
