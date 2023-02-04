@@ -12,7 +12,7 @@ import {
   CardActionArea,
 } from "@mui/material";
 
-import Logo from "components/logo";
+import Logo from "components/avatar";
 
 const MENU_OPTIONS = [
   {

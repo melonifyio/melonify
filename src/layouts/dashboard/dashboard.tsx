@@ -9,6 +9,7 @@ import AppProvider from "../app-provider";
 import useCollections from "hooks/use-collections";
 
 import { StyledMain, StyledRoot } from "./styled";
+import Header from "./header";
 
 type DashboardProps = {
   children: React.ReactNode;
@@ -35,7 +36,7 @@ function DashboardLayout(props: DashboardProps) {
 
   return (
     <StyledRoot>
-      {/* <Header onOpenNav={() => setOpen(true)} /> */}
+      <Header onOpenNav={() => setOpen(true)} />
       <Nav
         items={collections.data}
         openNav={open}

@@ -4,13 +4,15 @@ import { useRouter } from "next/router";
 import { useFirestoreDocumentMutation } from "@react-query-firebase/firestore";
 import { doc } from "firebase/firestore";
 
-import { Container, Typography, Stack, Snackbar } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 
 import Dashboard from "layouts/dashboard";
 import Form from "components/form";
+import Container from "components/container";
 import { collectionModel } from "constants/collection-model";
 import removeEmpty from "utils/remove-empty";
 import firestore from "config/firestore";
+import PageHeader from "sections/page-header/page-header";
 
 type CreateCollectionFormData = {
   title: string;
@@ -47,15 +49,13 @@ export default function CreateCollection() {
 
   return (
     <Container>
-      <Stack gap={4}>
-        <Typography variant="h4">Create collection</Typography>
+      <PageHeader title="Create collection" />
 
-        <Form
-          onSubmit={onSubmit}
-          model={collectionModel}
-          isSubmitting={mutation.isLoading}
-        />
-      </Stack>
+      <Form
+        onSubmit={onSubmit}
+        model={collectionModel}
+        isSubmitting={mutation.isLoading}
+      />
 
       <Snackbar
         open={openToast}

@@ -7,16 +7,21 @@ import Divider from "@mui/material/Divider";
 type PageHeaderProps = {
   title: string;
   subtitle?: string;
+  actions?: JSX.Element;
 };
 
 export default function PageHeader(props: PageHeaderProps) {
-  const { title } = props;
+  const { title, actions } = props;
 
   return (
-    <Stack>
-      <Typography variant="h4">{title}</Typography>
+    <>
+      <Stack direction="row" gap={2}>
+        <Typography variant="h4">{title}</Typography>
 
-      <Divider sx={{ my: 2 }} />
-    </Stack>
+        {actions && actions}
+      </Stack>
+
+      <Divider light />
+    </>
   );
 }

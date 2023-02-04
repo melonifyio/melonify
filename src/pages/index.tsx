@@ -5,12 +5,16 @@ import Container from "components/container";
 import Dashboard from "layouts/dashboard";
 import PageHeader from "sections/page-header";
 import FirebaseStatus from "sections/firebase-status";
+import Collections from "sections/collections/collections";
+import CreateFab from "sections/start-collection-fab/start-collection-fab";
 
 export default function Home() {
   return (
     <Container>
-      <PageHeader title="Dashboard" />
+      <PageHeader title="Home" />
       {/* <FirebaseStatus /> */}
+      <Collections />
+      <CreateFab />
     </Container>
   );
 }

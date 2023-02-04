@@ -1,13 +1,15 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { Container, Typography, Stack, IconButton } from "@mui/material";
+import { Stack, IconButton } from "@mui/material";
 import SettingIcon from "@mui/icons-material/SettingsOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import Dashboard from "layouts/dashboard";
 import usePage from "hooks/use-page";
 import CollectionTable from "sections/collection-table";
+import PageHeader from "sections/page-header";
+import Container from "components/container";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -27,10 +29,9 @@ export default function GenericPage() {
 
   return (
     <Container>
-      <Stack gap={4}>
-        <Stack direction="row" gap={2} alignItems="center">
-          <Typography variant="h4">{page.data?.title}</Typography>
-
+      <PageHeader
+        title={page.data?.title}
+        actions={
           <IconButton
             onClick={() => {
               router.push(`/c/edit/${pageId}`);
@@ -38,13 +39,13 @@ export default function GenericPage() {
           >
             <SettingIcon fontSize="small" />
           </IconButton>
-        </Stack>
+        }
+      />
 
-        <CollectionTable
-          collectionName={page.data._id}
-          model={{ fields: page.data.schema }}
-        />
-      </Stack>
+      <CollectionTable
+        collectionName={page.data._id}
+        model={{ fields: page.data.schema }}
+      />
     </Container>
   );
 }

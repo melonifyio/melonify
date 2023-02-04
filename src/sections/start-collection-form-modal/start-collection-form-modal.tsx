@@ -1,16 +1,20 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-
 import FormModal from "components/form-modal";
+
+type StartColectionFormModalProps = {
+  TriggerComponent: JSX.Element;
+};
 
 type StartCollectionFormData = {
   id: string;
 };
 
-export default function StartCollectionModal() {
+export default function StartColectionFormModal(
+  props: StartColectionFormModalProps
+) {
+  const { TriggerComponent } = props;
   const router = useRouter();
 
   const [open, setOpen] = React.useState(false);
@@ -38,11 +42,7 @@ export default function StartCollectionModal() {
           },
         },
       }}
-      TriggerComponent={
-        <Button size="small" startIcon={<AddIcon />}>
-          Start Collection
-        </Button>
-      }
+      TriggerComponent={TriggerComponent}
     />
   );
 }

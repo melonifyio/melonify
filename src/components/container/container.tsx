@@ -12,7 +12,7 @@ export default function Container(props: ContainerProps) {
 
   return (
     <MuiContainer>
-      <Stack gap={4}>{children}</Stack>
+      <Stack gap={3}>{children}</Stack>
     </MuiContainer>
   );
 }

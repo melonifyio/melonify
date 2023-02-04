@@ -11,6 +11,8 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 type CardProps = {
   title: string;
   label?: string;
@@ -24,21 +26,13 @@ export default function Card(props: CardProps) {
   return (
     <Box sx={{ minWidth: 275 }}>
       <MuiCard variant="outlined">
-        {/* <CardActionArea onClick={onClick}> */}
-        <CardHeader
-          avatar={<Avatar aria-label="recipe">R</Avatar>}
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={title}
-          subheader={label}
-        />
-        <CardContent></CardContent>
-        {/* </CardActionArea> */}
+        <CardActionArea onClick={onClick}>
+          <CardContent>
+            <Typography variant="h6">{title}</Typography>
+          </CardContent>
+        </CardActionArea>
         <CardActions>
-          <Button size="small" onClick={onClick}>
+          <Button endIcon={<ChevronRightIcon />} size="small" onClick={onClick}>
             Open
           </Button>
         </CardActions>

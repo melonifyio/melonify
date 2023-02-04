@@ -4,9 +4,10 @@ import { Box, Drawer, Stack } from "@mui/material";
 
 import Menu from "components/menu";
 import useResponsive from "hooks/use-responsive";
-import StartCollectionModal from "sections/start-collection-modal";
+import StartCollection from "sections/start-collection";
 import ProjectPopover from "sections/project-popover";
 import AccountPopover from "sections/account-popover";
+import Logo from "sections/logo";
 
 const NAV_WIDTH = 280;
 
@@ -30,17 +31,15 @@ export default function Nav(props: NavProps) {
   const renderContent = (
     <Stack height="100%" gap={4} p={2}>
       <Box>
-        <ProjectPopover />
+        <Logo />
       </Box>
 
       <Box>
-        <Menu
-          data={[{ _id: "", title: "Dashboard", home: true }, ...items] || []}
-        />
+        <Menu data={[{ _id: "", title: "Home", home: true }, ...items] || []} />
       </Box>
 
       <Box>
-        <StartCollectionModal />
+        <StartCollection />
       </Box>
 
       <Box sx={{ flexGrow: 1 }} />

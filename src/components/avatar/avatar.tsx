@@ -1,20 +1,18 @@
 import { useTheme } from "@mui/material/styles";
-import { Avatar, Box } from "@mui/material";
+import MuiAvatar from "@mui/material/Avatar";
 import stringToColour from "utils/string-to-color";
 
-// ----------------------------------------------------------------------
-
-type LogoProps = {
+type AvatarProps = {
   title: string;
   src?: string;
 };
 
-const Logo = (props: LogoProps) => {
+const Avatar = (props: AvatarProps) => {
   const { title, src } = props;
   const theme = useTheme();
 
   const logo = (
-    <Avatar
+    <MuiAvatar
       src={src}
       sx={{
         borderRadius: 1,
@@ -27,10 +25,10 @@ const Logo = (props: LogoProps) => {
       }}
     >
       {title ? title.charAt(0) : ""}
-    </Avatar>
+    </MuiAvatar>
   );
 
   return logo;
 };
 
-export default Logo;
+export default Avatar;
