@@ -17,6 +17,7 @@ import EmptyState from "components/empty-state";
 import { useSchemSettingsModalStore } from "store/modals";
 import SchemaSettingsModal from "sections/schema-settings-modal";
 import useDocument from "hooks/use-document";
+import SubcollectionsSettingsModal from "sections/subcollections-settings-modal";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function GenericPage() {
     <Container>
       <PageHeader
         title={page.query.data?.collectionId}
-        actions={<CollectionToolbar />}
+        actions={<CollectionToolbar id={page.query.data._id} />}
       />
 
       {!Object.keys(page.query.data.schema || {}).length ? (
@@ -70,6 +71,7 @@ export default function GenericPage() {
       )}
 
       <SchemaSettingsModal id={page.query.data._id} />
+      <SubcollectionsSettingsModal id={page.query.data._id} />
     </Container>
   );
 }

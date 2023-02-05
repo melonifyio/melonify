@@ -2,6 +2,7 @@ import { doc } from "firebase/firestore";
 import {
   useFirestoreDocumentData,
   useFirestoreDocumentMutation,
+  useFirestoreDocumentDeletion,
 } from "@react-query-firebase/firestore";
 import firestore from "config/firestore";
 
@@ -33,7 +34,9 @@ const useDocument = ({
     merge: true,
   });
 
-  return { query, update };
+  const remove = useFirestoreDocumentDeletion(ref);
+
+  return { query, update, remove };
 };
 
 export default useDocument;

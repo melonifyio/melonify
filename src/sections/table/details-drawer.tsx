@@ -14,6 +14,7 @@ import CollectionTable from "./table";
 import Form from "components/form";
 import FormFields from "components/form-fields/form-fields";
 import { LoadingButton } from "@mui/lab";
+import { Typography } from "@mui/material";
 
 type DetailsProps = {
   open: boolean;
@@ -76,7 +77,7 @@ export const DetailsDrawer = (props: DetailsProps) => {
                 },
               });
             }}
-            titleComponent="Edit document"
+            titleComponent={<Typography variant="h5">Edit document</Typography>}
             contentComponent={(fieldProps) => (
               <FormFields fields={model.fields} {...fieldProps} />
             )}

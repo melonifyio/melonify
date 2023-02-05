@@ -7,13 +7,24 @@ import PageHeader from "sections/page-header";
 import FirebaseStatus from "sections/firebase-status";
 import StartCollectionFab from "sections/start-collection-fab";
 import CollectionList from "sections/collection-list";
+import EmptyState from "components/empty-state";
+import StartCollectionButton from "sections/start-collection-button";
 
 export default function Home() {
   return (
     <Container>
       <PageHeader title="Collections" />
       {/* <FirebaseStatus /> */}
-      <CollectionList />
+      <CollectionList
+        collectionName="_melonify_/config/collections"
+        emptyState={
+          <EmptyState
+            title="Get started"
+            description="Start your first collection"
+            actions={<StartCollectionButton variant="contained" />}
+          />
+        }
+      />
       <StartCollectionFab />
     </Container>
   );

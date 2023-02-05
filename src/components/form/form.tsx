@@ -1,3 +1,4 @@
+import { Stack } from "@mui/system";
 import * as React from "react";
 import {
   Control,
@@ -55,9 +56,11 @@ export default function Form(props: FormProps) {
 
   return (
     <form onSubmit={handleSubmitWithoutPropagation}>
-      {titleComponent}
-      {contentComponent({ control, setValue, handleSubmit })}
-      {actionsComponent}
+      <Stack gap={2}>
+        {titleComponent}
+        {contentComponent({ control, setValue, handleSubmit })}
+        {actionsComponent}
+      </Stack>
     </form>
   );
 }

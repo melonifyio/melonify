@@ -1,3 +1,4 @@
+import * as React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -8,12 +9,35 @@ import SettingIcon from "@mui/icons-material/SettingsOutlined";
 import SchemaIcon from "@mui/icons-material/Schema";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FolderIcon from "@mui/icons-material/Folder";
-import { useSchemSettingsModalStore } from "store/modals";
+import {
+  useSchemSettingsModalStore,
+  useSubcollectionsSettingsModalStore,
+} from "store/modals";
+import { AlertDialog } from "components/alert-dialog";
+import useDocument from "hooks/use-document";
 
-export default function CollectionToolbar() {
+type CollectionToolbarProps = {
+  id: string;
+};
+
+export default function CollectionToolbar(props: CollectionToolbarProps) {
+  const { id } = props;
+
+  const router = useRouter();
+
+  const document = useDocument({
+    collectionName: "_melonify_/config/collections",
+    id,
+  });
+
+  const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
+
   const handleOpenSchemaSettingsModal = useSchemSettingsModalStore(
     (state) => state.handleOpen
   );
+
+  const handleOpenSubcollectionsSettingsModal =
+    useSubcollectionsSettingsModalStore((state) => state.handleOpen);
 
   return (
     <ButtonGroup>
@@ -23,7 +47,7 @@ export default function CollectionToolbar() {
         </IconButton>
       </Tooltip>
       <Tooltip title="Subcollections">
-        <IconButton onClick={() => {}}>
+        <IconButton onClick={handleOpenSubcollectionsSettingsModal}>
           <FolderIcon />
         </IconButton>
       </Tooltip>
@@ -33,9 +57,35 @@ export default function CollectionToolbar() {
         </IconButton>
       </Tooltip>
       <Tooltip title="Delete">
-        <IconButton onClick={() => {}}>
-          <DeleteIcon />
-        </IconButton>
+        <AlertDialog
+          open={openAlertDialog}
+          onClose={() => {
+            setOpenAlertDialog(false);
+          }}
+          title="Are you sure?"
+          description="Are you sure you want to delete this item?"
+          onConfirm={() => {
+            document.remove.mutate(undefined, {
+              onSuccess: () => {
+                setOpenAlertDialog(false);
+                router.push("/");
+              },
+            });
+          }}
+          TriggerComponent={
+            <IconButton
+              aria-label="delete"
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenAlertDialog(true);
+              }}
+            >
+              <IconButton onClick={() => {}}>
+                <DeleteIcon />
+              </IconButton>
+            </IconButton>
+          }
+        />
       </Tooltip>
     </ButtonGroup>
   );

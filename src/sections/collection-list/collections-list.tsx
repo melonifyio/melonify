@@ -7,23 +7,24 @@ import Card from "components/card";
 import EmptyState from "components/empty-state";
 import StartCollectionButton from "sections/start-collection-button";
 import StartCollectionFab from "sections/start-collection-fab/start-collection-fab";
+import { Typography } from "@mui/material";
 
-export default function CollectionsList() {
+type CollectionsListProps = {
+  collectionName: string;
+  emptyState?: JSX.Element;
+};
+
+export default function CollectionsList(props: CollectionsListProps) {
+  const { collectionName, emptyState } = props;
+
   const { data = [], isLoading } = useGetDocuments({
-    collectionName: "_melonify_/config/collections",
+    collectionName,
   });
   const router = useRouter();
 
   if (isLoading) return <CircularProgress />;
 
-  if (data.length === 0)
-    return (
-      <EmptyState
-        title="Get started"
-        description="Start your first collection"
-        actions={<StartCollectionButton variant="contained" />}
-      />
-    );
+  if (data.length === 0) return emptyState || <Typography>Empty</Typography>;
 
   return (
     <>
