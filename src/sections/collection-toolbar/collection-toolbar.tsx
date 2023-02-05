@@ -9,7 +9,10 @@ import SettingIcon from "@mui/icons-material/SettingsOutlined";
 import SchemaIcon from "@mui/icons-material/Schema";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FolderIcon from "@mui/icons-material/Folder";
-import { useSchemaSettingsModalStore } from "store/modals";
+import {
+  useCollectionSettingsModalStore,
+  useSchemaSettingsModalStore,
+} from "store/modals";
 import { AlertDialog } from "components/alert-dialog";
 import useDocument from "hooks/use-document";
 
@@ -33,6 +36,10 @@ export default function CollectionToolbar(props: CollectionToolbarProps) {
     (state) => state.handleOpen
   );
 
+  const handleOpenCollectionSettingsModal = useCollectionSettingsModalStore(
+    (state) => state.handleOpen
+  );
+
   return (
     <ButtonGroup>
       <Tooltip title="Schema">
@@ -41,7 +48,7 @@ export default function CollectionToolbar(props: CollectionToolbarProps) {
         </IconButton>
       </Tooltip>
       <Tooltip title="Settings">
-        <IconButton onClick={() => {}}>
+        <IconButton onClick={handleOpenCollectionSettingsModal}>
           <SettingIcon />
         </IconButton>
       </Tooltip>
