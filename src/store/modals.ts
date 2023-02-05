@@ -12,16 +12,8 @@ export const useStartCollectionModalStore = create<ModalState>((set) => ({
   handleClose: () => set({ open: false }),
 }));
 
-export const useSchemSettingsModalStore = create<ModalState>((set) => ({
+export const useSchemaSettingsModalStore = create<ModalState>((set) => ({
   open: false,
   handleOpen: () => set((state) => ({ open: true })),
   handleClose: () => set({ open: false }),
 }));
-
-export const useSubcollectionsSettingsModalStore = create<ModalState>(
-  (set) => ({
-    open: false,
-    handleOpen: () => set((state) => ({ open: true })),
-    handleClose: () => set({ open: false }),
-  })
-);

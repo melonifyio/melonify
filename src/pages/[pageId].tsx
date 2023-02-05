@@ -14,16 +14,15 @@ import PageHeader from "sections/page-header";
 import Container from "components/container";
 import CollectionToolbar from "sections/collection-toolbar";
 import EmptyState from "components/empty-state";
-import { useSchemSettingsModalStore } from "store/modals";
+import { useSchemaSettingsModalStore } from "store/modals";
 import SchemaSettingsModal from "sections/schema-settings-modal";
 import useDocument from "hooks/use-document";
-import SubcollectionsSettingsModal from "sections/subcollections-settings-modal";
 
 export default function GenericPage() {
   const router = useRouter();
   const pageId = router.query.pageId;
 
-  const handleOpenSchemaSettingsModal = useSchemSettingsModalStore(
+  const handleOpenSchemaSettingsModal = useSchemaSettingsModalStore(
     (state) => state.handleOpen
   );
 
@@ -65,13 +64,12 @@ export default function GenericPage() {
         />
       ) : (
         <CollectionTable
-          collectionName={page.query.data._id}
-          model={{ fields: page.query.data.schema }}
+          collectionName={page.query.data.collectionId}
+          model={page.query.data.schema}
         />
       )}
 
       <SchemaSettingsModal id={page.query.data._id} />
-      <SubcollectionsSettingsModal id={page.query.data._id} />
     </Container>
   );
 }

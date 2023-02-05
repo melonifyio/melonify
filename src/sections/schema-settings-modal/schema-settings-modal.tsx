@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import FormModal from "components/form-modal";
-import { useSchemSettingsModalStore } from "store/modals";
+import { useSchemaSettingsModalStore } from "store/modals";
 import FormFields from "components/form-fields/form-fields";
 import useDocument from "hooks/use-document";
 import { SCHEMA_MODEL } from "constants/collection";
@@ -23,9 +23,9 @@ export default function SchemaSettingsModal(props: SchemaSettingsModalProps) {
     id,
   });
 
-  const open = useSchemSettingsModalStore((state) => state.open);
+  const open = useSchemaSettingsModalStore((state) => state.open);
 
-  const handleClose = useSchemSettingsModalStore((state) => state.handleClose);
+  const handleClose = useSchemaSettingsModalStore((state) => state.handleClose);
 
   const onSubmit = (data: SchemaSettingsData) => {
     document.update.mutate(data, {

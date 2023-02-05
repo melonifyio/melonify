@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useTheme } from "@mui/material";
-import { useFirestoreCollectionMutation } from "@react-query-firebase/firestore";
-import { getFirestore, collection, Timestamp } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
@@ -17,8 +16,9 @@ import { Box } from "@mui/system";
 import urlify from "utils/urlify";
 import useMe from "hooks/use-me";
 import removeEmpty from "utils/remove-empty";
-import firestore from "config/firestore";
 import FormFields from "components/form-fields/form-fields";
+import useCreateDocument from "hooks/use-create-document";
+import deleteByValue from "utils/delete-by-value";
 
 export const Toolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
@@ -36,13 +36,11 @@ export const Toolbar: React.FunctionComponent<{
 
   const [open, setOpen] = React.useState(false);
 
-  const ref = collection(firestore, collectionName);
-  const mutation = useFirestoreCollectionMutation(ref);
+  const mutation = useCreateDocument({ collectionName });
 
   const timestampsValues = {
     createdAt: Timestamp.now(),
-    updatedAt: Timestamp.now(),
-    owner: {
+    createdBy: {
       uid: me?.data?.uid,
       email: me?.data?.email,
       displayName: me?.data?.displayName,
@@ -97,7 +95,10 @@ export const Toolbar: React.FunctionComponent<{
           onClose={() => setOpen(false)}
           isSubmitting={mutation.isLoading}
           contentComponent={(fieldProps) => (
-            <FormFields fields={model.fields} {...fieldProps} />
+            <FormFields
+              fields={deleteByValue(model, "type", "SUBCOLLECTION")}
+              {...fieldProps}
+            />
           )}
         />
       </Box>

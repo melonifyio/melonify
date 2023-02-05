@@ -9,12 +9,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { ModelProps } from "components/form-fields/types";
 import useDocument from "hooks/use-document";
-import useDocuments from "hooks/use-get-documents";
-import CollectionTable from "./table";
 import Form from "components/form";
 import FormFields from "components/form-fields/form-fields";
 import { LoadingButton } from "@mui/lab";
 import { Typography } from "@mui/material";
+import deleteByValue from "utils/delete-by-value";
+import { SubcollectionTabs } from "./subcollections";
 
 type DetailsProps = {
   open: boolean;
@@ -35,9 +35,11 @@ export const DetailsDrawer = (props: DetailsProps) => {
     id: documentId,
   });
 
-  const subcollections = useDocuments({
-    collectionName: `_melonify_/config/collections/${collectionName}/subcollections`,
-  });
+  const subcollections = Object.keys(model)
+    .filter((fieldKey) => model[fieldKey].type === "SUBCOLLECTION")
+    .map((fieldKey) => {
+      return model[fieldKey];
+    });
 
   const handleCloseToast = (
     event: React.SyntheticEvent | Event,
@@ -77,9 +79,12 @@ export const DetailsDrawer = (props: DetailsProps) => {
                 },
               });
             }}
-            titleComponent={<Typography variant="h5">Edit document</Typography>}
+            titleComponent={<Typography variant="h4">Edit document</Typography>}
             contentComponent={(fieldProps) => (
-              <FormFields fields={model.fields} {...fieldProps} />
+              <FormFields
+                fields={deleteByValue(model, "type", "SUBCOLLECTION")}
+                {...fieldProps}
+              />
             )}
             actionsComponent={
               <LoadingButton
@@ -92,15 +97,13 @@ export const DetailsDrawer = (props: DetailsProps) => {
             }
           />
 
-          {subcollections.data &&
-            subcollections.data?.map((item) => (
-              <CollectionTable
-                key={item._id}
-                title={item.title}
-                collectionName={`${collectionName}/${documentId}/${item.title}`}
-                model={{ fields: item.schema }}
-              />
-            ))}
+          {subcollections && subcollections.length > 0 && (
+            <SubcollectionTabs
+              subcollections={subcollections}
+              collectionName={collectionName}
+              documentId={documentId}
+            />
+          )}
         </Stack>
       </Box>
 

@@ -9,10 +9,7 @@ import SettingIcon from "@mui/icons-material/SettingsOutlined";
 import SchemaIcon from "@mui/icons-material/Schema";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FolderIcon from "@mui/icons-material/Folder";
-import {
-  useSchemSettingsModalStore,
-  useSubcollectionsSettingsModalStore,
-} from "store/modals";
+import { useSchemaSettingsModalStore } from "store/modals";
 import { AlertDialog } from "components/alert-dialog";
 import useDocument from "hooks/use-document";
 
@@ -32,23 +29,15 @@ export default function CollectionToolbar(props: CollectionToolbarProps) {
 
   const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
 
-  const handleOpenSchemaSettingsModal = useSchemSettingsModalStore(
+  const handleOpenSchemaSettingsModal = useSchemaSettingsModalStore(
     (state) => state.handleOpen
   );
-
-  const handleOpenSubcollectionsSettingsModal =
-    useSubcollectionsSettingsModalStore((state) => state.handleOpen);
 
   return (
     <ButtonGroup>
       <Tooltip title="Schema">
         <IconButton onClick={handleOpenSchemaSettingsModal}>
           <SchemaIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Subcollections">
-        <IconButton onClick={handleOpenSubcollectionsSettingsModal}>
-          <FolderIcon />
         </IconButton>
       </Tooltip>
       <Tooltip title="Settings">
@@ -80,9 +69,7 @@ export default function CollectionToolbar(props: CollectionToolbarProps) {
                 setOpenAlertDialog(true);
               }}
             >
-              <IconButton onClick={() => {}}>
-                <DeleteIcon />
-              </IconButton>
+              <DeleteIcon />
             </IconButton>
           }
         />

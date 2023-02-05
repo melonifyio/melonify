@@ -157,7 +157,7 @@ function Table(props: SmartTableProps) {
   }, [query_, documents]);
 
   return (
-    <Box sx={{ height: "68vh", width: "100%" }}>
+    <Box sx={{ height: "68vh", width: "100%", p: 0 }}>
       {title && (
         <Typography variant="subtitle1" my={2}>
           {title}

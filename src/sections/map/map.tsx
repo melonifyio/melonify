@@ -31,8 +31,9 @@ function ActionComponent<T>(props: MapActionProps) {
   const [open, setOpen] = React.useState(false);
   const [openAlertDialog, setOpenAlertDialog] = React.useState(false);
 
-  const handleUpdateSuccess = (data: any) => {
+  const handleSubmit = (data: any) => {
     onUpdate(data);
+    setOpen(false);
   };
 
   const handleDeleteSuccess = (data: any) => {
@@ -49,12 +50,13 @@ function ActionComponent<T>(props: MapActionProps) {
       <FormModal
         maxWidth="xs"
         title="Edit field"
-        onSubmit={handleUpdateSuccess}
+        submitButtonLabel="Save"
+        onSubmit={handleSubmit}
         open={open}
         onClose={() => setOpen(false)}
         initialValues={data}
         contentComponent={(fieldProps) => (
-          <FormFields fields={model.fields} {...fieldProps} />
+          <FormFields fields={model} {...fieldProps} />
         )}
       />
 
@@ -120,17 +122,14 @@ export function Map(props: MapProps) {
               setOpen(false);
             }}
             contentComponent={(fieldProps) => (
-              <FormFields
-                fields={config?.model?.fields || {}}
-                {...fieldProps}
-              />
+              <FormFields fields={config?.model || {}} {...fieldProps} />
             )}
           />
         </>
       }
       ActionComponent={(item) => (
         <ActionComponent
-          model={config?.model || { fields: {} }}
+          model={config?.model || {}}
           data={item}
           onUpdate={(data) => {
             setValue(fieldKey, { ...valueObj, [data.fieldKey]: data });

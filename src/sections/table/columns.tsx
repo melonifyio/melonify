@@ -8,7 +8,7 @@ import {
   GridRenderCellParams,
   getGridStringOperators,
 } from "@mui/x-data-grid";
-import { FieldProps } from "components/form-fields/types";
+import { FieldProps, ModelProps } from "components/form-fields/types";
 import { TableField } from "components/table-field/table-field";
 import { AlertDialog } from "components/alert-dialog";
 import { useFirestoreDocumentDeletion } from "@react-query-firebase/firestore";
@@ -85,28 +85,24 @@ const DeleteAction = ({
 };
 
 export const columns = (
-  model: {
-    fields: Record<string, FieldProps>;
-  },
+  model: ModelProps,
   collectionName: string,
   refetch: () => void
 ): GridColDef[] => {
-  const fieldKeys = Object.keys(model.fields || {});
+  const fieldKeys = Object.keys(model || {});
   const fieldKeysSorted = fieldKeys.sort(function (a, b) {
-    return (model.fields[a].index || 0) - (model.fields[b].index || 0);
+    return (model[a].index || 0) - (model[b].index || 0);
   });
 
   const transformedColumns = fieldKeysSorted.map((fieldKey) => ({
-    field: model.fields[fieldKey].fieldKey,
-    headerName: model.fields[fieldKey].name,
-    width: getColumnWidth(model.fields[fieldKey].type),
-    flex: getColumnFlex(model.fields[fieldKey].type),
-    filterable: getFilterable(model.fields[fieldKey].type),
+    field: model[fieldKey].fieldKey,
+    headerName: model[fieldKey].name,
+    width: getColumnWidth(model[fieldKey].type),
+    flex: getColumnFlex(model[fieldKey].type),
+    filterable: getFilterable(model[fieldKey].type),
     filterOperators,
     renderCell: (params: GridRenderCellParams<any>) => {
-      return (
-        <TableField type={model.fields[fieldKey].type} value={params.value} />
-      );
+      return <TableField type={model[fieldKey].type} value={params.value} />;
     },
   }));
 

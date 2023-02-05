@@ -5,27 +5,32 @@ import FormModal from "components/form-modal";
 import { useStartCollectionModalStore } from "store/modals";
 import FormFields from "components/form-fields/form-fields";
 import useCreateDocument from "hooks/use-create-document";
+import { Breakpoint } from "@mui/material";
 
 type ColectionSettingsData = {
   id: string;
 };
 
-export default function ColectionSettingsModal() {
+type StartCollectionModalProps = {
+  collectionName: string;
+  open: boolean;
+  onClose: () => void;
+  maxWidth?: Breakpoint;
+};
+
+export default function StartCollectionModal(props: StartCollectionModalProps) {
+  const { collectionName, open, onClose, maxWidth } = props;
+
   const router = useRouter();
 
   const createCollection = useCreateDocument({
-    collectionName: "_melonify_/config/collections",
+    collectionName,
   });
-
-  const open = useStartCollectionModalStore((state) => state.open);
-  const handleClose = useStartCollectionModalStore(
-    (state) => state.handleClose
-  );
 
   const onSubmit = (data: ColectionSettingsData) => {
     createCollection.mutate(data, {
       onSuccess: () => {
-        handleClose();
+        onClose();
       },
     });
     // router.push(`/c/create/${data.id}`);
@@ -38,7 +43,8 @@ export default function ColectionSettingsModal() {
       isSubmitting={createCollection.isLoading}
       submitButtonLabel="Create"
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
+      maxWidth={maxWidth}
       initialValues={{
         title: "",
         collectionId: "",
