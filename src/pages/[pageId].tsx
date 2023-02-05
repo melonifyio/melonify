@@ -1,23 +1,37 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { Stack, IconButton } from "@mui/material";
-import SettingIcon from "@mui/icons-material/SettingsOutlined";
+import { Stack } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
+
+import SchemaIcon from "@mui/icons-material/Schema";
 
 import Dashboard from "layouts/dashboard";
 import usePage from "hooks/use-page";
-import CollectionTable from "sections/collection-table";
+import CollectionTable from "sections/table";
 import PageHeader from "sections/page-header";
 import Container from "components/container";
+import CollectionToolbar from "sections/collection-toolbar";
+import EmptyState from "components/empty-state";
+import { useSchemSettingsModalStore } from "store/modals";
+import SchemaSettingsModal from "sections/schema-settings-modal";
+import useDocument from "hooks/use-document";
 
 export default function GenericPage() {
   const router = useRouter();
   const pageId = router.query.pageId;
 
-  const page = usePage({ id: pageId as string });
+  const handleOpenSchemaSettingsModal = useSchemSettingsModalStore(
+    (state) => state.handleOpen
+  );
 
-  if (page.isLoading) {
+  const page = useDocument({
+    collectionName: "_melonify_/config/collections",
+    id: pageId as string,
+  });
+
+  if (page.query.isLoading) {
     return (
       <Stack direction="row" p={10} alignItems="center" justifyContent="center">
         <CircularProgress size={24} />
@@ -25,27 +39,37 @@ export default function GenericPage() {
     );
   }
 
-  if (!page.data) return <div>Page not found</div>;
+  if (!page.query.data) return <div>Page not found</div>;
 
   return (
     <Container>
       <PageHeader
-        title={page.data?.title}
-        actions={
-          <IconButton
-            onClick={() => {
-              router.push(`/c/edit/${pageId}`);
-            }}
-          >
-            <SettingIcon fontSize="small" />
-          </IconButton>
-        }
+        title={page.query.data?.collectionId}
+        actions={<CollectionToolbar />}
       />
 
-      <CollectionTable
-        collectionName={page.data._id}
-        model={{ fields: page.data.schema }}
-      />
+      {!Object.keys(page.query.data.schema || {}).length ? (
+        <EmptyState
+          title="Define schema"
+          description="Organize the collection schema"
+          actions={
+            <Button
+              variant="contained"
+              startIcon={<SchemaIcon />}
+              onClick={handleOpenSchemaSettingsModal}
+            >
+              Schema
+            </Button>
+          }
+        />
+      ) : (
+        <CollectionTable
+          collectionName={page.query.data._id}
+          model={{ fields: page.query.data.schema }}
+        />
+      )}
+
+      <SchemaSettingsModal id={page.query.data._id} />
     </Container>
   );
 }

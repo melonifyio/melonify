@@ -14,6 +14,7 @@ export type OptionsProps = Record<string, { fieldKey: string; name: string }>;
 export type FieldProps = {
   fieldKey: string;
   name: string;
+  helperText?: string;
   type: keyof typeof FieldType;
   config?: {
     model?: {

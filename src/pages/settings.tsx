@@ -8,7 +8,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
 import Dashboard from "layouts/dashboard";
-import Form from "components/form";
 import { appModel } from "constants/app-model";
 
 export default function Home() {
@@ -32,14 +31,7 @@ export default function Home() {
           <Typography variant="h4">App Settings</Typography>
         </Stack>
 
-        <Container maxWidth="sm">
-          <Form
-            model={appModel}
-            initialValues={{}}
-            onSubmit={() => {}}
-            isSubmitting
-          />
-        </Container>
+        <Container maxWidth="sm"></Container>
       </Stack>
 
       <Snackbar

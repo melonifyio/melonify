@@ -8,7 +8,7 @@ import {
   GridRenderCellParams,
   getGridStringOperators,
 } from "@mui/x-data-grid";
-import { FieldProps } from "components/form-field/types";
+import { FieldProps } from "components/form-fields/types";
 import { TableField } from "components/table-field/table-field";
 import { AlertDialog } from "components/alert-dialog";
 import { useFirestoreDocumentDeletion } from "@react-query-firebase/firestore";

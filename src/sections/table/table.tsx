@@ -33,7 +33,7 @@ import firestore from "config/firestore";
 
 const PAGE_SIZE = 10;
 
-function CollectionTable(props: SmartTableProps) {
+function Table(props: SmartTableProps) {
   const { collectionName, model, title } = props;
 
   const [activeDocumentId, setActiveDocumentId] = React.useState<
@@ -226,4 +226,4 @@ function CollectionTable(props: SmartTableProps) {
   );
 }
 
-export default React.memo(CollectionTable);
+export default Table;

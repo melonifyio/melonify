@@ -1,12 +1,11 @@
 import { useEffect } from "react";
-// @mui
-import { Box, Drawer, Stack } from "@mui/material";
+
+import { Box, Drawer, Stack, Divider, Typography } from "@mui/material";
 
 import Menu from "components/menu";
 import useResponsive from "hooks/use-responsive";
-import StartCollection from "sections/start-collection";
-import ProjectPopover from "sections/project-popover";
-import AccountPopover from "sections/account-popover";
+import StartCollection from "sections/start-collection-button";
+import AccountPopover from "layouts/dashboard/account-popover";
 import Logo from "sections/logo";
 
 const NAV_WIDTH = 280;
@@ -35,7 +34,9 @@ export default function Nav(props: NavProps) {
       </Box>
 
       <Box>
-        <Menu data={[{ _id: "", title: "Home", home: true }, ...items] || []} />
+        <Menu data={[{ _id: "", title: "Collections", home: true }]} />
+        {/* <Divider sx={{ my: 1 }} /> */}
+        <Menu data={items || []} />
       </Box>
 
       <Box>

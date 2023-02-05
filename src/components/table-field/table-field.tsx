@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar, Typography, Chip } from "@mui/material";
 
-import { FieldProps } from "components/form-field/types";
+import { FieldProps } from "components/form-fields/types";
 
 type TableFieldProps = {
   type: FieldProps["type"];

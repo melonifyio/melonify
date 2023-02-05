@@ -7,11 +7,13 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import Form from "components/form";
-import { ModelProps } from "components/form-field/types";
+import { ModelProps } from "components/form-fields/types";
 import useDocument from "hooks/use-document";
-import useDocuments from "hooks/use-documents";
-import CollectionTable from "./collection-table";
+import useDocuments from "hooks/use-get-documents";
+import CollectionTable from "./table";
+import Form from "components/form";
+import FormFields from "components/form-fields/form-fields";
+import { LoadingButton } from "@mui/lab";
 
 type DetailsProps = {
   open: boolean;
@@ -27,7 +29,7 @@ export const DetailsDrawer = (props: DetailsProps) => {
 
   const [openToast, setOpenToast] = React.useState(false);
 
-  const { document, mutation } = useDocument({
+  const { query, update } = useDocument({
     collectionName,
     id: documentId,
   });
@@ -47,7 +49,7 @@ export const DetailsDrawer = (props: DetailsProps) => {
     setOpenToast(false);
   };
 
-  if (document.isLoading) {
+  if (query.isLoading) {
     return (
       <Stack
         direction="row"
@@ -65,17 +67,28 @@ export const DetailsDrawer = (props: DetailsProps) => {
       <Box minWidth={600} maxWidth={800} p={4}>
         <Stack gap={2}>
           <Form
-            model={model}
-            initialValues={document.data}
+            initialValues={query.data}
             onSubmit={(data) => {
-              mutation.mutate(data, {
+              update.mutate(data, {
                 onSuccess: () => {
                   setOpenToast(true);
                   refetch();
                 },
               });
             }}
-            isSubmitting={mutation.isLoading}
+            titleComponent="Edit document"
+            contentComponent={(fieldProps) => (
+              <FormFields fields={model.fields} {...fieldProps} />
+            )}
+            actionsComponent={
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={update.isLoading}
+              >
+                Update
+              </LoadingButton>
+            }
           />
 
           {subcollections.data &&

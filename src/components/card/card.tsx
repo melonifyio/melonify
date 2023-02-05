@@ -1,11 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import MuiCard from "@mui/material/Card";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CardActions from "@mui/material/CardActions";
-import CardHeader from "@mui/material/CardHeader";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
@@ -24,18 +20,18 @@ export default function Card(props: CardProps) {
   const { title, label, onClick, dashed } = props;
 
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <Box sx={{ minWidth: 175 }}>
       <MuiCard variant="outlined">
         <CardActionArea onClick={onClick}>
           <CardContent>
             <Typography variant="h6">{title}</Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        {/* <CardActions>
           <Button endIcon={<ChevronRightIcon />} size="small" onClick={onClick}>
             Open
           </Button>
-        </CardActions>
+        </CardActions> */}
       </MuiCard>
     </Box>
   );

@@ -14,8 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-import { FieldProps } from "components/form-field/types";
-import { Map } from "components/map";
+import { FieldProps } from "components/form-fields/types";
+import { Map } from "sections/map";
 import { ImageUpload } from "sections/image-upload";
 import { ComboBox } from "sections/combo-box";
 
@@ -26,8 +26,16 @@ type FormFieldProps = FieldProps & {
 };
 
 export default function FormField(props: FormFieldProps) {
-  const { fieldKey, type, name, config, control, setValue, handleSubmit } =
-    props;
+  const {
+    fieldKey,
+    type,
+    name,
+    config,
+    control,
+    setValue,
+    handleSubmit,
+    helperText,
+  } = props;
 
   const renderField = ({ field, formState }: any) => {
     const { errors } = formState;
@@ -105,7 +113,7 @@ export default function FormField(props: FormFieldProps) {
         return (
           <TextField
             error={!!errors[fieldKey]}
-            // helperText={errors[fieldKey]?.message}
+            helperText={errors[fieldKey]?.message || helperText}
             variant="standard"
             id={fieldKey}
             label={name}

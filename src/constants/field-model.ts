@@ -2,7 +2,7 @@ import {
   FieldType,
   ModelProps,
   OptionsProps,
-} from "components/form-field/types";
+} from "components/form-fields/types";
 import { configFieldModel } from "./config-field-model";
 import { optionModel } from "./option-model";
 

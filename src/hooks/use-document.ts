@@ -19,18 +19,21 @@ const useDocument = ({
   useQueryOptions,
 }: UseDocumentProps) => {
   const ref = doc(firestore, collectionName, id);
-  const document = useFirestoreDocumentData(
+  const query = useFirestoreDocumentData(
     [collectionName, id],
     ref,
     {
       idField: "_id",
+      subscribe: true,
     },
-    useQueryOptions
+    { ...useQueryOptions }
   );
 
-  const mutation = useFirestoreDocumentMutation(ref);
+  const update = useFirestoreDocumentMutation(ref, {
+    merge: true,
+  });
 
-  return { document, mutation };
+  return { query, update };
 };
 
 export default useDocument;

@@ -3,7 +3,7 @@ import { UseFormSetValue } from "react-hook-form";
 
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import useDocuments from "hooks/use-documents";
+import useDocuments from "hooks/use-get-documents";
 
 type ComboBoxProps = {
   collectionName: string;

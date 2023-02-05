@@ -6,11 +6,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Nav from "./nav";
 import RequireAuth from "../require-auth";
 import AppProvider from "../app-provider";
-import useCollections from "hooks/use-collections";
+import useCollections from "hooks/use-get-documents";
 
 import { StyledMain, StyledRoot } from "./styled";
 import Header from "./header";
-import StartColectionFormModal from "sections/start-collection-form-modal/start-collection-form-modal";
+import StartColectionFormModal from "sections/start-collection-modal";
 
 type DashboardProps = {
   children: React.ReactNode;
@@ -20,9 +20,11 @@ function DashboardLayout(props: DashboardProps) {
   const { children } = props;
   const [open, setOpen] = React.useState(false);
 
-  const collections = useCollections();
+  const { data = [], isLoading } = useCollections({
+    collectionName: "_melonify_/config/collections",
+  });
 
-  if (collections.isLoading) {
+  if (isLoading) {
     return (
       <Stack
         direction="row"
@@ -39,7 +41,7 @@ function DashboardLayout(props: DashboardProps) {
     <StyledRoot>
       <Header onOpenNav={() => setOpen(true)} />
       <Nav
-        items={collections.data}
+        items={data.map((item) => ({ ...item, title: item.collectionId }))}
         openNav={open}
         onCloseNav={() => setOpen(false)}
       />

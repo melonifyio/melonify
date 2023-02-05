@@ -12,12 +12,13 @@ import {
 } from "@mui/x-data-grid";
 
 import FormModal from "components/form-modal";
-import { FieldProps } from "components/form-field/types";
+import { FieldProps } from "components/form-fields/types";
 import { Box } from "@mui/system";
 import urlify from "utils/urlify";
 import useMe from "hooks/use-me";
 import removeEmpty from "utils/remove-empty";
 import firestore from "config/firestore";
+import FormFields from "components/form-fields/form-fields";
 
 export const Toolbar: React.FunctionComponent<{
   setFilterButtonEl: React.Dispatch<
@@ -80,17 +81,26 @@ export const Toolbar: React.FunctionComponent<{
         }
       </Box>
 
-      <FormModal
-        onSubmit={handleSuccess}
-        open={open}
-        onTriggerClick={() => setOpen(true)}
-        onClose={() => setOpen(false)}
-        isSubmitting={mutation.isLoading}
-        model={model}
-        TriggerComponent={
-          <Button startIcon={<AddIcon fontSize="small" />}>Add new item</Button>
-        }
-      />
+      <Box>
+        <Button
+          startIcon={<AddIcon fontSize="small" />}
+          onClick={() => setOpen(true)}
+        >
+          Add new item
+        </Button>
+
+        <FormModal
+          title="Add new document"
+          initialValues={{}}
+          onSubmit={handleSuccess}
+          open={open}
+          onClose={() => setOpen(false)}
+          isSubmitting={mutation.isLoading}
+          contentComponent={(fieldProps) => (
+            <FormFields fields={model.fields} {...fieldProps} />
+          )}
+        />
+      </Box>
     </GridToolbarContainer>
   );
 };

@@ -10,6 +10,7 @@ const usePage = ({ id }: UsePageProps) => {
   const ref = doc(firestore, `_melonify_/config/collections`, id);
   const page = useFirestoreDocumentData<any>(["apps", id], ref, {
     idField: "_id",
+    subscribe: true,
   });
 
   return page;

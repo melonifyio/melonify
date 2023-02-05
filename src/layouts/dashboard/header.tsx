@@ -37,7 +37,7 @@ export default function Header(props: HeaderProps) {
     <StyledRoot>
       <StyledToolbar>
         <Box sx={{ flexGrow: 1 }}></Box>
-        <Button>Login</Button>
+        {/* <Button>Login</Button> */}
       </StyledToolbar>
     </StyledRoot>
   );

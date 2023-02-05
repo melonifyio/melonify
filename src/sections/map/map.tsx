@@ -8,9 +8,10 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
 import { AlertDialog } from "components/alert-dialog";
-import { FieldProps, ModelProps } from "components/form-field/types";
+import { FieldProps, ModelProps } from "components/form-fields/types";
 import { SmartList } from "components/list/list";
 import FormModal from "components/form-modal";
+import FormFields from "components/form-fields/form-fields";
 
 type MapProps = FieldProps & {
   setValue: UseFormSetValue<any>;
@@ -41,18 +42,20 @@ function ActionComponent<T>(props: MapActionProps) {
 
   return (
     <Stack direction="row" gap={1}>
+      <IconButton onClick={() => setOpen(true)}>
+        <EditIcon fontSize="small" />
+      </IconButton>
+
       <FormModal
+        maxWidth="xs"
+        title="Edit field"
         onSubmit={handleUpdateSuccess}
         open={open}
-        onTriggerClick={() => setOpen(true)}
         onClose={() => setOpen(false)}
         initialValues={data}
-        model={model}
-        TriggerComponent={
-          <IconButton>
-            <EditIcon fontSize="small" />
-          </IconButton>
-        }
+        contentComponent={(fieldProps) => (
+          <FormFields fields={model.fields} {...fieldProps} />
+        )}
       />
 
       <AlertDialog
@@ -100,19 +103,30 @@ export function Map(props: MapProps) {
       renderTitle={(item) => item.name}
       getId={(item) => item.fieldKey}
       CreateComponent={
-        <FormModal
-          model={config?.model || { fields: {} }}
-          open={open}
-          onTriggerClick={() => setOpen(true)}
-          onClose={() => setOpen(false)}
-          onSubmit={(data) => {
-            setValue(fieldKey, {
-              ...valueObj,
-              [data.fieldKey]: { ...data, index: valueKeys.length },
-            });
-          }}
-          TriggerComponent={<Button>Add item</Button>}
-        />
+        <>
+          <Button onClick={() => setOpen(true)}>Add item</Button>
+          <FormModal
+            maxWidth="xs"
+            initialValues={{}}
+            title="Add Field"
+            open={open}
+            onClose={() => setOpen(false)}
+            onSubmit={(data) => {
+              setValue(fieldKey, {
+                ...valueObj,
+                [data.fieldKey]: { ...data, index: valueKeys.length },
+              });
+
+              setOpen(false);
+            }}
+            contentComponent={(fieldProps) => (
+              <FormFields
+                fields={config?.model?.fields || {}}
+                {...fieldProps}
+              />
+            )}
+          />
+        </>
       }
       ActionComponent={(item) => (
         <ActionComponent
@@ -120,6 +134,8 @@ export function Map(props: MapProps) {
           data={item}
           onUpdate={(data) => {
             setValue(fieldKey, { ...valueObj, [data.fieldKey]: data });
+
+            setOpen(false);
           }}
           onDelete={(data) => {
             const newData = valueObj;

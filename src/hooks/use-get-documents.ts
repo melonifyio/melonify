@@ -2,12 +2,12 @@ import { query, collection, getFirestore } from "firebase/firestore";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 import firestore from "config/firestore";
 
-type UseDocumentsProps = {
+type UseGetDocumentsProps = {
   collectionName: string;
   enabled?: boolean;
 };
 
-const useDocuments = (props: UseDocumentsProps) => {
+const useGetDocuments = (props: UseGetDocumentsProps) => {
   const { collectionName, enabled = true } = props;
 
   const ref = query(collection(firestore, collectionName));
@@ -17,6 +17,7 @@ const useDocuments = (props: UseDocumentsProps) => {
     ref,
     {
       idField: "_id",
+      subscribe: true,
     },
     {
       enabled,
@@ -26,4 +27,4 @@ const useDocuments = (props: UseDocumentsProps) => {
   return q;
 };
 
-export default useDocuments;
+export default useGetDocuments;

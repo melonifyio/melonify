@@ -14,7 +14,7 @@ export default function SmartForm(props: EmptyStateProps) {
 
   return (
     <Stack justifyContent="center" alignItems="center" p={12} gap={2}>
-      <Typography variant="body2">{title}</Typography>
+      <Typography variant="h5">{title}</Typography>
       {description && <Typography>{description}</Typography>}
       {actions && actions}
     </Stack>
