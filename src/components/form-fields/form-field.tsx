@@ -19,7 +19,7 @@ import { Map } from "sections/map";
 import { ImageUpload } from "sections/image-upload";
 import { ComboBox } from "sections/combo-box";
 
-type FormFieldProps = FieldProps & {
+export type FormFieldProps = FieldProps & {
   control: Control;
   setValue: UseFormSetValue<any>;
   handleSubmit: UseFormHandleSubmit<any>;

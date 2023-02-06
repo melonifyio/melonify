@@ -46,6 +46,10 @@ export const SCHEMA_MODEL: ModelProps = {
     config: {
       model: optionModel,
     },
+    conditional: {
+      fieldKey: "type",
+      values: ["ENUM"],
+    },
   },
   "config.model": {
     fieldKey: "config.model",
@@ -54,11 +58,19 @@ export const SCHEMA_MODEL: ModelProps = {
     config: {
       model: configFieldModel,
     },
+    conditional: {
+      fieldKey: "type",
+      values: ["SUBCOLLECTION", "MAP"],
+    },
   },
   "config.collectionName": {
     fieldKey: "config.collectionName",
     name: "Collection Name",
     type: "TEXT",
+    conditional: {
+      fieldKey: "type",
+      values: ["REFERENCE"],
+    },
   },
 };
 

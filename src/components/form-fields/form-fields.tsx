@@ -1,9 +1,14 @@
 import * as React from "react";
-import { Control, UseFormSetValue, UseFormHandleSubmit } from "react-hook-form";
+import {
+  Control,
+  UseFormSetValue,
+  UseFormHandleSubmit,
+  useWatch,
+} from "react-hook-form";
 
 import { Stack, Box } from "@mui/material";
 import { FieldProps } from "components/form-fields/types";
-import FormField from "components/form-fields/form-field";
+import FormField, { FormFieldProps } from "components/form-fields/form-field";
 
 export type FormProps = {
   fields: Record<string, FieldProps>;
@@ -22,9 +27,33 @@ export default function FormFields(props: FormProps) {
 
   return (
     <Stack gap={3}>
-      {fieldKeysSorted.map((fieldKey, index) => (
-        <FormField key={index} {...fields[fieldKey]} {...fieldProps} />
-      ))}
+      {fieldKeysSorted.map((fieldKey, index) =>
+        fields[fieldKey].conditional ? (
+          <ConditionalField
+            key={index}
+            field={fields[fieldKey]}
+            {...fields[fieldKey]}
+            {...fieldProps}
+          />
+        ) : (
+          <FormField key={index} {...fields[fieldKey]} {...fieldProps} />
+        )
+      )}
     </Stack>
   );
 }
+
+const ConditionalField = (props: FormFieldProps & { field: FieldProps }) => {
+  const { control, field } = props;
+
+  const watchValue = useWatch({
+    control,
+    name: field.conditional?.fieldKey || "",
+  });
+
+  if (field.conditional && field.conditional.values.includes(watchValue)) {
+    return <FormField {...props} />;
+  }
+
+  return null;
+};

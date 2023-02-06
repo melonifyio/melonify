@@ -24,6 +24,10 @@ export type FieldProps = {
     collectionName?: string;
   };
   index?: number;
+  conditional?: {
+    fieldKey: string;
+    values: string[];
+  };
 };
 
 export type ModelProps = Record<string, FieldProps>;

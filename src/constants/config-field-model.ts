@@ -45,6 +45,10 @@ export const configFieldModel: ModelProps = {
     config: {
       model: optionModel,
     },
+    conditional: {
+      fieldKey: "type",
+      values: ["ENUM"],
+    },
   },
   "config.model": {
     fieldKey: "config.model",
@@ -52,6 +56,19 @@ export const configFieldModel: ModelProps = {
     type: "MAP",
     config: {
       model: {},
+    },
+    conditional: {
+      fieldKey: "type",
+      values: ["SUBCOLLECTION", "MAP"],
+    },
+  },
+  "config.collectionName": {
+    fieldKey: "config.collectionName",
+    name: "Collection Name",
+    type: "TEXT",
+    conditional: {
+      fieldKey: "type",
+      values: ["REFERENCE"],
     },
   },
 };
