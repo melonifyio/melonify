@@ -3,12 +3,11 @@ import Head from "next/head";
 
 import Container from "components/container";
 import Dashboard from "layouts/dashboard";
-import PageHeader from "sections/page-header";
-import FirebaseStatus from "sections/firebase-status";
-import StartCollectionFab from "sections/start-collection-fab";
-import CollectionList from "sections/collection-list";
+import PageHeader from "components/page-header";
+import StartCollectionFab from "features/collections/start/fab";
+import CollectionList from "features/collections/list";
 import EmptyState from "components/empty-state";
-import StartCollectionButton from "sections/start-collection-button";
+import StartCollectionButton from "features/collections/start";
 
 export default function Home() {
   return (

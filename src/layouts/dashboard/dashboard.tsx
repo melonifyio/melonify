@@ -10,7 +10,7 @@ import useCollections from "hooks/use-get-documents";
 
 import { StyledMain, StyledRoot } from "./styled";
 import Header from "./header";
-import StartColectionFormModal from "sections/start-collection-modal";
+import StartColectionFormModal from "features/collections/start/modal";
 import { useStartCollectionModalStore } from "store/modals";
 
 type DashboardProps = {

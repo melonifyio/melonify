@@ -40,7 +40,7 @@ export function AlertDialog(props: AlertDialogProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={onClose}>
+          <Button variant="text" onClick={onClose}>
             Cancel
           </Button>
           <LoadingButton

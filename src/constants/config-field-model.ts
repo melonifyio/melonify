@@ -2,7 +2,7 @@ import {
   FieldType,
   ModelProps,
   OptionsProps,
-} from "components/form-fields/types";
+} from "features/forms/form-fields/types";
 import { optionModel } from "./option-model";
 
 const fieldTypeOptions: OptionsProps = {};

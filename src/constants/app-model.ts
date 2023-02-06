@@ -1,4 +1,4 @@
-import { ModelProps } from "components/form-fields/types";
+import { ModelProps } from "features/forms/form-fields/types";
 
 export const appModel: ModelProps = {
   logo: { fieldKey: "logo", name: "Logo", type: "IMAGE" },

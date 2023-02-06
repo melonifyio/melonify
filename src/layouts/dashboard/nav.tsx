@@ -4,9 +4,9 @@ import { Box, Drawer, Stack, Divider, Typography } from "@mui/material";
 
 import Menu from "components/menu";
 import useResponsive from "hooks/use-responsive";
-import StartCollection from "sections/start-collection-button";
+import StartCollection from "features/collections/start";
 import AccountPopover from "layouts/dashboard/account-popover";
-import Logo from "sections/logo";
+import Logo from "components/logo";
 
 const NAV_WIDTH = 280;
 

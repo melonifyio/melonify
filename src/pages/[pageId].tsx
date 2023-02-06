@@ -8,19 +8,18 @@ import Button from "@mui/material/Button";
 import SchemaIcon from "@mui/icons-material/Schema";
 
 import Dashboard from "layouts/dashboard";
-import usePage from "hooks/use-page";
-import CollectionTable from "sections/table";
-import PageHeader from "sections/page-header";
+import CollectionTable from "features/collections/table";
+import PageHeader from "components/page-header";
 import Container from "components/container";
-import CollectionToolbar from "sections/collection-toolbar";
 import EmptyState from "components/empty-state";
 import {
   useCollectionSettingsModalStore,
   useSchemaSettingsModalStore,
 } from "store/modals";
-import SchemaSettingsModal from "sections/schema-settings-modal";
+import SchemaSettingsModal from "features/collections/schema";
 import useDocument from "hooks/use-document";
-import CollectionSettingsModal from "sections/collection-settings-modal/collection-settings-modal";
+import CollectionSettingsModal from "features/collections/settings";
+import CollectionToolbar from "features/collections/toolbar";
 
 export default function GenericPage() {
   const router = useRouter();
