@@ -17,9 +17,11 @@ export default function StartCollectionFab() {
 
   return (
     <Tooltip title="Start collection" placement="top">
-      <Fab sx={fabStyle} onClick={handleOpen}>
-        <AddIcon />
-      </Fab>
+      <span>
+        <Fab sx={fabStyle} onClick={handleOpen}>
+          <AddIcon />
+        </Fab>
+      </span>
     </Tooltip>
   );
 }

@@ -3,7 +3,7 @@ import { UseFormSetValue } from "react-hook-form";
 
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import useDocuments from "hooks/use-get-documents";
+import useGetDocuments from "hooks/use-get-documents";
 
 type ComboBoxProps = {
   collectionName: string;
@@ -18,7 +18,7 @@ const ComboBox = React.forwardRef<HTMLInputElement, ComboBoxProps>(
 
     const [enabled, setEnabled] = React.useState(false);
 
-    const documents = useDocuments({ collectionName, enabled });
+    const documents = useGetDocuments({ collectionName, enabled });
 
     // if (documents.isLoading) {
     //   return <>Loading...</>;
@@ -28,7 +28,7 @@ const ComboBox = React.forwardRef<HTMLInputElement, ComboBoxProps>(
       <Autocomplete
         ref={ref}
         // disablePortal
-        options={documents && documents.data ? documents.data : []}
+        options={documents?.data || []}
         getOptionLabel={(option) => option.title}
         onOpen={() => setEnabled(true)}
         loading={documents.isLoading}

@@ -43,43 +43,49 @@ export default function CollectionToolbar(props: CollectionToolbarProps) {
   return (
     <ButtonGroup>
       <Tooltip title="Schema">
-        <IconButton onClick={handleOpenSchemaSettingsModal}>
-          <SchemaIcon />
-        </IconButton>
+        <span>
+          <IconButton onClick={handleOpenSchemaSettingsModal}>
+            <SchemaIcon />
+          </IconButton>
+        </span>
       </Tooltip>
       <Tooltip title="Settings">
-        <IconButton onClick={handleOpenCollectionSettingsModal}>
-          <SettingIcon />
-        </IconButton>
+        <span>
+          <IconButton onClick={handleOpenCollectionSettingsModal}>
+            <SettingIcon />
+          </IconButton>
+        </span>
       </Tooltip>
       <Tooltip title="Delete">
-        <AlertDialog
-          open={openAlertDialog}
-          onClose={() => {
-            setOpenAlertDialog(false);
-          }}
-          title="Are you sure?"
-          description="Are you sure you want to delete this item?"
-          onConfirm={() => {
-            document.remove.mutate(undefined, {
-              onSuccess: () => {
-                setOpenAlertDialog(false);
-                router.push("/");
-              },
-            });
-          }}
-          TriggerComponent={
-            <IconButton
-              aria-label="delete"
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenAlertDialog(true);
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          }
-        />
+        <span>
+          <AlertDialog
+            open={openAlertDialog}
+            onClose={() => {
+              setOpenAlertDialog(false);
+            }}
+            title="Are you sure?"
+            description="Are you sure you want to delete this item?"
+            onConfirm={() => {
+              document.remove.mutate(undefined, {
+                onSuccess: () => {
+                  setOpenAlertDialog(false);
+                  router.push("/");
+                },
+              });
+            }}
+            TriggerComponent={
+              <IconButton
+                aria-label="delete"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenAlertDialog(true);
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            }
+          />
+        </span>
       </Tooltip>
     </ButtonGroup>
   );

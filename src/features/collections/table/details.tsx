@@ -82,7 +82,17 @@ export const DetailsDrawer = (props: DetailsProps) => {
             titleComponent={<Typography variant="h4">Edit document</Typography>}
             contentComponent={(fieldProps) => (
               <FormFields
-                fields={deleteByValue(model, "type", "SUBCOLLECTION")}
+                fields={{
+                  _id: {
+                    fieldKey: "_id",
+                    name: "ID",
+                    type: "TEXT",
+                    config: {
+                      readOnly: true,
+                    },
+                  },
+                  ...deleteByValue(model, "type", "SUBCOLLECTION"),
+                }}
                 {...fieldProps}
               />
             )}

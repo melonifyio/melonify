@@ -22,6 +22,7 @@ export type FieldProps = {
     options?: OptionsProps;
     required?: boolean | string;
     collectionName?: string;
+    readOnly?: boolean;
   };
   index?: number;
   conditional?: {
