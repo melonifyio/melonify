@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import auth from "config/auth";
+import { UpdateUser } from "features/auth/login-form";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -28,8 +29,12 @@ export default function Auth({ children }: AuthLayoutProps) {
   }
 
   if (user.data) {
-    router.push("/");
-    return null;
+    return (
+      <UpdateUser
+        id={user.data.email || "unknown"}
+        data={{ email: user.data.email }}
+      />
+    );
   }
 
   return <>{children}</>;
