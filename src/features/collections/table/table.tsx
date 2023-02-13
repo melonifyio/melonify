@@ -107,6 +107,8 @@ function Table(props: SmartTableProps) {
     }
   );
 
+  console.log(documents);
+
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
 

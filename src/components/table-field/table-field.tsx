@@ -20,7 +20,7 @@ export function TableField(props: TableFieldProps) {
         return <Chip label={value} color="primary" />;
 
       case "REFERENCE":
-        return <Typography>{value.title}</Typography>;
+        return <Typography>{value?.title || value?.email || ""}</Typography>;
 
       // case "DATE":
       //   return <Date>{value}</Date>;

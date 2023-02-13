@@ -29,7 +29,7 @@ const ComboBox = React.forwardRef<HTMLInputElement, ComboBoxProps>(
         ref={ref}
         // disablePortal
         options={documents?.data || []}
-        getOptionLabel={(option) => option.title}
+        getOptionLabel={(option) => option?.title || option?.email || ""}
         onOpen={() => setEnabled(true)}
         loading={documents.isLoading}
         sx={{ width: 300 }}

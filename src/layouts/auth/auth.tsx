@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { Timestamp } from "firebase/firestore";
 import { useAuthUser } from "@react-query-firebase/auth";
 
 import Stack from "@mui/material/Stack";
@@ -32,7 +33,7 @@ export default function Auth({ children }: AuthLayoutProps) {
     return (
       <UpdateUser
         id={user.data.email || "unknown"}
-        data={{ email: user.data.email }}
+        data={{ email: user.data.email, createdAt: Timestamp.now() }}
       />
     );
   }
