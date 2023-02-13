@@ -137,7 +137,7 @@ export function Map(props: MapProps) {
             setOpen(false);
           }}
           onDelete={(data) => {
-            const newData = valueObj;
+            const newData = { ...valueObj };
             delete newData[data.fieldKey];
 
             setValue(fieldKey, newData);
