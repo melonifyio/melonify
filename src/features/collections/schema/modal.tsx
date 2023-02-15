@@ -21,6 +21,7 @@ export default function SchemaSettingsModal(props: SchemaSettingsModalProps) {
   const document = useDocument({
     collectionName: "_melonify_/config/collections",
     id,
+    merge: false,
   });
 
   const open = useSchemaSettingsModalStore((state) => state.open);
@@ -28,11 +29,16 @@ export default function SchemaSettingsModal(props: SchemaSettingsModalProps) {
   const handleClose = useSchemaSettingsModalStore((state) => state.handleClose);
 
   const onSubmit = (data: SchemaSettingsData) => {
-    document.update.mutate(data, {
-      onSuccess: () => {
-        handleClose();
-      },
-    });
+    console.log({ ...(document.query.data || {}), ...data });
+
+    document.update.mutate(
+      { ...(document.query.data || {}), ...data },
+      {
+        onSuccess: () => {
+          handleClose();
+        },
+      }
+    );
   };
 
   if (document.query.isLoading) return <CircularProgress />;

@@ -2,6 +2,7 @@ import * as React from "react";
 import { Avatar, Typography, Chip } from "@mui/material";
 
 import { FieldProps } from "features/forms/form-fields/types";
+import stringToColour from "utils/string-to-color";
 
 type TableFieldProps = {
   type: FieldProps["type"];
@@ -17,10 +18,21 @@ export function TableField(props: TableFieldProps) {
         return <Avatar src={value} sx={{ borderRadius: 1 }} />;
 
       case "ENUM":
-        return <Chip label={value} color="primary" />;
+        return (
+          <Chip
+            label={value}
+            variant="outlined"
+            size="small"
+            sx={{
+              color: stringToColour(value),
+              borderColor: stringToColour(value),
+              fontWeight: "bold",
+            }}
+          />
+        );
 
       case "REFERENCE":
-        return <Typography>{value.title}</Typography>;
+        return <Typography>{value?.title || value?.email || ""}</Typography>;
 
       // case "DATE":
       //   return <Date>{value}</Date>;

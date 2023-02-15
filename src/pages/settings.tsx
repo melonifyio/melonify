@@ -8,7 +8,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
 import Dashboard from "layouts/dashboard";
-import { appModel } from "constants/app-model";
 
 export default function Home() {
   const [openSuccessToast, setOpenSuccessToast] = React.useState(false);

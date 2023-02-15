@@ -117,6 +117,7 @@ export default function FormField(props: FormFieldProps) {
             variant="standard"
             id={fieldKey}
             label={name}
+            disabled={config?.readOnly}
             {...field}
           />
         );

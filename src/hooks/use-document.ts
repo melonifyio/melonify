@@ -9,29 +9,22 @@ import firestore from "config/firestore";
 type UseDocumentProps = {
   collectionName: string;
   id: string;
-  useQueryOptions?: {
-    enabled?: boolean;
-  };
+  merge?: boolean;
 };
 
 const useDocument = ({
   collectionName,
   id,
-  useQueryOptions,
+  merge = true,
 }: UseDocumentProps) => {
   const ref = doc(firestore, collectionName, id);
-  const query = useFirestoreDocumentData(
-    [collectionName, id],
-    ref,
-    {
-      idField: "_id",
-      subscribe: true,
-    },
-    { ...useQueryOptions }
-  );
+  const query = useFirestoreDocumentData([collectionName, id], ref, {
+    idField: "_id",
+    subscribe: true,
+  });
 
   const update = useFirestoreDocumentMutation(ref, {
-    merge: true,
+    merge,
   });
 
   const remove = useFirestoreDocumentDeletion(ref);

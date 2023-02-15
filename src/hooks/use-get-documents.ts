@@ -13,7 +13,7 @@ const useGetDocuments = (props: UseGetDocumentsProps) => {
   const ref = query(collection(firestore, collectionName));
 
   const q = useFirestoreQueryData(
-    [collectionName],
+    [collectionName, enabled],
     ref,
     {
       idField: "_id",
