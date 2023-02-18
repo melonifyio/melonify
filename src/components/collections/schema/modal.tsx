@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import FormModal from "features/forms/form-modal";
+import FormModal from "components/forms/form-modal";
 import { useSchemaSettingsModalStore } from "store/modals";
-import FormFields from "features/forms/form-fields/form-fields";
+import FormFields from "components/forms/form-fields/form-fields";
 import useDocument from "hooks/use-document";
 import { SCHEMA_MODEL } from "constants/collection";
 import { CircularProgress } from "@mui/material";

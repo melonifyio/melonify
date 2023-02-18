@@ -7,7 +7,7 @@ import CollectionTable from "./table";
 import { Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { FieldProps } from "features/forms/form-fields/types";
+import { FieldProps } from "components/forms/form-fields/types";
 
 type SubcollectionTabsProps = {
   subcollections: FieldProps[];

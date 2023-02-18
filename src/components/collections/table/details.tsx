@@ -7,10 +7,10 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { ModelProps } from "features/forms/form-fields/types";
+import { ModelProps } from "components/forms/form-fields/types";
 import useDocument from "hooks/use-document";
-import Form from "features/forms/form";
-import FormFields from "features/forms/form-fields/form-fields";
+import Form from "components/forms/form";
+import FormFields from "components/forms/form-fields/form-fields";
 import { LoadingButton } from "@mui/lab";
 import { Typography } from "@mui/material";
 import deleteByValue from "utils/delete-by-value";

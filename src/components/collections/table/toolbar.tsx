@@ -10,13 +10,13 @@ import {
   GridSelectionModel,
 } from "@mui/x-data-grid";
 
-import FormModal from "features/forms/form-modal";
-import { FieldProps } from "features/forms/form-fields/types";
+import FormModal from "components/forms/form-modal";
+import { FieldProps } from "components/forms/form-fields/types";
 import { Box } from "@mui/system";
 import urlify from "utils/urlify";
 import useMe from "hooks/use-me";
 import removeEmpty from "utils/remove-empty";
-import FormFields from "features/forms/form-fields/form-fields";
+import FormFields from "components/forms/form-fields/form-fields";
 import useCreateDocument from "hooks/use-create-document";
 import deleteByValue from "utils/delete-by-value";
 

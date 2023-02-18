@@ -8,8 +8,8 @@ import {
   GridRenderCellParams,
   getGridStringOperators,
 } from "@mui/x-data-grid";
-import { FieldProps, ModelProps } from "features/forms/form-fields/types";
-import { TableField } from "components/table-field/table-field";
+import { FieldProps, ModelProps } from "components/forms/form-fields/types";
+import { TableField } from "components/collections/table/table-field";
 import { AlertDialog } from "components/alert-dialog";
 import { useFirestoreDocumentDeletion } from "@react-query-firebase/firestore";
 import firestore from "config/firestore";
@@ -94,17 +94,19 @@ export const columns = (
     return (model[a].index || 0) - (model[b].index || 0);
   });
 
-  const transformedColumns = fieldKeysSorted.map((fieldKey) => ({
-    field: model[fieldKey].fieldKey,
-    headerName: model[fieldKey].name,
-    width: getColumnWidth(model[fieldKey].type),
-    flex: getColumnFlex(model[fieldKey].type),
-    filterable: getFilterable(model[fieldKey].type),
-    filterOperators,
-    renderCell: (params: GridRenderCellParams<any>) => {
-      return <TableField type={model[fieldKey].type} value={params.value} />;
-    },
-  }));
+  const transformedColumns = fieldKeysSorted
+    .filter((x) => model[x].type !== "SUBCOLLECTION") // omit subcollections
+    .map((fieldKey) => ({
+      field: model[fieldKey].fieldKey,
+      headerName: model[fieldKey].name,
+      width: getColumnWidth(model[fieldKey].type),
+      flex: getColumnFlex(model[fieldKey].type),
+      filterable: getFilterable(model[fieldKey].type),
+      filterOperators,
+      renderCell: (params: GridRenderCellParams<any>) => {
+        return <TableField type={model[fieldKey].type} value={params.value} />;
+      },
+    }));
 
   const actionColumn = {
     field: "actions",

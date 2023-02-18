@@ -8,10 +8,10 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
 import { AlertDialog } from "components/alert-dialog";
-import { FieldProps, ModelProps } from "features/forms/form-fields/types";
+import { FieldProps, ModelProps } from "components/forms/form-fields/types";
 import { SmartList } from "components/list/list";
-import FormModal from "features/forms/form-modal";
-import FormFields from "features/forms/form-fields/form-fields";
+import FormModal from "components/forms/form-modal";
+import FormFields from "components/forms/form-fields/form-fields";
 
 type MapProps = FieldProps & {
   setValue: UseFormSetValue<any>;

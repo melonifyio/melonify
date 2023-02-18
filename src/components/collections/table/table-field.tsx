@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar, Typography, Chip } from "@mui/material";
 
-import { FieldProps } from "features/forms/form-fields/types";
+import { FieldProps } from "components/forms/form-fields/types";
 import stringToColour from "utils/string-to-color";
 
 type TableFieldProps = {
@@ -36,6 +36,9 @@ export function TableField(props: TableFieldProps) {
 
       case "MAP":
         return <Typography>map</Typography>;
+
+      case "SUBCOLLECTION":
+        return <Typography>subcollection</Typography>;
 
       // case "DATE":
       //   return <Date>{value}</Date>;

@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import { Breakpoint, DialogActions, Portal } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import Form from "features/forms/form";
+import Form from "components/forms/form";
 
 type FormProps = {
   title: string;
