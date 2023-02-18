@@ -37,6 +37,9 @@ export function TableField(props: TableFieldProps) {
       case "MAP":
         return <Typography>map</Typography>;
 
+      case "SUBCOLLECTION":
+        return <Typography>subcollection</Typography>;
+
       // case "DATE":
       //   return <Date>{value}</Date>;
 
