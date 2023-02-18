@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 
-import FormModal from "features/forms/form-modal";
+import FormModal from "components/forms/form-modal";
 import { useStartCollectionModalStore } from "store/modals";
-import FormFields from "features/forms/form-fields/form-fields";
+import FormFields from "components/forms/form-fields/form-fields";
 import useCreateDocument from "hooks/use-create-document";
 import { Breakpoint } from "@mui/material";
 

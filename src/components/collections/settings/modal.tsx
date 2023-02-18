@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import FormModal from "features/forms/form-modal";
-import FormFields from "features/forms/form-fields/form-fields";
+import FormModal from "components/forms/form-modal";
+import FormFields from "components/forms/form-fields/form-fields";
 import { Breakpoint } from "@mui/material";
 import useDocument from "hooks/use-document";
 

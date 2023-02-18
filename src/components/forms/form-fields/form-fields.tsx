@@ -7,8 +7,8 @@ import {
 } from "react-hook-form";
 
 import { Stack, Box } from "@mui/material";
-import { FieldProps } from "features/forms/form-fields/types";
-import FormField, { FormFieldProps } from "features/forms/form-fields/form-field";
+import { FieldProps } from "components/forms/form-fields/types";
+import FormField, { FormFieldProps } from "components/forms/form-fields/form-field";
 
 export type FormProps = {
   fields: Record<string, FieldProps>;

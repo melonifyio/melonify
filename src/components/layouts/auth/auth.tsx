@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import auth from "config/auth";
-import { UpdateUser } from "features/auth/login-form";
+import { UpdateUser } from "components/auth/login-form";
 
 type AuthLayoutProps = {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import {
   FieldType,
   ModelProps,
   OptionsProps,
-} from "features/forms/form-fields/types";
+} from "components/forms/form-fields/types";
 
 const FIELD_TYPES_MODEL: OptionsProps = {};
 const FIELD_TYPES_MODEL_WITHOUT_SUBCOLLECTION: OptionsProps = {}; // temp solution not to have a 2 level nested subcollection

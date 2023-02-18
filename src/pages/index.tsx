@@ -2,12 +2,12 @@ import React from "react";
 import Head from "next/head";
 
 import Container from "components/container";
-import Dashboard from "layouts/dashboard";
+import Dashboard from "components/layouts/dashboard";
 import PageHeader from "components/page-header";
-import StartCollectionFab from "features/collections/start/fab";
-import CollectionList from "features/collections/list";
+import StartCollectionFab from "components/collections/start/fab";
+import CollectionList from "components/collections/list";
 import EmptyState from "components/empty-state";
-import StartCollectionButton from "features/collections/start";
+import StartCollectionButton from "components/collections/start";
 
 export default function Home() {
   return (

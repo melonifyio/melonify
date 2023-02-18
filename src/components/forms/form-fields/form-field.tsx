@@ -14,10 +14,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-import { FieldProps } from "features/forms/form-fields/types";
-import { Map } from "features/forms/map";
-import { ImageUpload } from "features/forms/image-upload";
-import { ComboBox } from "features/forms/combo-box";
+import { FieldProps } from "components/forms/form-fields/types";
+import { Map } from "components/forms/map";
+import { ImageUpload } from "components/forms/image-upload";
+import { ComboBox } from "components/forms/combo-box";
 
 export type FormFieldProps = FieldProps & {
   control: Control;
