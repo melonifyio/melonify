@@ -1,4 +1,4 @@
-import { FieldProps, ModelProps } from "features/forms/form-fields/types";
+import { FieldProps, ModelProps } from "components/forms/form-fields/types";
 
 export type SmartTableProps = {
   title?: string;

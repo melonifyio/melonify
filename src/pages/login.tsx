@@ -11,10 +11,10 @@ import auth from "config/auth";
 
 import Iconify from "components/iconify";
 
-import AuthLayout from "layouts/auth";
+import AuthLayout from "components/layouts/auth";
 import useCreateDocument from "hooks/use-create-document";
 import useDocument from "hooks/use-document";
-import LoginForm from "features/auth/login-form/login-form";
+import LoginForm from "components/auth/login-form/login-form";
 
 const StyledContent = styled("div")(({ theme }) => ({
   maxWidth: 480,
