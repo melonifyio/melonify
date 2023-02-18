@@ -102,7 +102,7 @@ export function Map(props: MapProps) {
       items={valueKeysSorted.map((key) => ({
         ...valueObj[key],
       }))}
-      renderTitle={(item) => item.name}
+      renderTitle={(item) => item.name || item.title}
       getId={(item) => item.fieldKey}
       CreateComponent={
         <>

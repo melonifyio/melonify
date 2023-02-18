@@ -34,6 +34,9 @@ export function TableField(props: TableFieldProps) {
       case "REFERENCE":
         return <Typography>{value?.title || value?.email || ""}</Typography>;
 
+      case "MAP":
+        return <Typography>map</Typography>;
+
       // case "DATE":
       //   return <Date>{value}</Date>;
 
