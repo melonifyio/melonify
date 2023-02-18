@@ -94,17 +94,19 @@ export const columns = (
     return (model[a].index || 0) - (model[b].index || 0);
   });
 
-  const transformedColumns = fieldKeysSorted.map((fieldKey) => ({
-    field: model[fieldKey].fieldKey,
-    headerName: model[fieldKey].name,
-    width: getColumnWidth(model[fieldKey].type),
-    flex: getColumnFlex(model[fieldKey].type),
-    filterable: getFilterable(model[fieldKey].type),
-    filterOperators,
-    renderCell: (params: GridRenderCellParams<any>) => {
-      return <TableField type={model[fieldKey].type} value={params.value} />;
-    },
-  }));
+  const transformedColumns = fieldKeysSorted
+    .filter((x) => model[x].type !== "SUBCOLLECTION") // omit subcollections
+    .map((fieldKey) => ({
+      field: model[fieldKey].fieldKey,
+      headerName: model[fieldKey].name,
+      width: getColumnWidth(model[fieldKey].type),
+      flex: getColumnFlex(model[fieldKey].type),
+      filterable: getFilterable(model[fieldKey].type),
+      filterOperators,
+      renderCell: (params: GridRenderCellParams<any>) => {
+        return <TableField type={model[fieldKey].type} value={params.value} />;
+      },
+    }));
 
   const actionColumn = {
     field: "actions",
