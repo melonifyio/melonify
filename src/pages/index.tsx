@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 
 import Container from "components/container";
-import Dashboard from "components/layouts/dashboard";
+import Dashboard from "layouts/dashboard";
 import PageHeader from "components/page-header";
 import StartCollectionFab from "components/collections/start/fab";
 import CollectionList from "components/collections/list";

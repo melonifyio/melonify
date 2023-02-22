@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
 import { Container, Typography, Stack, Button } from "@mui/material";
 
-import auth from "config/auth";
+import auth from "config/firebase/auth";
 
 import Iconify from "components/iconify";
 

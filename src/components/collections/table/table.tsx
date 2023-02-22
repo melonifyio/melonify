@@ -29,7 +29,7 @@ import { SmartTableProps } from "./types";
 import { columns } from "./columns";
 import { DetailsDrawer } from "./details";
 import { Stack } from "@mui/system";
-import firestore from "config/firestore";
+import firestore from "config/firebase/firestore";
 
 const PAGE_SIZE = 10;
 
@@ -106,8 +106,6 @@ function Table(props: SmartTableProps) {
       idField: "_id",
     }
   );
-
-  console.log(documents);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);

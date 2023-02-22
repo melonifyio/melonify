@@ -1,6 +1,6 @@
 import { doc } from "firebase/firestore";
 import { useFirestoreDocumentData } from "@react-query-firebase/firestore";
-import firestore from "config/firestore";
+import firestore from "config/firebase/firestore";
 
 type UsePageProps = {
   id: string;

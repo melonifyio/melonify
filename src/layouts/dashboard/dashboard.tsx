@@ -5,7 +5,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import Nav from "./nav";
 import RequireAuth from "../require-auth";
-import AppProvider from "../app-provider";
 import useCollections from "hooks/use-get-documents";
 
 import { StyledMain, StyledRoot } from "./styled";
@@ -66,9 +65,7 @@ export default function DashboardLayoutWrapper(props: DashboardProps) {
 
   return (
     <RequireAuth>
-      <AppProvider>
-        <DashboardLayout>{children}</DashboardLayout>
-      </AppProvider>
+      <DashboardLayout>{children}</DashboardLayout>
     </RequireAuth>
   );
 }

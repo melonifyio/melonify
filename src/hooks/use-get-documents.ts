@@ -1,6 +1,6 @@
 import { query, collection, getFirestore } from "firebase/firestore";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
-import firestore from "config/firestore";
+import firestore from "config/firebase/firestore";
 
 type UseGetDocumentsProps = {
   collectionName: string;

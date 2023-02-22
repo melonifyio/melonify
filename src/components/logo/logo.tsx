@@ -12,7 +12,7 @@ const Logo = (props: LogoProps) => {
         <MenuIcon />
       </IconButton> */}
 
-      <Typography variant="h5">Melonify</Typography>
+      <Typography variant="h6">Melonify</Typography>
     </Stack>
   );
 };

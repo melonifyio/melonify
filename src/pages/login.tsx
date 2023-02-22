@@ -7,11 +7,9 @@ import { useRouter } from "next/router";
 import { styled } from "@mui/material/styles";
 import { Container, Typography, Stack, Button } from "@mui/material";
 
-import auth from "config/auth";
+import auth from "config/firebase/auth";
 
-import Iconify from "components/iconify";
-
-import AuthLayout from "components/layouts/auth";
+import AuthLayout from "layouts/auth";
 import useCreateDocument from "hooks/use-create-document";
 import useDocument from "hooks/use-document";
 import LoginForm from "components/auth/login-form/login-form";
@@ -45,22 +43,6 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = React.useState<string | null>(null);
   const authSignIn = useAuthSignInWithPopup(auth);
-
-  console.log(email);
-
-  const handleLogin = () => {
-    authSignIn.mutate(
-      {
-        provider: new GoogleAuthProvider(),
-      },
-      {
-        onSuccess: (res) => {
-          // create user in firestore
-          setEmail(res.user.email);
-        },
-      }
-    );
-  };
 
   return (
     <>

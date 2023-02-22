@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 
 import SchemaIcon from "@mui/icons-material/Schema";
 
-import Dashboard from "components/layouts/dashboard";
+import Dashboard from "layouts/dashboard";
 import CollectionTable from "components/collections/table";
 import PageHeader from "components/page-header";
 import Container from "components/container";

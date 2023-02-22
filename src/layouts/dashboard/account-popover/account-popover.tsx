@@ -20,7 +20,7 @@ import {
   ListItemText,
 } from "@mui/material";
 
-import auth from "config/auth";
+import auth from "config/firebase/auth";
 import { useColorMode } from "hooks/use-color-mode";
 
 // ----------------------------------------------------------------------

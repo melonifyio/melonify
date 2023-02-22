@@ -4,7 +4,7 @@ import {
   useFirestoreDocumentMutation,
   useFirestoreDocumentDeletion,
 } from "@react-query-firebase/firestore";
-import firestore from "config/firestore";
+import firestore from "config/firebase/firestore";
 
 type UseDocumentProps = {
   collectionName: string;

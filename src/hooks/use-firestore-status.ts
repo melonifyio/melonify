@@ -1,7 +1,7 @@
 import * as React from "react";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
-import firestore from "config/firestore";
+import firestore from "config/firebase/firestore";
 
 export const useFirestoreStatus = () => {
   const [connected, setConnected] = React.useState(false);
