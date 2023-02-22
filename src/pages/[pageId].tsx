@@ -16,10 +16,7 @@ import {
   useCollectionSettingsModalStore,
   useSchemaSettingsModalStore,
 } from "store/modals";
-import SchemaSettingsModal from "components/collections/schema";
 import useDocument from "hooks/use-document";
-import CollectionSettingsModal from "components/collections/settings";
-import CollectionToolbar from "components/collections/toolbar";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -48,10 +45,7 @@ export default function GenericPage() {
 
   return (
     <Container>
-      <PageHeader
-        title={page.query.data?.collectionId}
-        actions={<CollectionToolbar id={page.query.data._id} />}
-      />
+      <PageHeader title={page.query.data?.collectionId} />
 
       {!Object.keys(page.query.data.schema || {}).length ? (
         <EmptyState
@@ -73,15 +67,6 @@ export default function GenericPage() {
           model={page.query.data.schema}
         />
       )}
-
-      <SchemaSettingsModal id={page.query.data._id} />
-      <CollectionSettingsModal
-        collectionName="_melonify_/config/collections"
-        id={page.query.data._id}
-        open={collectionSettingsModalStore.open}
-        onClose={collectionSettingsModalStore.handleClose}
-        initialValues={page.query.data}
-      />
     </Container>
   );
 }

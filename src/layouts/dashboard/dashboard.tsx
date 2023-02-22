@@ -4,12 +4,11 @@ import { Stack } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import Nav from "./nav";
-import RequireAuth from "../require-auth";
+import RequireAuth from "../../components/auth/require-auth/require-auth";
 import useCollections from "hooks/use-get-documents";
 
 import { StyledMain, StyledRoot } from "./styled";
 import Header from "./header";
-import StartColectionFormModal from "components/collections/start/modal";
 import { useStartCollectionModalStore } from "store/modals";
 
 type DashboardProps = {
@@ -51,11 +50,6 @@ function DashboardLayout(props: DashboardProps) {
         onCloseNav={() => setOpen(false)}
       />
       <StyledMain>{children}</StyledMain>
-      <StartColectionFormModal
-        open={startIsOpen}
-        onClose={handleStartClose}
-        collectionName="_melonify_/config/collections"
-      />
     </StyledRoot>
   );
 }

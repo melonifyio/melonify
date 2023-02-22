@@ -14,20 +14,6 @@ export default function RequireAuthLayout(props: RequireAuthProps) {
   const router = useRouter();
   const user = useAuthUser(["user"], auth);
 
-  // useAuthIdToken(["token"], auth, {
-  //   onSuccess(result) {
-  //     if (result) {
-  //       localStorage.setItem("token", result.token.token);
-
-  //       api.defaults.headers.common[
-  //         "Authorization"
-  //       ] = `Bearer ${result.token.token}`;
-  //     } else {
-  //       localStorage.removeItem("token");
-  //     }
-  //   },
-  // });
-
   if (user.isLoading) {
     return (
       <Stack

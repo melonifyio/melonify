@@ -27,11 +27,10 @@ type MenuItemProps = {
   _id: string;
   title: string;
   home: boolean;
-  path: string;
 };
 
 function MenuItem(props: MenuItemProps) {
-  const { title, _id, home, path } = props;
+  const { title, _id, home } = props;
 
   const router = useRouter();
 

@@ -7,7 +7,6 @@ import AddIcon from "@mui/icons-material/Add";
 import {
   GridToolbarContainer,
   GridToolbarFilterButton,
-  GridSelectionModel,
 } from "@mui/x-data-grid";
 
 import FormModal from "components/forms/form-modal";
