@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Box, Drawer, Stack, Divider, Typography } from "@mui/material";
 
 import Menu from "components/elements/menu";
-import useResponsive from "hooks/use-responsive";
+import useResponsive from "hooks/useResponsive";
 import AccountPopover from "layouts/dashboard/account-popover";
 import Logo from "components/elements/logo";
 

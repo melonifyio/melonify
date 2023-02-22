@@ -1,11 +1,7 @@
 import * as React from "react";
 
-import { Stack } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-
 import Nav from "./nav";
-import RequireAuth from "../../components/auth/require-auth/require-auth";
-import useCollections from "hooks/use-get-documents";
+import RequireAuth from "components/auth/require-auth/require-auth";
 
 import { StyledMain, StyledRoot } from "./styled";
 import Header from "./header";
@@ -19,36 +15,15 @@ function DashboardLayout(props: DashboardProps) {
   const { children } = props;
   const [open, setOpen] = React.useState(false);
 
-  const { data = [], isLoading } = useCollections({
-    collectionName: "_melonify_/config/collections",
-  });
-
   const startIsOpen = useStartCollectionModalStore((state) => state.open);
   const handleStartClose = useStartCollectionModalStore(
     (state) => state.handleClose
   );
 
-  if (isLoading) {
-    return (
-      <Stack
-        direction="row"
-        height="100vh"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <CircularProgress size={24} />
-      </Stack>
-    );
-  }
-
   return (
     <StyledRoot>
       <Header onOpenNav={() => setOpen(true)} />
-      <Nav
-        items={data.map((item) => ({ ...item, title: item.collectionId }))}
-        openNav={open}
-        onCloseNav={() => setOpen(false)}
-      />
+      <Nav items={[]} openNav={open} onCloseNav={() => setOpen(false)} />
       <StyledMain>{children}</StyledMain>
     </StyledRoot>
   );

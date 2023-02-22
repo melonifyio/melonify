@@ -5,8 +5,8 @@ import { LoadingButton } from "@mui/lab";
 import Stack from "@mui/material/Stack";
 import { Avatar } from "@mui/material";
 
-import { useUpload } from "hooks/use-upload";
-import firebase from "config/firebase";
+import { useUpload } from "hooks/useUpload";
+import firebase from "services/firebase";
 
 type ImageUploadProps = {
   fieldKey: string;

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useAuthUser } from "@react-query-firebase/auth";
-import { useAuthSignOut } from "@react-query-firebase/auth";
 // @mui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -20,32 +18,11 @@ import {
   ListItemText,
 } from "@mui/material";
 
-import auth from "config/firebase/auth";
-import { useColorMode } from "hooks/use-color-mode";
-
-// ----------------------------------------------------------------------
-
-const MENU_OPTIONS = [
-  {
-    label: "Account Settings",
-    icon: "eva:home-fill",
-  },
-  // {
-  //   label: "Profile",
-  //   icon: "eva:person-fill",
-  // },
-  // {
-  //   label: "Settings",
-  //   icon: "eva:settings-2-fill",
-  // },
-];
-
-// ----------------------------------------------------------------------
+import auth from "services/firebase/auth";
+import { useColorMode } from "hooks/useColorMode";
 
 export default function AccountPopover() {
   const theme = useTheme();
-  const user = useAuthUser(["user"], auth);
-  const logout = useAuthSignOut(auth);
   const [open, setOpen] = useState<HTMLButtonElement | null>();
   const colorMode = useColorMode();
 
@@ -57,9 +34,7 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
-  const handleLogout = () => {
-    logout.mutate();
-  };
+  const handleLogout = () => {};
 
   return (
     <>
@@ -70,20 +45,20 @@ export default function AccountPopover() {
         <CardActionArea onClick={handleOpen}>
           <Stack direction="row" alignItems="center" p={1} gap={1}>
             <Box>
-              <Avatar src={user.data?.photoURL || ""} alt="photoURL" />
+              <Avatar src={""} alt="photoURL" />
             </Box>
 
             <Box>
               <Box alignItems="flex-start">
                 <Typography variant="subtitle2" noWrap>
-                  {user.data?.displayName}
+                  {/* {user.data?.displayName} */}
                 </Typography>
                 <Typography
                   variant="caption"
                   sx={{ color: "text.secondary" }}
                   noWrap
                 >
-                  {user.data?.email}
+                  {/* {user.data?.email} */}
                 </Typography>
               </Box>
             </Box>
@@ -112,21 +87,21 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {user.data?.displayName}
+            {/* {user.data?.displayName} */}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {user.data?.email}
+            {/* {user.data?.email} */}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
         <Stack sx={{ p: 1 }}>
-          {MENU_OPTIONS.map((option) => (
+          {/* {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={handleClose}>
               {option.label}
             </MenuItem>
-          ))}
+          ))} */}
 
           {/* <MenuItem>
             <FormControlLabel

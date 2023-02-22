@@ -3,7 +3,9 @@ import { UseFormSetValue } from "react-hook-form";
 
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import useGetDocuments from "hooks/use-get-documents";
+import useFirestoreQuery from "hooks/useFirestoreQuery";
+import { collection, query } from "firebase/firestore";
+import firestore from "services/firebase/firestore";
 
 type ComboBoxProps = {
   collectionName: string;
@@ -18,7 +20,10 @@ const ComboBox = React.forwardRef<HTMLInputElement, ComboBoxProps>(
 
     const [enabled, setEnabled] = React.useState(false);
 
-    const documents = useGetDocuments({ collectionName, enabled });
+    const [documents, isLoading] = useFirestoreQuery(
+      [collectionName],
+      query(collection(firestore, collectionName))
+    );
 
     // if (documents.isLoading) {
     //   return <>Loading...</>;
@@ -28,10 +33,10 @@ const ComboBox = React.forwardRef<HTMLInputElement, ComboBoxProps>(
       <Autocomplete
         ref={ref}
         // disablePortal
-        options={documents?.data || []}
+        options={documents || []}
         getOptionLabel={(option) => option?.title || option?.email || ""}
         onOpen={() => setEnabled(true)}
-        loading={documents.isLoading}
+        loading={isLoading}
         sx={{ width: 300 }}
         renderInput={(params) => (
           <TextField variant="standard" {...params} label={label} />

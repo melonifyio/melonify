@@ -1,14 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { Stack } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 
 import SchemaIcon from "@mui/icons-material/Schema";
 
 import Dashboard from "layouts/dashboard";
-import CollectionTable from "components/collections/table";
 import PageHeader from "components/elements/page-header";
 import Container from "components/elements/container";
 import EmptyState from "components/elements/empty-state";
@@ -16,7 +13,6 @@ import {
   useCollectionSettingsModalStore,
   useSchemaSettingsModalStore,
 } from "store/modals";
-import useDocument from "hooks/use-document";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -28,45 +24,23 @@ export default function GenericPage() {
 
   const collectionSettingsModalStore = useCollectionSettingsModalStore();
 
-  const page = useDocument({
-    collectionName: "_melonify_/config/collections",
-    id: pageId as string,
-  });
-
-  if (page.query.isLoading) {
-    return (
-      <Stack direction="row" p={10} alignItems="center" justifyContent="center">
-        <CircularProgress size={24} />
-      </Stack>
-    );
-  }
-
-  if (!page.query.data) return <div>Page not found</div>;
-
   return (
     <Container>
-      <PageHeader title={page.query.data?.collectionId} />
+      <PageHeader title="" />
 
-      {!Object.keys(page.query.data.schema || {}).length ? (
-        <EmptyState
-          title="Define schema"
-          description="Organize the collection schema"
-          actions={
-            <Button
-              variant="contained"
-              startIcon={<SchemaIcon />}
-              onClick={handleOpenSchemaSettingsModal}
-            >
-              Schema
-            </Button>
-          }
-        />
-      ) : (
-        <CollectionTable
-          collectionName={page.query.data.collectionId}
-          model={page.query.data.schema}
-        />
-      )}
+      <EmptyState
+        title="Define schema"
+        description="Organize the collection schema"
+        actions={
+          <Button
+            variant="contained"
+            startIcon={<SchemaIcon />}
+            onClick={handleOpenSchemaSettingsModal}
+          >
+            Schema
+          </Button>
+        }
+      />
     </Container>
   );
 }

@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import { useAuthUser, useAuthIdToken } from "@react-query-firebase/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
 
-import auth from "config/firebase/auth";
+import auth from "services/firebase/auth";
+import useFirebaseAuth from "hooks/useFirebaseAuth";
 
 type RequireAuthProps = {
   children: React.ReactNode;
@@ -12,9 +12,9 @@ type RequireAuthProps = {
 export default function RequireAuthLayout(props: RequireAuthProps) {
   const { children } = props;
   const router = useRouter();
-  const user = useAuthUser(["user"], auth);
+  const { isLoading, profile } = useFirebaseAuth();
 
-  if (user.isLoading) {
+  if (isLoading) {
     return (
       <Stack
         direction="row"
@@ -27,11 +27,11 @@ export default function RequireAuthLayout(props: RequireAuthProps) {
     );
   }
 
-  if (!user.data) {
+  if (!profile) {
     router.push("/login");
   }
 
-  if (user.data) {
+  if (profile) {
     return <>{children}</>;
   }
 

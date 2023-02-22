@@ -1,46 +1,15 @@
 import * as React from "react";
 import Head from "next/head";
-import { useAuthSignInWithPopup } from "@react-query-firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/router";
 
 import { styled } from "@mui/material/styles";
 import { Container, Typography, Stack, Button } from "@mui/material";
 
-import auth from "config/firebase/auth";
-
-import useDocument from "hooks/use-document";
-
-export const UpdateUser = ({ id, data }: { id: string; data: any }) => {
-  const router = useRouter();
-
-  const updateUser = useDocument({ collectionName: "users", id });
-
-  React.useEffect(() => {
-    updateUser.update.mutate(data);
-
-    router.push("/");
-  }, [data, router, updateUser.update]);
-
-  return <></>;
-};
+import auth from "services/firebase/auth";
 
 export default function LoginForm() {
-  const authSignIn = useAuthSignInWithPopup(auth);
-
-  const handleLogin = () => {
-    authSignIn.mutate(
-      {
-        provider: new GoogleAuthProvider(),
-      },
-      {
-        onSuccess: (res) => {
-          // create user in firestore
-          // setEmail(res.user.email);
-        },
-      }
-    );
-  };
+  const handleLogin = () => {};
 
   return (
     <>
