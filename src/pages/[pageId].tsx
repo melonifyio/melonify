@@ -9,9 +9,9 @@ import SchemaIcon from "@mui/icons-material/Schema";
 
 import Dashboard from "layouts/dashboard";
 import CollectionTable from "components/collections/table";
-import PageHeader from "components/page-header";
-import Container from "components/container";
-import EmptyState from "components/empty-state";
+import PageHeader from "components/elements/page-header";
+import Container from "components/elements/container";
+import EmptyState from "components/elements/empty-state";
 import {
   useCollectionSettingsModalStore,
   useSchemaSettingsModalStore,

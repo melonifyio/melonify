@@ -9,8 +9,6 @@ import { Container, Typography, Stack, Button } from "@mui/material";
 
 import auth from "config/firebase/auth";
 
-import Iconify from "components/iconify";
-
 import useDocument from "hooks/use-document";
 
 export const UpdateUser = ({ id, data }: { id: string; data: any }) => {
@@ -50,12 +48,6 @@ export default function LoginForm() {
 
       <Button size="large" variant="contained" fullWidth onClick={handleLogin}>
         <Stack direction="row" gap={2} alignItems="center">
-          <Iconify
-            icon="eva:google-fill"
-            color="#DF3E30"
-            width={22}
-            height={22}
-          />
           <div>Continue with Google</div>
         </Stack>
       </Button>

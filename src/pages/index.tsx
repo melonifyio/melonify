@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
 
-import Container from "components/container";
+import Container from "components/elements/container";
 import Dashboard from "layouts/dashboard";
-import PageHeader from "components/page-header";
+import PageHeader from "components/elements/page-header";
 import StartCollectionFab from "components/collections/start/fab";
 import CollectionList from "components/collections/list";
-import EmptyState from "components/empty-state";
+import EmptyState from "components/elements/empty-state";
 import StartCollectionButton from "components/collections/start";
 
 export default function Home() {

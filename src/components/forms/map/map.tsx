@@ -7,9 +7,9 @@ import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/EditOutlined";
 
-import { AlertDialog } from "components/alert-dialog";
+import { AlertDialog } from "components/elements/alert-dialog";
 import { FieldProps, ModelProps } from "components/forms/form-fields/types";
-import { SmartList } from "components/list/list";
+import { SmartList } from "components/elements/list/list";
 import FormModal from "components/forms/form-modal";
 import FormFields from "components/forms/form-fields/form-fields";
 

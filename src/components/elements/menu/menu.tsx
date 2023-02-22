@@ -1,4 +1,3 @@
-import { DocumentData } from "firebase/firestore";
 import { useRouter } from "next/router";
 
 import { Box, List, ListItemText, Skeleton } from "@mui/material";
@@ -9,11 +8,7 @@ type MenuProps = {
   isLoading?: boolean;
 };
 
-export default function Menu({
-  data = [],
-  isLoading,
-  ...other
-}: MenuProps) {
+export default function Menu({ data = [], isLoading, ...other }: MenuProps) {
   return (
     <Box {...other}>
       <List disablePadding>
@@ -28,10 +23,15 @@ export default function Menu({
   );
 }
 
-type MenuItemProps = DocumentData & { _id: string };
+type MenuItemProps = {
+  _id: string;
+  title: string;
+  home: boolean;
+  path: string;
+};
 
 function MenuItem(props: MenuItemProps) {
-  const { title, _id, home, path, icon, info } = props;
+  const { title, _id, home, path } = props;
 
   const router = useRouter();
 
@@ -46,8 +46,6 @@ function MenuItem(props: MenuItemProps) {
       }}
     >
       <ListItemText disableTypography primary={title} />
-
-      {info && info}
     </StyledNavItem>
   );
 }

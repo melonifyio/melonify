@@ -13,7 +13,7 @@ import {
   useCollectionSettingsModalStore,
   useSchemaSettingsModalStore,
 } from "store/modals";
-import { AlertDialog } from "components/alert-dialog";
+import { AlertDialog } from "components/elements/alert-dialog";
 import useDocument from "hooks/use-document";
 
 type CollectionToolbarProps = {

@@ -1,4 +1,3 @@
-import { useTheme } from "@mui/material/styles";
 import MuiAvatar from "@mui/material/Avatar";
 import stringToColour from "utils/string-to-color";
 
@@ -9,7 +8,6 @@ type AvatarProps = {
 
 const Avatar = (props: AvatarProps) => {
   const { title, src } = props;
-  const theme = useTheme();
 
   const logo = (
     <MuiAvatar

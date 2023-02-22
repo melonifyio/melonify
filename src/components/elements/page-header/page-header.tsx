@@ -2,7 +2,6 @@ import * as React from "react";
 
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 
 type PageHeaderProps = {

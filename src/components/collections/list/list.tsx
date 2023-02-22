@@ -3,7 +3,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import useGetDocuments from "hooks/use-get-documents";
-import Card from "components/card";
+import Card from "components/elements/card";
 import { Typography } from "@mui/material";
 
 type CollectionsListProps = {
