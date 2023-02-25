@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Toolbar, Button, Box, TextField, Stack, Divider } from "@mui/material";
-import { Add, Filter, Filter1, FilterList } from "@mui/icons-material";
+import { Toolbar, Button, Stack, Divider } from "@mui/material";
+import { Add, FilterList } from "@mui/icons-material";
 import FormModal from "components/form/form-modal";
 import { CollectionProps } from "components/collection/types";
 import FormFields from "components/form/form-fields/form-fields";
@@ -36,6 +36,7 @@ export default function TableToolbar(props: TableToolbarProps) {
           spacing={2}
         >
           <Button
+            size="small"
             startIcon={<FilterList />}
             variant="text"
             onClick={() => setCreateOpen(true)}
@@ -43,6 +44,7 @@ export default function TableToolbar(props: TableToolbarProps) {
             Filter
           </Button>
           <Button
+            size="small"
             startIcon={<Add />}
             variant="contained"
             onClick={() => setCreateOpen(true)}
