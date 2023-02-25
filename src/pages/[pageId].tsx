@@ -1,46 +1,30 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import Button from "@mui/material/Button";
-
-import SchemaIcon from "@mui/icons-material/Schema";
-
 import Dashboard from "layouts/dashboard";
 import PageHeader from "components/elements/page-header";
 import Container from "components/elements/container";
 import EmptyState from "components/elements/empty-state";
-import {
-  useCollectionSettingsModalStore,
-  useSchemaSettingsModalStore,
-} from "store/modals";
+
+import melonify from "config/melonify";
+import Screen from "components/screen/screen";
 
 export default function GenericPage() {
   const router = useRouter();
   const pageId = router.query.pageId;
 
-  const handleOpenSchemaSettingsModal = useSchemaSettingsModalStore(
-    (state) => state.handleOpen
-  );
-
-  const collectionSettingsModalStore = useCollectionSettingsModalStore();
+  const pageInfo = melonify.menu.find((x) => x.path === pageId);
 
   return (
     <Container>
-      <PageHeader title="" />
+      <PageHeader title={pageInfo?.title || ""} />
 
-      <EmptyState
+      {/* <EmptyState
         title="Define schema"
         description="Organize the collection schema"
-        actions={
-          <Button
-            variant="contained"
-            startIcon={<SchemaIcon />}
-            onClick={handleOpenSchemaSettingsModal}
-          >
-            Schema
-          </Button>
-        }
-      />
+      /> */}
+
+      <Screen widgets={melonify.screen[pageId as string] || []} />
     </Container>
   );
 }

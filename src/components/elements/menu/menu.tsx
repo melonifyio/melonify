@@ -1,14 +1,21 @@
 import { useRouter } from "next/router";
 
 import { Box, List, ListItemText, Skeleton } from "@mui/material";
-import { StyledNavItem } from "./styles";
+import { StyledNavItem, StyledNavItemIcon } from "./styles";
+import * as icons from "@mui/icons-material";
 
 type MenuProps = {
   data: MenuItemProps[];
   isLoading?: boolean;
+  open?: boolean;
 };
 
-export default function Menu({ data = [], isLoading, ...other }: MenuProps) {
+export default function Menu({
+  data = [],
+  isLoading,
+  open,
+  ...other
+}: MenuProps) {
   return (
     <Box {...other}>
       <List disablePadding>
@@ -16,35 +23,44 @@ export default function Menu({ data = [], isLoading, ...other }: MenuProps) {
           [0, 1, 2].map((item) => <MenuItemPlaceholder key={item} />)}
 
         {data.map((item) => (
-          <MenuItem key={item.title} {...item} />
+          <MenuItem key={item.title} open={open} {...item} />
         ))}
       </List>
     </Box>
   );
 }
 
-type MenuItemProps = {
-  _id: string;
+export type MenuItemProps = {
   title: string;
-  home: boolean;
+  path: string;
+  icon: keyof typeof icons;
+  home?: boolean;
+  open?: boolean;
 };
 
 function MenuItem(props: MenuItemProps) {
-  const { title, _id, home } = props;
+  const { title, path, home, icon, open } = props;
 
   const router = useRouter();
 
+  const IconComponent = icons[icon || "Folder"];
+
   return (
     <StyledNavItem
-      selected={home ? router.asPath === `/` : router.asPath.includes(_id)}
+      selected={home ? router.asPath === `/` : router.asPath.includes(path)}
       onClick={() => {
-        router.push(`/${_id}`);
+        router.push(`/${path}`);
       }}
       sx={{
         width: "100%",
+        pl: 1,
+        gap: 2,
       }}
     >
-      <ListItemText disableTypography primary={title} />
+      <StyledNavItemIcon sx={{ p: 2 }}>
+        <IconComponent fontSize="small" />
+      </StyledNavItemIcon>
+      {open && <ListItemText disableTypography primary={title} />}
     </StyledNavItem>
   );
 }

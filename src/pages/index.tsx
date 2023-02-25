@@ -2,24 +2,27 @@ import React from "react";
 import Head from "next/head";
 
 import Container from "components/elements/container";
+import Screen from "components/screen/screen";
 import Dashboard from "layouts/dashboard";
 import PageHeader from "components/elements/page-header";
-import CollectionList from "components/collections/list";
 import EmptyState from "components/elements/empty-state";
+import CollectionList from "components/collection/collection-list/collection-list";
+import melonify from "config/melonify";
 
 export default function Home() {
   return (
     <Container>
       <PageHeader title="Collections" />
-      {/* <FirebaseStatus /> */}
-      <CollectionList
-        collectionName="_melonify_/config/collections"
-        emptyState={
-          <EmptyState
-            title="Get started"
-            description="Start your first collection"
-          />
-        }
+
+      <Screen
+        widgets={{
+          collectionList: {
+            component: CollectionList,
+            props: {
+              data: melonify.collections,
+            },
+          },
+        }}
       />
     </Container>
   );

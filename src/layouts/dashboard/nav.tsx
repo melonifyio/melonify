@@ -1,49 +1,60 @@
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-import { Box, Drawer, Stack, Divider, Typography } from "@mui/material";
+import { Box, Drawer, IconButton, Stack } from "@mui/material";
 
 import Menu from "components/elements/menu";
 import useResponsive from "hooks/useResponsive";
-import AccountPopover from "layouts/dashboard/account-popover";
 import Logo from "components/elements/logo";
-
-const NAV_WIDTH = 280;
+import { MenuItemProps } from "components/elements/menu/menu";
+import { Menu as MenuIcon } from "@mui/icons-material";
+import { StyledDrawer } from "./styled";
+import { NAV_WIDTH } from "./header";
 
 type NavProps = {
   openNav: boolean;
+  onOpenNav: () => void;
   onCloseNav: () => void;
-  items: any;
+  items: MenuItemProps[];
+  footerItems?: MenuItemProps[];
 };
 
 export default function Nav(props: NavProps) {
-  const { openNav, onCloseNav, items = [] } = props;
+  const { openNav, onOpenNav, onCloseNav, items = [], footerItems } = props;
   const isDesktop = useResponsive("up", "lg");
 
+  const router = useRouter();
+
   useEffect(() => {
-    if (openNav) {
-      onCloseNav();
-    }
+    // if (!isDesktop) {
+    //   onCloseNav();
+    // }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderContent = (
-    <Stack height="100%" gap={4} p={2}>
-      <Box>
-        <Logo />
-      </Box>
+    <Stack height="100%" gap={2} p={1}>
+      <Stack direction="row" gap={0} p={0}>
+        <Box p={1}>
+          <IconButton
+            size="small"
+            onClick={() => (openNav ? onCloseNav() : onOpenNav())}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Box>
+        <Logo onClick={() => router.push("/")} />
+      </Stack>
 
       <Box>
-        <Menu data={[{ _id: "", title: "Collections", home: true }]} />
-        {/* <Divider sx={{ my: 1 }} /> */}
-        <Menu data={items || []} />
+        <Menu data={items || []} open={openNav} />
       </Box>
-
-      <Box></Box>
 
       <Box sx={{ flexGrow: 1 }} />
 
       <Box>
-        <AccountPopover />
+        <Menu data={footerItems || []} />
       </Box>
     </Stack>
   );
@@ -53,12 +64,11 @@ export default function Nav(props: NavProps) {
       component="nav"
       sx={{
         flexShrink: { lg: 0 },
-        width: { lg: NAV_WIDTH },
       }}
     >
       {isDesktop ? (
-        <Drawer
-          open
+        <StyledDrawer
+          open={openNav}
           variant="permanent"
           PaperProps={{
             sx: {
@@ -69,9 +79,9 @@ export default function Nav(props: NavProps) {
           }}
         >
           {renderContent}
-        </Drawer>
+        </StyledDrawer>
       ) : (
-        <Drawer
+        <StyledDrawer
           open={openNav}
           onClose={onCloseNav}
           ModalProps={{
@@ -82,7 +92,7 @@ export default function Nav(props: NavProps) {
           }}
         >
           {renderContent}
-        </Drawer>
+        </StyledDrawer>
       )}
     </Box>
   );

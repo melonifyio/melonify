@@ -6,11 +6,9 @@ import {
   ListItemButtonProps,
 } from "@mui/material";
 
-export const StyledNavItem = styled((props: ListItemButtonProps) => (
-  <ListItemButton {...props} />
-))(({ theme }) => ({
+export const StyledNavItem = styled(ListItemButton)(({ theme }) => ({
   ...theme.typography.body2,
-  height: 48,
+  height: 44,
   position: "relative",
   color: theme.palette.text.secondary,
   borderRadius: theme.shape.borderRadius,
@@ -19,6 +17,7 @@ export const StyledNavItem = styled((props: ListItemButtonProps) => (
 export const StyledNavItemIcon = styled(ListItemIcon)({
   width: 22,
   height: 22,
+  minWidth: 22,
   color: "inherit",
   display: "flex",
   alignItems: "center",

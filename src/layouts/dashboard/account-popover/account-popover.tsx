@@ -1,5 +1,6 @@
 import { useState } from "react";
-// @mui
+import { useRouter } from "next/router";
+
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
@@ -8,23 +9,24 @@ import {
   Stack,
   MenuItem,
   Avatar,
-  IconButton,
   Popover,
   Card,
   CardActionArea,
   Switch,
-  FormControlLabel,
-  ListItem,
-  ListItemText,
 } from "@mui/material";
 
-import auth from "services/firebase/auth";
 import { useColorMode } from "hooks/useColorMode";
+import useFirebaseAuth from "hooks/useFirebaseAuth";
+import { signOut } from "firebase/auth";
+import auth from "services/firebase/auth";
 
 export default function AccountPopover() {
   const theme = useTheme();
+  const router = useRouter();
   const [open, setOpen] = useState<HTMLButtonElement | null>();
   const colorMode = useColorMode();
+
+  const { profile } = useFirebaseAuth();
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
@@ -34,7 +36,11 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      router.push("/login");
+    });
+  };
 
   return (
     <>
@@ -42,26 +48,30 @@ export default function AccountPopover() {
         variant="outlined"
         sx={{ boxShadow: "none", border: 0, backgroundColor: "transparent" }}
       >
-        <CardActionArea onClick={handleOpen}>
+        <CardActionArea onClick={handleOpen} sx={{ borderRadius: "100%" }}>
           <Stack direction="row" alignItems="center" p={1} gap={1}>
             <Box>
-              <Avatar src={""} alt="photoURL" />
+              <Avatar
+                src={profile?.photoURL || ""}
+                alt="photoURL"
+                sx={{ width: 34, height: 34 }}
+              />
             </Box>
 
-            <Box>
+            {/* <Box>
               <Box alignItems="flex-start">
                 <Typography variant="subtitle2" noWrap>
-                  {/* {user.data?.displayName} */}
+                  {profile?.displayName}
                 </Typography>
                 <Typography
                   variant="caption"
                   sx={{ color: "text.secondary" }}
                   noWrap
                 >
-                  {/* {user.data?.email} */}
+                  {profile?.email}
                 </Typography>
               </Box>
-            </Box>
+            </Box> */}
           </Stack>
         </CardActionArea>
       </Card>
@@ -70,8 +80,8 @@ export default function AccountPopover() {
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "left" }}
-        transformOrigin={{ vertical: "bottom", horizontal: "right" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
         PaperProps={{
           sx: {
             p: 0,
@@ -87,10 +97,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {/* {user.data?.displayName} */}
+            {profile?.displayName}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {/* {user.data?.email} */}
+            {profile?.email}
           </Typography>
         </Box>
 
@@ -103,25 +113,6 @@ export default function AccountPopover() {
             </MenuItem>
           ))} */}
 
-          {/* <MenuItem>
-            <FormControlLabel
-              labelPlacement="end"
-              componentsProps={{
-                typography: {
-                  fontSize: "small",
-                },
-              }}
-              control={
-                <Switch
-                  size="small"
-                  checked={theme.palette.mode === "dark"}
-                  onChange={colorMode.toggleColorMode}
-                />
-              }
-              label="Dark Mode"
-            />
-          </MenuItem> */}
-
           <MenuItem onClick={colorMode.toggleColorMode}>
             <Stack direction="row" justifyContent="space-between" width="100%">
               <span>Dark Mode</span>
@@ -129,9 +120,6 @@ export default function AccountPopover() {
                 edge="end"
                 size="small"
                 checked={theme.palette.mode === "dark"}
-                // inputProps={{
-                //   "aria-labelledby": "switch-list-label-bluetooth",
-                // }}
               />
             </Stack>
           </MenuItem>

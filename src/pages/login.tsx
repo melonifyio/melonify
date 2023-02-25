@@ -1,6 +1,5 @@
 import * as React from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import { styled } from "@mui/material/styles";
 import { Container, Stack } from "@mui/material";
@@ -19,9 +18,6 @@ const StyledContent = styled("div")(({ theme }) => ({
 }));
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [email, setEmail] = React.useState<string | null>(null);
-
   return (
     <Container maxWidth="xs">
       <StyledContent>

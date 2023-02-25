@@ -1,12 +1,16 @@
-import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
-type LogoProps = {};
+type LogoProps = {
+  onClick: () => void;
+};
 
 const Logo = (props: LogoProps) => {
+  const { onClick } = props;
+
   return (
     <Stack direction="row" gap={1} alignItems="center">
-      <Typography variant="h6">Melonify</Typography>
+      <Button onClick={onClick}>Melonify</Button>
     </Stack>
   );
 };

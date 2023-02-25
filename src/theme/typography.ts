@@ -23,6 +23,7 @@ export function responsiveFontSizes({ sm, md, lg }: any) {
 // ----------------------------------------------------------------------
 
 const FONT_PRIMARY = [
+  "Verdana",
   "-apple-system",
   "BlinkMacSystemFont",
   '"Segoe UI"',

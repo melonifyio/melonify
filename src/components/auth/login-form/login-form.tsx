@@ -1,15 +1,23 @@
 import * as React from "react";
-import Head from "next/head";
-import { GoogleAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/router";
 
-import { styled } from "@mui/material/styles";
-import { Container, Typography, Stack, Button } from "@mui/material";
+import { Typography, Stack, Button } from "@mui/material";
 
 import auth from "services/firebase/auth";
 
+const provider = new GoogleAuthProvider();
+
 export default function LoginForm() {
-  const handleLogin = () => {};
+  const router = useRouter();
+
+  const handleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        router.push("/");
+      })
+      .catch((error) => {});
+  };
 
   return (
     <>

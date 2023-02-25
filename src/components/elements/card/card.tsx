@@ -27,11 +27,12 @@ export default function Card(props: CardProps) {
             <Typography variant="h6">{title}</Typography>
           </CardContent>
         </CardActionArea>
-        {/* <CardActions>
+        <CardActions>
+          <Box sx={{ flex: 1 }}></Box>
           <Button endIcon={<ChevronRightIcon />} size="small" onClick={onClick}>
             Open
           </Button>
-        </CardActions> */}
+        </CardActions>
       </MuiCard>
     </Box>
   );
