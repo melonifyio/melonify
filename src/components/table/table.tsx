@@ -22,10 +22,20 @@ type TableProps = {
 export default function Table(props: TableProps): JSX.Element {
   const { collection } = props;
 
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage] = React.useState(10);
   const [activeDocumentId, setActiveDocumentId] = React.useState<string>("");
-  const [data, isLoading] = useTable({ collectionId: collection.id });
+  const { data, isLoading, count, showNextPage, showPreviousPage } = useTable({
+    collectionId: collection.id,
+    rowsPerPage,
+  });
 
   const columns = getColumns(collection.schema);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    newPage > page ? showNextPage() : showPreviousPage();
+    setPage(newPage);
+  };
 
   return (
     <>
@@ -51,7 +61,12 @@ export default function Table(props: TableProps): JSX.Element {
         )}
       </Paper>
 
-      <TablePagination count={10} />
+      <TablePagination
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        count={count as number}
+      />
 
       {!!activeDocumentId && (
         <TableDrawer

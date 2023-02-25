@@ -3,6 +3,7 @@ import { setDoc } from "firebase/firestore";
 
 type UseFirestoreSetDocOptionsProps = {
   onSuccess?: () => void;
+  merge: boolean;
 };
 
 const useFirestoreSetDoc = (
@@ -15,7 +16,9 @@ const useFirestoreSetDoc = (
   const mutate = async (data: any) => {
     setIsLoading(true);
 
-    await setDoc(docRef, data)
+    await setDoc(docRef, data, {
+      merge: options?.merge || true,
+    })
       .then(() => {
         options?.onSuccess && options.onSuccess();
       })
