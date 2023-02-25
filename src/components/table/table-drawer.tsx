@@ -6,8 +6,8 @@ import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { LoadingButton } from "@mui/lab";
-import { Typography } from "@mui/material";
-import { CollectionProps, SchemaProps } from "components/collection/types";
+import { Button, Typography } from "@mui/material";
+import { CollectionProps } from "components/collection/types";
 import useFirestoreDoc from "hooks/useFirestoreDoc";
 import { doc } from "firebase/firestore";
 import firestore from "services/firebase/firestore";
@@ -33,6 +33,10 @@ export const TableDrawer = (props: TableDrawerProps) => {
   const [data, isLoading] = useFirestoreDoc([documentId], docRef);
 
   const [updateDoc, isUpdating] = useFirestoreSetDoc(docRef);
+
+  const handleSubmit = (values: any) => {
+    updateDoc(values);
+  };
 
   //   const subcollections = Object.keys(model)
   //     .filter((fieldKey) => model[fieldKey].type === "SUBCOLLECTION")
@@ -72,48 +76,75 @@ export const TableDrawer = (props: TableDrawerProps) => {
 
   return (
     <Drawer anchor="right" open={localIsOpen} onClose={onClose}>
-      <Box minWidth={600} maxWidth={800} p={4}>
-        <Stack gap={2}>
-          <Form
-            initialValues={data}
-            onSubmit={updateDoc as (values: any) => void}
-            titleComponent={<Typography variant="h4">Edit document</Typography>}
-            contentComponent={(fieldProps: any) => (
-              <FormFields
-                schema={{
-                  _id: {
-                    fieldKey: "_id",
-                    name: "ID",
-                    type: "TEXT",
-                    config: {
-                      readOnly: true,
-                    },
-                  },
-                  ...schema,
+      <Form
+        height="100%"
+        initialValues={data}
+        onSubmit={handleSubmit}
+        contentComponent={(fieldProps: any) => (
+          <Box minWidth={600} maxWidth={800} sx={{ height: "100%" }}>
+            <Stack sx={{ height: "100%" }}>
+              <Box
+                sx={{
+                  py: 2,
+                  px: 3,
+                  borderBottom: 1,
+                  borderColor: "divider",
+                  display: "flex",
                 }}
-                {...fieldProps}
-              />
-            )}
-            actionsComponent={
-              <LoadingButton
-                type="submit"
-                variant="contained"
-                loading={isUpdating as boolean}
               >
-                Update
-              </LoadingButton>
-            }
-          />
+                <Typography variant="h6">Edit document</Typography>
+              </Box>
 
-          {/* {subcollections && subcollections.length > 0 && (
+              <Box sx={{ flex: 1, overflowY: "auto" }}>
+                <Box sx={{ py: 2, px: 3 }}>
+                  <FormFields
+                    schema={{
+                      _id: {
+                        label: "ID",
+                        type: "TEXT",
+                        config: {
+                          readOnly: true,
+                        },
+                      },
+                      ...schema,
+                    }}
+                    {...fieldProps}
+                  />
+                </Box>
+              </Box>
+
+              <Box
+                sx={{
+                  p: 2,
+                  borderTop: 1,
+                  borderColor: "divider",
+                  display: "flex",
+                }}
+              >
+                <Box sx={{ flex: 1 }}></Box>
+                <Stack direction="row" gap={1}>
+                  <Button onClick={onClose}>Close</Button>
+
+                  <LoadingButton
+                    type="submit"
+                    variant="contained"
+                    loading={isUpdating as boolean}
+                  >
+                    Update
+                  </LoadingButton>
+                </Stack>
+              </Box>
+            </Stack>
+          </Box>
+        )}
+      />
+      {/* {subcollections && subcollections.length > 0 && (
             <SubcollectionTabs
               subcollections={subcollections}
               collectionId={collectionId}
               documentId={documentId}
             />
           )} */}
-        </Stack>
-      </Box>
 
       {/* <Snackbar
         open={openToast}
