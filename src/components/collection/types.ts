@@ -1,8 +1,17 @@
 import { FieldType } from "components/field/field/field";
+import { FilterOperator } from "components/table/table-filter/table-filter-item";
+
+type SchemaConfig = {
+  filterable?: boolean;
+  isDefaultFilter?: boolean;
+  defaultOperator?: "==";
+  availableOperators?: FilterOperator[];
+};
 
 export type SchemaProps = {
   label: string;
   type: keyof typeof FieldType;
+  config?: SchemaConfig;
 };
 
 export type CollectionProps = {

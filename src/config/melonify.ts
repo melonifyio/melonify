@@ -21,7 +21,16 @@ const collections: IMelonify["collections"] = {
     schema: {
       image: { label: "Logo", type: "IMAGE" },
       cover: { label: "Cover", type: "IMAGE" },
-      title: { label: "Title", type: "TEXT" },
+      title: {
+        label: "Title",
+        type: "TEXT",
+        config: {
+          filterable: true,
+          isDefaultFilter: true,
+          defaultOperator: "==",
+          availableOperators: ["=="],
+        },
+      },
       rating: { label: "Rating", type: "NUMBER" },
       address: { label: "Address", type: "TEXT" },
       category: { label: "Category", type: "REFERENCE" },
