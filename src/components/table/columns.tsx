@@ -33,14 +33,18 @@ const getColumnAlign = (
 };
 
 export const getColumns = (schema: CollectionProps["schema"]): IColumn[] => {
-  return Object.keys(schema).map((key) => {
-    return {
-      field: key,
-      headerName: schema[key].label,
-      width: getColumnWidth(schema[key].type),
-      flex: getColumnFlex(schema[key].type),
-      align: getColumnAlign(schema[key].type),
-      renderCell: (item) => <Field type={schema[key].type} value={item[key]} />,
-    };
-  });
+  return Object.keys(schema)
+    .filter((key) => !schema[key].config?.hideTableColumn)
+    .map((key) => {
+      return {
+        field: key,
+        headerName: schema[key].label,
+        width: getColumnWidth(schema[key].type),
+        flex: getColumnFlex(schema[key].type),
+        align: getColumnAlign(schema[key].type),
+        renderCell: (item) => (
+          <Field type={schema[key].type} value={item[key]} />
+        ),
+      };
+    });
 };

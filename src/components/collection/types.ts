@@ -7,6 +7,7 @@ type SchemaConfig = {
   defaultOperator?: "==";
   availableOperators?: FilterOperator[];
   schema?: Record<string, SchemaProps>;
+  hideTableColumn?: boolean;
 };
 
 export type SchemaProps = {
