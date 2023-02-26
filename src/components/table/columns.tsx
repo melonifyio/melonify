@@ -43,7 +43,11 @@ export const getColumns = (schema: CollectionProps["schema"]): IColumn[] => {
         flex: getColumnFlex(schema[key].type),
         align: getColumnAlign(schema[key].type),
         renderCell: (item) => (
-          <Field type={schema[key].type} value={item[key]} />
+          <Field
+            type={schema[key].type}
+            value={item[key]}
+            config={schema[key].config}
+          />
         ),
       };
     });
