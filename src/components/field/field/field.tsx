@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { SchemaConfig } from "components/collection/types";
 import FieldBoolean from "../field-boolean/field-boolean";
+import FieldEnum from "../field-enum/field-enum";
 import FieldImage from "../field-image/field-image";
 import FieldReference from "../field-reference/field-reference";
 import FieldText from "../field-text/field-text";
@@ -37,6 +38,8 @@ const Field = (props: FieldProps) => {
       return <FieldReference value={value} config={config} />;
     case "BOOLEAN":
       return <FieldBoolean checked={value} />;
+    case "ENUM":
+      return <FieldEnum label={value} />;
 
     default:
       return <Typography></Typography>;

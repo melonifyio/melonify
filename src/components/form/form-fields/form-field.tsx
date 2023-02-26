@@ -19,6 +19,7 @@ import FormInput from "../form-input/form-input";
 import { FormUpload } from "../form-upload";
 import FormCombobox from "../form-combobox/form-combobox";
 import FormBoolean from "../form-boolean/form-boolean";
+import FormEnum from "../form-enum/form-enum";
 
 export type FormFieldProps = SchemaProps & {
   fieldKey: string;
@@ -41,7 +42,7 @@ export default function FormField(props: FormFieldProps) {
         return <></>;
 
       case "ENUM":
-        return <></>;
+        return <FormEnum field={field} label={label} config={config || {}} />;
 
       case "IMAGE":
         return <FormUpload field={field} setValue={setValue} />;
