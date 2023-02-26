@@ -14,6 +14,8 @@ import firestore from "services/firebase/firestore";
 import Form from "components/form/form/form";
 import FormFields from "components/form/form-fields/form-fields";
 import useFirestoreSetDoc from "hooks/useFirestoreSetDoc";
+import TableDrawerTabs from "./table-drawer-tabs";
+import { TableDrawerSubcollections } from "./table-drawer-subcollections";
 
 type TableDrawerProps = {
   open: boolean;
@@ -81,36 +83,58 @@ export const TableDrawer = (props: TableDrawerProps) => {
         initialValues={data}
         onSubmit={handleSubmit}
         contentComponent={(fieldProps: any) => (
-          <Box minWidth={600} maxWidth={800} sx={{ height: "100%" }}>
+          <Box width={680} maxWidth={800} sx={{ height: "100%" }}>
             <Stack sx={{ height: "100%" }}>
               <Box
                 sx={{
-                  py: 2,
-                  px: 3,
-                  borderBottom: 1,
-                  borderColor: "divider",
-                  display: "flex",
+                  py: 1,
+                  px: 2,
                 }}
               >
-                <Typography variant="h6">Edit document</Typography>
+                <Typography variant="subtitle2">Edit</Typography>
               </Box>
 
               <Box sx={{ flex: 1, overflowY: "auto" }}>
-                <Box sx={{ py: 2, px: 3 }}>
-                  <FormFields
-                    schema={{
-                      _id: {
-                        label: "ID",
-                        type: "TEXT",
-                        config: {
-                          readOnly: true,
-                        },
-                      },
-                      ...schema,
-                    }}
-                    {...fieldProps}
-                  />
-                </Box>
+                <TableDrawerTabs
+                  tabs={[
+                    { label: "General" },
+                    { label: "Subcollections" },
+                    { label: "System" },
+                  ]}
+                  panes={[
+                    <Box p={3} key={0}>
+                      <FormFields
+                        schema={{
+                          ...schema,
+                        }}
+                        {...fieldProps}
+                      />
+                    </Box>,
+                    <Box p={3} key={0}>
+                      <TableDrawerSubcollections
+                        collectionId={collectionId}
+                        documentId={documentId}
+                        key={1}
+                        schema={schema}
+                      />
+                    </Box>,
+                    <Box p={3} key={0}>
+                      <FormFields
+                        key={2}
+                        schema={{
+                          _id: {
+                            label: "ID",
+                            type: "TEXT",
+                            config: {
+                              readOnly: true,
+                            },
+                          },
+                        }}
+                        {...fieldProps}
+                      />
+                    </Box>,
+                  ]}
+                />
               </Box>
 
               <Box

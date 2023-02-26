@@ -6,6 +6,7 @@ type SchemaConfig = {
   isDefaultFilter?: boolean;
   defaultOperator?: "==";
   availableOperators?: FilterOperator[];
+  schema?: Record<string, SchemaProps>;
 };
 
 export type SchemaProps = {

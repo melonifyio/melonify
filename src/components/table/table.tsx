@@ -13,7 +13,7 @@ import TableBody from "./table-body";
 import { Box, LinearProgress } from "@mui/material";
 import TableToolbar from "./table-toolbar";
 import TablePagination from "./table-pagination";
-import { TableDrawer } from "./table-drawer";
+import { TableDrawer } from "./table-drawer/table-drawer";
 import { FilterItem } from "./table-filter/table-filter-item";
 
 type TableProps = {
