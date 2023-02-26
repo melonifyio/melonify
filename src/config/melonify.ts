@@ -19,6 +19,7 @@ const collections: IMelonify["collections"] = {
   restaurants: {
     id: "Restaurants",
     schema: {
+      available: { label: "Available", type: "BOOLEAN" },
       image: { label: "Logo", type: "IMAGE" },
       cover: {
         label: "Cover",
