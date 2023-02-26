@@ -69,7 +69,26 @@ const collections: IMelonify["collections"] = {
     },
   },
   categories: { id: "Categories", schema: {} },
-  orders: { id: "Orders", schema: {} },
+  orders: {
+    id: "Orders",
+    schema: {
+      customer: {
+        label: "Customer",
+        type: "REFERENCE",
+        config: {
+          collectionId: "users",
+          optionLabel: "email",
+        },
+      },
+      status: {
+        label: "Status",
+        type: "ENUM",
+        config: {
+          options: ["PENDING", "PAID", "DELIVERED", "CANCELLED"],
+        },
+      },
+    },
+  },
   users: { id: "users", schema: {} },
 };
 
@@ -81,6 +100,14 @@ const screen: IMelonify["screen"] = {
       component: Table,
       props: {
         collection: collections["restaurants"],
+      },
+    },
+  },
+  orders: {
+    ordersList: {
+      component: Table,
+      props: {
+        collection: collections["orders"],
       },
     },
   },

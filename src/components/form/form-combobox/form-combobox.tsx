@@ -35,7 +35,6 @@ export default function FormCombobox(props: FormComboboxProps) {
       )}
       {...field}
       onChange={(e, value) => {
-        console.log(value);
         field.onChange(value);
       }}
     />

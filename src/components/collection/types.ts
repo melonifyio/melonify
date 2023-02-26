@@ -10,6 +10,7 @@ export type SchemaConfig = {
   hideTableColumn?: boolean;
   collectionId?: string;
   optionLabel?: string;
+  options?: string[];
 };
 
 export type SchemaProps = {
