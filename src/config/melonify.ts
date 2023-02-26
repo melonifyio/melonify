@@ -25,6 +25,7 @@ const collections: IMelonify["collections"] = {
       rating: { label: "Rating", type: "NUMBER" },
       address: { label: "Address", type: "TEXT" },
       category: { label: "Category", type: "REFERENCE" },
+      Menu: { label: "Menu", type: "SUBCOLLECTION" },
     },
   },
   categories: { id: "Categories", schema: {} },

@@ -14,6 +14,8 @@ import firestore from "services/firebase/firestore";
 import Form from "components/form/form/form";
 import FormFields from "components/form/form-fields/form-fields";
 import useFirestoreSetDoc from "hooks/useFirestoreSetDoc";
+import TableDrawerTabs from "./table-drawer-tabs";
+import Table from "../table";
 
 type TableDrawerProps = {
   open: boolean;
@@ -81,36 +83,43 @@ export const TableDrawer = (props: TableDrawerProps) => {
         initialValues={data}
         onSubmit={handleSubmit}
         contentComponent={(fieldProps: any) => (
-          <Box minWidth={600} maxWidth={800} sx={{ height: "100%" }}>
+          <Box width={680} maxWidth={800} sx={{ height: "100%" }}>
             <Stack sx={{ height: "100%" }}>
               <Box
                 sx={{
-                  py: 2,
-                  px: 3,
-                  borderBottom: 1,
-                  borderColor: "divider",
-                  display: "flex",
+                  py: 1,
+                  px: 2,
                 }}
               >
-                <Typography variant="h6">Edit document</Typography>
+                <Typography variant="subtitle2">Edit</Typography>
               </Box>
 
               <Box sx={{ flex: 1, overflowY: "auto" }}>
-                <Box sx={{ py: 2, px: 3 }}>
-                  <FormFields
-                    schema={{
-                      _id: {
-                        label: "ID",
-                        type: "TEXT",
-                        config: {
-                          readOnly: true,
+                <TableDrawerTabs
+                  panes={[
+                    <FormFields
+                      key={0}
+                      schema={{
+                        ...schema,
+                      }}
+                      {...fieldProps}
+                    />,
+                    <Table key={1} collection={{ id: "menu", schema: {} }} />,
+                    <FormFields
+                      key={2}
+                      schema={{
+                        _id: {
+                          label: "ID",
+                          type: "TEXT",
+                          config: {
+                            readOnly: true,
+                          },
                         },
-                      },
-                      ...schema,
-                    }}
-                    {...fieldProps}
-                  />
-                </Box>
+                      }}
+                      {...fieldProps}
+                    />,
+                  ]}
+                />
               </Box>
 
               <Box
