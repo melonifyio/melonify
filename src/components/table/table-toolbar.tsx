@@ -8,14 +8,18 @@ import FormFields from "components/form/form-fields/form-fields";
 import useFirestoreAddDoc from "hooks/useFirestoreAddDoc";
 import { collection } from "firebase/firestore";
 import firestore from "services/firebase/firestore";
+import TableFilter from "./table-filter/table-filter";
+import { FilterItem } from "./table-filter/table-filter-item";
 
 type TableToolbarProps = {
   collectionId: string;
   schema: CollectionProps["schema"];
+  initialFilters: Record<string, FilterItem>;
+  onChangeFitler: (values: Record<string, FilterItem>) => void;
 };
 
 export default function TableToolbar(props: TableToolbarProps) {
-  const { collectionId, schema } = props;
+  const { collectionId, schema, onChangeFitler, initialFilters } = props;
   const [createIsOpen, setCreateOpen] = React.useState(false);
 
   const [createDoc, creating] = useFirestoreAddDoc(
@@ -35,14 +39,11 @@ export default function TableToolbar(props: TableToolbarProps) {
           divider={<Divider orientation="vertical" flexItem />}
           spacing={2}
         >
-          <Button
-            size="small"
-            startIcon={<FilterList />}
-            variant="text"
-            onClick={() => setCreateOpen(true)}
-          >
-            Filter
-          </Button>
+          <TableFilter
+            schema={schema}
+            initialFilters={initialFilters}
+            onChange={onChangeFitler}
+          />
           <Button
             size="small"
             startIcon={<Add />}
