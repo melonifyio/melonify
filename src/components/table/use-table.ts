@@ -7,17 +7,24 @@ import {
   startAfter,
   QueryConstraint,
   endBefore,
+  where,
 } from "firebase/firestore";
 import useFirestoreCount from "hooks/useFirestoreCount";
 import useFirestoreQuery from "hooks/useFirestoreQuery";
 import firestore from "services/firebase/firestore";
+import { FilterItem } from "./table-filter/table-filter-item";
 
 type UseTableProps = {
   collectionId: string;
   rowsPerPage: number;
+  filters: Record<string, FilterItem>;
 };
 
-export default function useTable({ collectionId, rowsPerPage }: UseTableProps) {
+export default function useTable({
+  collectionId,
+  rowsPerPage,
+  filters,
+}: UseTableProps) {
   const initialConstraints = [orderBy("createdAt"), limit(rowsPerPage)];
   const collectionRef = collection(firestore, collectionId);
   const [queryConstraints, setQueryConstraints] =
@@ -28,7 +35,10 @@ export default function useTable({ collectionId, rowsPerPage }: UseTableProps) {
     query(collectionRef, ...queryConstraints)
   );
 
-  const [count] = useFirestoreCount(collectionRef);
+  const [count] = useFirestoreCount(
+    [collectionRef, queryConstraints],
+    query(collectionRef, ...queryConstraints)
+  );
 
   const handleNext = (lastVisible: any) => {
     setQueryConstraints(
@@ -45,6 +55,18 @@ export default function useTable({ collectionId, rowsPerPage }: UseTableProps) {
         : initialConstraints
     );
   };
+
+  React.useEffect(() => {
+    const newConstraints: QueryConstraint[] = [];
+
+    Object.keys(filters).map((key) => {
+      newConstraints.push(
+        where(filters[key].field, filters[key].operator, filters[key].value)
+      );
+    });
+
+    setQueryConstraints([...initialConstraints, ...newConstraints]);
+  }, [filters]);
 
   return {
     data,

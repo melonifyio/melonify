@@ -1,10 +1,12 @@
 import * as React from "react";
 
 import TextField from "@mui/material/TextField";
-import { SchemaProps } from "components/collection/types";
+import { SchemaConfig, SchemaProps } from "components/collection/types";
 
 export type FormInputProps = {
   label: string;
+  config: SchemaConfig;
+  errors: any;
   field: {
     onChange: (value: unknown) => void;
     value: string;
@@ -13,16 +15,17 @@ export type FormInputProps = {
 };
 
 export default function FormInput(props: FormInputProps) {
-  const { label, field } = props;
+  const { label, field, config, errors } = props;
 
   return (
     <TextField
-      //   error={!!errors[fieldKey]}
-      //   helperText={errors[fieldKey]?.message || helperText}
+      required={config.required}
+      error={!!errors[field.name]}
+      helperText={errors[field.name]?.message || config?.helperText}
       variant="standard"
       id={field.name}
       label={label}
-      //   disabled={config?.readOnly}
+      disabled={config?.readonly}
       {...field}
     />
   );

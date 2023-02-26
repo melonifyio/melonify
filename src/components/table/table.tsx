@@ -13,7 +13,8 @@ import TableBody from "./table-body";
 import { Box, LinearProgress } from "@mui/material";
 import TableToolbar from "./table-toolbar";
 import TablePagination from "./table-pagination";
-import { TableDrawer } from "./table-drawer";
+import { TableDrawer } from "./table-drawer/table-drawer";
+import { FilterItem } from "./table-filter/table-filter-item";
 
 type TableProps = {
   collection: CollectionProps;
@@ -21,13 +22,16 @@ type TableProps = {
 
 export default function Table(props: TableProps): JSX.Element {
   const { collection } = props;
+  const [filters, setFilters] = React.useState<Record<string, FilterItem>>({});
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage] = React.useState(10);
   const [activeDocumentId, setActiveDocumentId] = React.useState<string>("");
+
   const { data, isLoading, count, showNextPage, showPreviousPage } = useTable({
     collectionId: collection.id,
     rowsPerPage,
+    filters,
   });
 
   const columns = getColumns(collection.schema);
@@ -39,7 +43,12 @@ export default function Table(props: TableProps): JSX.Element {
 
   return (
     <>
-      <TableToolbar collectionId={collection.id} schema={collection.schema} />
+      <TableToolbar
+        collectionId={collection.id}
+        schema={collection.schema}
+        initialFilters={filters}
+        onChangeFitler={setFilters}
+      />
 
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>

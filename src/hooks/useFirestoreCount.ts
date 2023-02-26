@@ -1,7 +1,7 @@
 import * as React from "react";
 import { getCountFromServer } from "firebase/firestore";
 
-const useFirestoreCount = (collectionRef: any) => {
+const useFirestoreCount = (keys: any, collectionRef: any) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
   const [count, setCount] = React.useState<number>(0);
@@ -22,7 +22,7 @@ const useFirestoreCount = (collectionRef: any) => {
     };
 
     getCount();
-  }, []);
+  }, [JSON.stringify(keys)]);
 
   return [count, isLoading, error];
 };

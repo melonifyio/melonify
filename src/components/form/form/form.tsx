@@ -12,7 +12,7 @@ import removeEmpty from "utils/remove-empty";
 type FormProps = {
   initialValues: any;
   onSubmit: (values: any) => void;
-  titleComponent: React.ReactNode;
+  titleComponent?: React.ReactNode;
   contentComponent: ({
     control,
     setValue,
@@ -22,7 +22,8 @@ type FormProps = {
     setValue: UseFormSetValue<any>;
     handleSubmit: UseFormHandleSubmit<any>;
   }) => JSX.Element;
-  actionsComponent: React.ReactNode;
+  actionsComponent?: React.ReactNode;
+  height?: number | string;
 };
 
 export default function Form(props: FormProps) {
@@ -32,6 +33,7 @@ export default function Form(props: FormProps) {
     titleComponent,
     contentComponent,
     actionsComponent,
+    height,
   } = props;
 
   const {
@@ -55,12 +57,10 @@ export default function Form(props: FormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmitWithoutPropagation}>
-      <Stack gap={2}>
-        {titleComponent}
-        {contentComponent({ control, setValue, handleSubmit })}
-        {actionsComponent}
-      </Stack>
+    <form onSubmit={handleSubmitWithoutPropagation} style={{ height }}>
+      {titleComponent && titleComponent}
+      {contentComponent({ control, setValue, handleSubmit })}
+      {actionsComponent && actionsComponent}
     </form>
   );
 }

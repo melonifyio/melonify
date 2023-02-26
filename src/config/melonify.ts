@@ -19,16 +19,78 @@ const collections: IMelonify["collections"] = {
   restaurants: {
     id: "Restaurants",
     schema: {
+      available: { label: "Available", type: "BOOLEAN" },
       image: { label: "Logo", type: "IMAGE" },
-      cover: { label: "Cover", type: "IMAGE" },
-      title: { label: "Title", type: "TEXT" },
+      cover: {
+        label: "Cover",
+        type: "IMAGE",
+        config: {
+          hideTableColumn: true,
+        },
+      },
+      title: {
+        label: "Title",
+        type: "TEXT",
+        config: {
+          required: true,
+          filterable: true,
+          isDefaultFilter: true,
+          defaultOperator: "==",
+          availableOperators: ["=="],
+        },
+      },
       rating: { label: "Rating", type: "NUMBER" },
       address: { label: "Address", type: "TEXT" },
-      category: { label: "Category", type: "REFERENCE" },
+      category: {
+        label: "Category",
+        type: "REFERENCE",
+        config: {
+          collectionId: "Categories",
+        },
+      },
+      Menu: {
+        label: "Menu",
+        type: "SUBCOLLECTION",
+        config: {
+          schema: {
+            image: { label: "Logo", type: "IMAGE" },
+            title: { label: "Title", type: "TEXT" },
+            description: {
+              label: "Description",
+              type: "TEXT",
+              config: {
+                hideTableColumn: true,
+              },
+            },
+            price: { label: "Price", type: "NUMBER" },
+            category: { label: "Category", type: "REFERENCE" },
+          },
+        },
+      },
     },
   },
   categories: { id: "Categories", schema: {} },
-  orders: { id: "Orders", schema: {} },
+  orders: {
+    id: "Orders",
+    schema: {
+      customer: {
+        label: "Customer",
+        type: "REFERENCE",
+        config: {
+          required: true,
+          collectionId: "users",
+          optionLabel: "email",
+        },
+      },
+      status: {
+        label: "Status",
+        type: "ENUM",
+        config: {
+          options: ["PENDING", "PAID", "DELIVERED", "CANCELLED"],
+        },
+      },
+    },
+  },
   users: { id: "users", schema: {} },
 };
 
@@ -40,6 +102,14 @@ const screen: IMelonify["screen"] = {
       component: Table,
       props: {
         collection: collections["restaurants"],
+      },
+    },
+  },
+  orders: {
+    ordersList: {
+      component: Table,
+      props: {
+        collection: collections["orders"],
       },
     },
   },

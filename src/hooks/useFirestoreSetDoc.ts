@@ -9,7 +9,7 @@ type UseFirestoreSetDocOptionsProps = {
 const useFirestoreSetDoc = (
   docRef: any,
   options?: UseFirestoreSetDocOptionsProps
-) => {
+): [(values: any) => Promise<any>, boolean, Error | null] => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
 
