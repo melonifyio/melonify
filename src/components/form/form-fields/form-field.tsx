@@ -32,6 +32,9 @@ export default function FormField(props: FormFieldProps) {
     const { errors } = formState;
 
     switch (type) {
+      case "NUMBER":
+        return <FormInput field={field} label={label} />;
+
       case "MAP":
         return <></>;
 
@@ -45,6 +48,9 @@ export default function FormField(props: FormFieldProps) {
         return <></>;
 
       case "REFERENCE":
+        return <></>;
+
+      case "SUBCOLLECTION":
         return <></>;
 
       // TEXT

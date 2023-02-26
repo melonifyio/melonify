@@ -21,11 +21,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
     </div>
   );
 }
@@ -38,11 +34,14 @@ function a11yProps(index: number) {
 }
 
 type TableDrawerTabsProps = {
+  tabs: {
+    label: string;
+  }[];
   panes: JSX.Element[];
 };
 
 export default function TableDrawerTabs(props: TableDrawerTabsProps) {
-  const { panes } = props;
+  const { tabs, panes } = props;
 
   const [value, setValue] = React.useState(0);
 
@@ -53,14 +52,10 @@ export default function TableDrawerTabs(props: TableDrawerTabsProps) {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label="General" {...a11yProps(0)} />
-          <Tab label="Subcollections" {...a11yProps(1)} />
-          <Tab label="System" {...a11yProps(2)} />
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
+          {tabs.map((item, index) => (
+            <Tab key={index} label={item.label} {...a11yProps(index)} />
+          ))}
         </Tabs>
       </Box>
 

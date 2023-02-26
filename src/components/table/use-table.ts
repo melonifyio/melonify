@@ -57,7 +57,6 @@ export default function useTable({
   };
 
   React.useEffect(() => {
-    console.log(filters);
     const newConstraints: QueryConstraint[] = [];
 
     Object.keys(filters).map((key) => {
