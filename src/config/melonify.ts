@@ -20,7 +20,13 @@ const collections: IMelonify["collections"] = {
     id: "Restaurants",
     schema: {
       image: { label: "Logo", type: "IMAGE" },
-      cover: { label: "Cover", type: "IMAGE" },
+      cover: {
+        label: "Cover",
+        type: "IMAGE",
+        config: {
+          hideTableColumn: true,
+        },
+      },
       title: {
         label: "Title",
         type: "TEXT",
@@ -41,7 +47,13 @@ const collections: IMelonify["collections"] = {
           schema: {
             image: { label: "Logo", type: "IMAGE" },
             title: { label: "Title", type: "TEXT" },
-            description: { label: "Description", type: "TEXT" },
+            description: {
+              label: "Description",
+              type: "TEXT",
+              config: {
+                hideTableColumn: true,
+              },
+            },
             price: { label: "Price", type: "NUMBER" },
             category: { label: "Category", type: "REFERENCE" },
           },
