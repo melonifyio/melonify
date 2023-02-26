@@ -28,6 +28,7 @@ export default function CollectionListItem(props: CollectionListItemProps) {
   const router = useRouter();
 
   const [count, isCounting] = useFirestoreCount(
+    ["countCollection"],
     collection(firestore, collectionId)
   );
 
