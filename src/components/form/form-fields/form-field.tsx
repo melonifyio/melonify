@@ -18,6 +18,7 @@ import { SchemaProps } from "components/collection/types";
 import FormInput from "../form-input/form-input";
 import { FormUpload } from "../form-upload";
 import FormCombobox from "../form-combobox/form-combobox";
+import FormBoolean from "../form-boolean/form-boolean";
 
 export type FormFieldProps = SchemaProps & {
   fieldKey: string;
@@ -46,7 +47,7 @@ export default function FormField(props: FormFieldProps) {
         return <FormUpload field={field} setValue={setValue} />;
 
       case "BOOLEAN":
-        return <></>;
+        return <FormBoolean field={field} label={label} />;
 
       case "REFERENCE":
         return (

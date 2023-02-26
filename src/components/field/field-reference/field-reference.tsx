@@ -1,4 +1,4 @@
-import { Typography, TypographyProps } from "@mui/material";
+import { Typography } from "@mui/material";
 import { SchemaConfig } from "components/collection/types";
 
 type FieldReferenceProps = {
