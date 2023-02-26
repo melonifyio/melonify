@@ -126,7 +126,7 @@ export const TableDrawer = (props: TableDrawerProps) => {
                             label: "ID",
                             type: "TEXT",
                             config: {
-                              readOnly: true,
+                              readonly: true,
                             },
                           },
                         }}

@@ -14,10 +14,11 @@ export type FormComboboxProps = {
     value: string;
     name: string;
   };
+  errors: any;
 };
 
 export default function FormCombobox(props: FormComboboxProps) {
-  const { label, field, config } = props;
+  const { label, field, config, errors } = props;
 
   const [data] = useFirestoreQuery(
     [config.collectionId],
@@ -31,7 +32,14 @@ export default function FormCombobox(props: FormComboboxProps) {
         config.optionLabel ? option[config.optionLabel] : option["title"]
       }
       renderInput={(props) => (
-        <TextField variant="standard" {...props} label={label} />
+        <TextField
+          required={config.required}
+          variant="standard"
+          error={!!errors[field.name]}
+          helperText={errors[field.name]?.message || config?.helperText}
+          {...props}
+          label={label}
+        />
       )}
       {...field}
       onChange={(e, value) => {

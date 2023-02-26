@@ -3,23 +3,24 @@ import { UseFormSetValue } from "react-hook-form";
 
 import { LoadingButton } from "@mui/lab";
 import Stack from "@mui/material/Stack";
-import { Avatar } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 
 import { useUpload } from "hooks/useUpload";
 import firebase from "services/firebase";
 
 type FormUploadProps = {
-  setValue: UseFormSetValue<any>;
+  label: string;
   field: {
     onChange: (value: unknown) => void;
     value: string;
     name: string;
   };
+  errors: any;
 };
 
 export const FormUpload = React.forwardRef<HTMLInputElement, FormUploadProps>(
   (props, ref) => {
-    const { field } = props;
+    const { field, label } = props;
 
     const id = `file-${Date.now()}`;
 
@@ -47,28 +48,34 @@ export const FormUpload = React.forwardRef<HTMLInputElement, FormUploadProps>(
     };
 
     return (
-      <Stack direction="row" gap={2} alignItems="center">
-        <Avatar
-          src={field.value}
-          sx={{ width: 56, height: 56, borderRadius: 1 }}
-        />
-        <LoadingButton
-          variant="contained"
-          component="label"
-          size="small"
-          loading={uploader.uploading}
-        >
-          Upload
-          <input
-            ref={ref}
-            hidden
-            accept="image/*"
-            multiple
-            type="file"
-            onChange={hanldeUpload}
+      <Box>
+        <Typography variant="body2" mb={1}>
+          {label}
+        </Typography>
+
+        <Stack direction="row" gap={2} alignItems="center">
+          <Avatar
+            src={field.value}
+            sx={{ width: 56, height: 56, borderRadius: 1 }}
           />
-        </LoadingButton>
-      </Stack>
+          <LoadingButton
+            variant="contained"
+            component="label"
+            size="small"
+            loading={uploader.uploading}
+          >
+            Upload
+            <input
+              ref={ref}
+              hidden
+              accept="image/*"
+              multiple
+              type="file"
+              onChange={hanldeUpload}
+            />
+          </LoadingButton>
+        </Stack>
+      </Box>
     );
   }
 );
