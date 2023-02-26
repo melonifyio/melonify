@@ -17,6 +17,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { SchemaProps } from "components/collection/types";
 import FormInput from "../form-input/form-input";
 import { FormUpload } from "../form-upload";
+import FormCombobox from "../form-combobox/form-combobox";
 
 export type FormFieldProps = SchemaProps & {
   fieldKey: string;
@@ -26,7 +27,7 @@ export type FormFieldProps = SchemaProps & {
 };
 
 export default function FormField(props: FormFieldProps) {
-  const { fieldKey, type, label, control, setValue, handleSubmit } = props;
+  const { fieldKey, type, label, control, setValue, config } = props;
 
   const renderField = ({ field, formState }: any) => {
     const { errors } = formState;
@@ -48,7 +49,9 @@ export default function FormField(props: FormFieldProps) {
         return <></>;
 
       case "REFERENCE":
-        return <></>;
+        return (
+          <FormCombobox field={field} label={label} config={config || {}} />
+        );
 
       case "SUBCOLLECTION":
         return <></>;

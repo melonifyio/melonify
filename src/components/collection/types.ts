@@ -1,13 +1,15 @@
 import { FieldType } from "components/field/field/field";
 import { FilterOperator } from "components/table/table-filter/table-filter-item";
 
-type SchemaConfig = {
+export type SchemaConfig = {
   filterable?: boolean;
   isDefaultFilter?: boolean;
   defaultOperator?: "==";
   availableOperators?: FilterOperator[];
   schema?: Record<string, SchemaProps>;
   hideTableColumn?: boolean;
+  collectionId?: string;
+  optionLabel?: string;
 };
 
 export type SchemaProps = {
