@@ -24,43 +24,71 @@ import FormEnum from "../form-enum/form-enum";
 export type FormFieldProps = SchemaProps & {
   fieldKey: string;
   control: Control;
-  setValue: UseFormSetValue<any>;
-  handleSubmit: UseFormHandleSubmit<any>;
 };
 
 export default function FormField(props: FormFieldProps) {
-  const { fieldKey, type, label, control, setValue, config } = props;
+  const { fieldKey, type, label, control, config } = props;
 
   const renderField = ({ field, formState }: any) => {
     const { errors } = formState;
 
     switch (type) {
+      case "TEXT":
+        return (
+          <FormInput
+            field={field}
+            label={label}
+            config={config || {}}
+            errors={errors}
+          />
+        );
+
       case "NUMBER":
-        return <FormInput field={field} label={label} />;
+        return (
+          <FormInput
+            field={field}
+            label={label}
+            config={config || {}}
+            errors={errors}
+          />
+        );
 
       case "MAP":
         return <></>;
 
       case "ENUM":
-        return <FormEnum field={field} label={label} config={config || {}} />;
+        return (
+          <FormEnum
+            field={field}
+            label={label}
+            config={config || {}}
+            errors={errors}
+          />
+        );
 
       case "IMAGE":
-        return <FormUpload field={field} setValue={setValue} />;
+        return <FormUpload field={field} label={label} errors={errors} />;
 
       case "BOOLEAN":
-        return <FormBoolean field={field} label={label} />;
+        return (
+          <FormBoolean field={field} label={label} config={config || {}} />
+        );
 
       case "REFERENCE":
         return (
-          <FormCombobox field={field} label={label} config={config || {}} />
+          <FormCombobox
+            field={field}
+            label={label}
+            config={config || {}}
+            errors={errors}
+          />
         );
 
       case "SUBCOLLECTION":
         return <></>;
 
-      // TEXT
       default:
-        return <FormInput field={field} label={label} />;
+        return <></>;
     }
   };
 
@@ -68,7 +96,7 @@ export default function FormField(props: FormFieldProps) {
     <Controller
       name={fieldKey}
       control={control}
-      //   rules={{ required: config?.required }}
+      rules={{ required: config?.required }}
       render={renderField}
     />
   );

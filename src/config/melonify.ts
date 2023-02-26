@@ -32,6 +32,7 @@ const collections: IMelonify["collections"] = {
         label: "Title",
         type: "TEXT",
         config: {
+          required: true,
           filterable: true,
           isDefaultFilter: true,
           defaultOperator: "==",
@@ -76,6 +77,7 @@ const collections: IMelonify["collections"] = {
         label: "Customer",
         type: "REFERENCE",
         config: {
+          required: true,
           collectionId: "users",
           optionLabel: "email",
         },

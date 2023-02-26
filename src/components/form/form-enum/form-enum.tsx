@@ -11,16 +11,24 @@ export type FormEnumProps = {
     value: string;
     name: string;
   };
+  errors: any;
 };
 
 export default function FormEnum(props: FormEnumProps) {
-  const { label, field, config } = props;
+  const { label, field, config, errors } = props;
 
   return (
     <Autocomplete
       options={config?.options || []}
       renderInput={(props) => (
-        <TextField variant="standard" {...props} label={label} />
+        <TextField
+          required={config.required}
+          error={!!errors[field.name]}
+          helperText={errors[field.name]?.message || config?.helperText}
+          variant="standard"
+          {...props}
+          label={label}
+        />
       )}
       {...field}
       onChange={(e, value) => {

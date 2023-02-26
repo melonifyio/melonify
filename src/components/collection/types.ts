@@ -11,6 +11,9 @@ export type SchemaConfig = {
   collectionId?: string;
   optionLabel?: string;
   options?: string[];
+  required?: boolean;
+  readonly?: boolean;
+  helperText?: string;
 };
 
 export type SchemaProps = {
