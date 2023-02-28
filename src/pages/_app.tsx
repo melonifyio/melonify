@@ -4,6 +4,8 @@ import type { NextPage } from "next";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ThemeProvider } from "theme";
+import { AuthenticationProvider } from "components/auth/authentication-context";
+import { AuthorizationProvider } from "components/auth/authorization-context";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -29,7 +31,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>{mainContent}</ThemeProvider>
+      <ThemeProvider>
+        <AuthenticationProvider>
+          <AuthorizationProvider>{mainContent}</AuthorizationProvider>
+        </AuthenticationProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

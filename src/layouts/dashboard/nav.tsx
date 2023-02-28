@@ -6,16 +6,19 @@ import { Box, Drawer, IconButton, Stack } from "@mui/material";
 import Menu from "components/elements/menu";
 import useResponsive from "hooks/useResponsive";
 import Logo from "components/elements/logo";
-import { MenuItemProps } from "components/elements/menu/menu";
+import { MenuItem, MenuItemProps } from "components/elements/menu/menu";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { StyledDrawer } from "./styled";
 import { NAV_WIDTH } from "./header";
+import Restricted from "components/auth/restricted";
+
+export type NavItemProps = { rolesAllowed?: string[] } & MenuItemProps;
 
 type NavProps = {
   openNav: boolean;
   onOpenNav: () => void;
   onCloseNav: () => void;
-  items: MenuItemProps[];
+  items: NavItemProps[];
   footerItems?: MenuItemProps[];
 };
 
@@ -29,7 +32,6 @@ export default function Nav(props: NavProps) {
     // if (!isDesktop) {
     //   onCloseNav();
     // }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,7 +50,13 @@ export default function Nav(props: NavProps) {
       </Stack>
 
       <Box>
-        <Menu data={items || []} open={openNav} />
+        <Menu open={openNav}>
+          {items.map((item) => (
+            <Restricted key={item.path} rolesAllowed={item.rolesAllowed}>
+              <MenuItem open={openNav} {...item} />
+            </Restricted>
+          ))}
+        </Menu>
       </Box>
 
       <Box sx={{ flexGrow: 1 }} />

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
 
-import useFirebaseAuth from "hooks/useFirebaseAuth";
+import { useAuthentication } from "./authentication-context";
 
 type PrivateProps = {
   children: React.ReactNode;
@@ -10,8 +10,9 @@ type PrivateProps = {
 
 export default function Private(props: PrivateProps) {
   const { children } = props;
+
   const router = useRouter();
-  const { isLoading, profile } = useFirebaseAuth();
+  const { isLoading, profile } = useAuthentication();
 
   if (isLoading) {
     return (
@@ -26,6 +27,7 @@ export default function Private(props: PrivateProps) {
     );
   }
 
+  // first check if its not logged in redirect to login
   if (!profile) {
     router.push("/login");
   }

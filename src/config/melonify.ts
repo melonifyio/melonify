@@ -2,20 +2,28 @@ import { CollectionProps } from "components/collection/types";
 import { MenuItemProps } from "components/elements/menu/menu";
 import { WidgetProps } from "components/screen/types";
 import Table from "components/table/table";
+import { NavItemProps } from "layouts/dashboard/nav";
 
-interface IMelonify {
-  menu: MenuItemProps[];
+type MelonifyProps = {
+  menu: NavItemProps[];
   collections: Record<string, CollectionProps>;
   screen: Record<string, Record<string, WidgetProps>>;
-}
+};
 
-const menu: IMelonify["menu"] = [
-  { path: "restaurants", title: "Restaurants", icon: "Restaurant" },
+const menu: MelonifyProps["menu"] = [
+  {
+    path: "restaurants",
+    title: "Restaurants",
+    icon: "Restaurant",
+    rolesAllowed: ["ADMIN"],
+  },
   { path: "categories", title: "Categories", icon: "Category" },
   { path: "orders", title: "Orders", icon: "ShoppingCart" },
+  { path: "users", title: "Users", icon: "People" },
 ];
 
-const collections: IMelonify["collections"] = {
+const collections: MelonifyProps["collections"] = {
+  // collection ID
   restaurants: {
     id: "Restaurants",
     schema: {
@@ -69,7 +77,7 @@ const collections: IMelonify["collections"] = {
       },
     },
   },
-  categories: { id: "Categories", schema: {} },
+  categories: { id: "categories", schema: {} },
   orders: {
     id: "Orders",
     schema: {
@@ -91,10 +99,26 @@ const collections: IMelonify["collections"] = {
       },
     },
   },
-  users: { id: "users", schema: {} },
+  users: {
+    id: "users",
+    schema: {
+      email: {
+        label: "Email",
+        type: "TEXT",
+        config: {},
+      },
+      role: {
+        label: "Role",
+        type: "ENUM",
+        config: {
+          options: ["ADMIN", "USER", "DRIVER", "RESTAURANT", "KITCHEN"],
+        },
+      },
+    },
+  },
 };
 
-const screen: IMelonify["screen"] = {
+const screen: MelonifyProps["screen"] = {
   // screen id
   restaurants: {
     // widget id
@@ -113,9 +137,17 @@ const screen: IMelonify["screen"] = {
       },
     },
   },
+  users: {
+    usersList: {
+      component: Table,
+      props: {
+        collection: collections["users"],
+      },
+    },
+  },
 };
 
-const melonify: IMelonify = {
+const melonify: MelonifyProps = {
   menu,
   collections,
   screen,
