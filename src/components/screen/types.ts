@@ -5,6 +5,10 @@ export type WidgetProps = {
   props: any;
 };
 
-export type ScreenProps = {
-  widgets: Record<string, WidgetProps>;
-};
+export type ScreenProps = Record<
+  string,
+  {
+    rolesAllowed?: string[];
+    widgets: Record<string, WidgetProps>;
+  }
+>;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Box, Drawer, IconButton, Stack } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 
 import Menu from "components/elements/menu";
 import useResponsive from "hooks/useResponsive";

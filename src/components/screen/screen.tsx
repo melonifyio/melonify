@@ -2,9 +2,11 @@ import * as React from "react";
 
 import { Box } from "@mui/material";
 
-import { ScreenProps } from "./types";
+import { ScreenProps, WidgetProps } from "./types";
 
-export default function Screen(props: ScreenProps) {
+export default function Screen(props: {
+  widgets: Record<string, WidgetProps>;
+}) {
   const { widgets } = props;
 
   return (
