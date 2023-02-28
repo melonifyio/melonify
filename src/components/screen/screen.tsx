@@ -17,7 +17,7 @@ export default function Screen(props: {
 
         return (
           <Box key={widget.component.name}>
-            <Component {...widget.props} />
+            <Component {...widget.props} rolesAllowed={widget.rolesAllowed} />
           </Box>
         );
       })}

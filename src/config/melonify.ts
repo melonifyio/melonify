@@ -23,7 +23,6 @@ const menu: MelonifyProps["menu"] = [
 ];
 
 const collections: MelonifyProps["collections"] = {
-  // collection ID
   restaurants: {
     id: "Restaurants",
     schema: {
@@ -119,15 +118,19 @@ const collections: MelonifyProps["collections"] = {
 };
 
 const screen: MelonifyProps["screen"] = {
-  // screen id
   restaurants: {
-    rolesAllowed: ["ADMIN"],
-    // widget id
+    // rolesAllowed: ["ADMIN"],
     widgets: {
       restaurantsList: {
         component: Table,
         props: {
           collection: collections["restaurants"],
+        },
+        rolesAllowed: {
+          create: ["ADMIN"],
+          view: ["ADMIN"],
+          edit: ["ADMIN"],
+          delete: ["ADMIN"],
         },
       },
     },

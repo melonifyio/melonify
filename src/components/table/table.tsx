@@ -16,12 +16,20 @@ import TablePagination from "./table-pagination";
 import { TableDrawer } from "./table-drawer/table-drawer";
 import { FilterItem } from "./table-filter/table-filter-item";
 
+export type RolesAllowedProps = {
+  create: string[];
+  view: string[];
+  update: string[];
+  delete: string[];
+};
+
 type TableProps = {
   collection: CollectionProps;
+  rolesAllowed?: RolesAllowedProps;
 };
 
 export default function Table(props: TableProps): JSX.Element {
-  const { collection } = props;
+  const { collection, rolesAllowed } = props;
   const [filters, setFilters] = React.useState<Record<string, FilterItem>>({});
 
   const [page, setPage] = React.useState(0);
@@ -48,6 +56,7 @@ export default function Table(props: TableProps): JSX.Element {
         schema={collection.schema}
         initialFilters={filters}
         onChangeFitler={setFilters}
+        rolesAllowed={rolesAllowed}
       />
 
       <Paper sx={{ width: "100%", mb: 2 }}>
