@@ -10,7 +10,7 @@ import { collection } from "firebase/firestore";
 import firestore from "services/firebase/firestore";
 import TableFilter from "./table-filter/table-filter";
 import { FilterItem } from "./table-filter/table-filter-item";
-import Restricted from "components/auth/restricted";
+import Denied from "components/auth/denied";
 import { RolesAllowedProps } from "./table";
 
 type TableToolbarProps = {
@@ -49,7 +49,7 @@ export default function TableToolbar(props: TableToolbarProps) {
             onChange={onChangeFitler}
           />
 
-          <Restricted rolesAllowed={rolesAllowed && rolesAllowed["create"]}>
+          <Denied rolesAllowed={rolesAllowed && rolesAllowed["create"]}>
             <Button
               size="small"
               startIcon={<Add />}
@@ -58,7 +58,7 @@ export default function TableToolbar(props: TableToolbarProps) {
             >
               New
             </Button>
-          </Restricted>
+          </Denied>
         </Stack>
       </Toolbar>
 

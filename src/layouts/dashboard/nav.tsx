@@ -10,7 +10,7 @@ import { MenuItem, MenuItemProps } from "components/elements/menu/menu";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { StyledDrawer } from "./styled";
 import { NAV_WIDTH } from "./header";
-import Restricted from "components/auth/restricted";
+import Denied from "components/auth/denied";
 
 export type NavItemProps = { rolesAllowed?: string[] } & MenuItemProps;
 
@@ -52,9 +52,9 @@ export default function Nav(props: NavProps) {
       <Box>
         <Menu open={openNav}>
           {items.map((item) => (
-            <Restricted key={item.path} rolesAllowed={item.rolesAllowed}>
+            <Denied key={item.path} rolesAllowed={item.rolesAllowed}>
               <MenuItem open={openNav} {...item} />
-            </Restricted>
+            </Denied>
           ))}
         </Menu>
       </Box>

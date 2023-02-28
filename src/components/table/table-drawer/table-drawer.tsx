@@ -17,6 +17,7 @@ import useFirestoreSetDoc from "hooks/useFirestoreSetDoc";
 import TableDrawerTabs from "./table-drawer-tabs";
 import { TableDrawerSubcollections } from "./table-drawer-subcollections";
 import { RolesAllowedProps } from "../table";
+import Denied from "components/auth/denied";
 
 type TableDrawerProps = {
   open: boolean;
@@ -88,15 +89,6 @@ export const TableDrawer = (props: TableDrawerProps) => {
         contentComponent={(fieldProps: any) => (
           <Box width={680} maxWidth={800} sx={{ height: "100%" }}>
             <Stack sx={{ height: "100%" }}>
-              <Box
-                sx={{
-                  py: 1,
-                  px: 2,
-                }}
-              >
-                <Typography variant="subtitle2">Edit</Typography>
-              </Box>
-
               <Box sx={{ flex: 1, overflowY: "auto" }}>
                 <TableDrawerTabs
                   tabs={[
@@ -107,24 +99,24 @@ export const TableDrawer = (props: TableDrawerProps) => {
                   panes={[
                     <Box p={3} key={0}>
                       <FormFields
+                        rolesAllowed={rolesAllowed}
                         schema={{
                           ...schema,
                         }}
                         {...fieldProps}
                       />
                     </Box>,
-                    <Box p={3} key={0}>
+                    <Box p={3} key={1}>
                       <TableDrawerSubcollections
                         collectionId={collectionId}
                         documentId={documentId}
-                        key={1}
                         schema={schema}
                         rolesAllowed={rolesAllowed}
                       />
                     </Box>,
-                    <Box p={3} key={0}>
+                    <Box p={3} key={2}>
                       <FormFields
-                        key={2}
+                        rolesAllowed={rolesAllowed}
                         schema={{
                           _id: {
                             label: "ID",
@@ -141,27 +133,29 @@ export const TableDrawer = (props: TableDrawerProps) => {
                 />
               </Box>
 
-              <Box
-                sx={{
-                  p: 2,
-                  borderTop: 1,
-                  borderColor: "divider",
-                  display: "flex",
-                }}
-              >
-                <Box sx={{ flex: 1 }}></Box>
-                <Stack direction="row" gap={1}>
-                  <Button onClick={onClose}>Close</Button>
+              <Denied rolesAllowed={rolesAllowed && rolesAllowed["update"]}>
+                <Box
+                  sx={{
+                    p: 2,
+                    borderTop: 1,
+                    borderColor: "divider",
+                    display: "flex",
+                  }}
+                >
+                  <Box sx={{ flex: 1 }}></Box>
+                  <Stack direction="row" gap={1}>
+                    <Button onClick={onClose}>Close</Button>
 
-                  <LoadingButton
-                    type="submit"
-                    variant="contained"
-                    loading={isUpdating as boolean}
-                  >
-                    Update
-                  </LoadingButton>
-                </Stack>
-              </Box>
+                    <LoadingButton
+                      type="submit"
+                      variant="contained"
+                      loading={isUpdating as boolean}
+                    >
+                      Update
+                    </LoadingButton>
+                  </Stack>
+                </Box>
+              </Denied>
             </Stack>
           </Box>
         )}

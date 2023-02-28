@@ -129,8 +129,8 @@ const screen: MelonifyProps["screen"] = {
         },
         rolesAllowed: {
           create: ["ADMIN"],
-          view: ["ADMIN"],
-          edit: ["ADMIN"],
+          read: ["ADMIN"],
+          update: ["ADMIN"],
           delete: ["ADMIN"],
         },
       },

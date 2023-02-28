@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Stack } from "@mui/material";
 import { SchemaConfig } from "components/collection/types";
 import FieldBoolean from "../field-boolean/field-boolean";
 import FieldEnum from "../field-enum/field-enum";
@@ -21,12 +21,15 @@ export enum FieldType {
 type FieldProps = {
   type: keyof typeof FieldType;
   value: any;
+  label?: string;
   config?: SchemaConfig;
 };
 
-const Field = (props: FieldProps) => {
-  const { type, value, config } = props;
-
+function renderComponent(
+  type: keyof typeof FieldType,
+  value: any,
+  config?: SchemaConfig
+) {
   switch (type) {
     case "TEXT":
       return <FieldText>{value}</FieldText>;
@@ -42,8 +45,27 @@ const Field = (props: FieldProps) => {
       return <FieldEnum label={value} />;
 
     default:
-      return <Typography></Typography>;
+      return <></>;
   }
+}
+
+const Field = (props: FieldProps) => {
+  const { type, value, label, config } = props;
+
+  const component = renderComponent(type, value, config);
+
+  if (label) {
+    return (
+      <Stack>
+        <Typography variant="caption" gutterBottom>
+          {label}
+        </Typography>
+        {component}
+      </Stack>
+    );
+  }
+
+  return component;
 };
 
 export default Field;
