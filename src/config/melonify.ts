@@ -1,8 +1,9 @@
 import { CollectionProps } from "components/collection/types";
-import { MenuItemProps } from "components/elements/menu/menu";
-import { ScreenProps, WidgetProps } from "components/screen/types";
+import { ScreenProps } from "components/screen/types";
 import Table from "components/table/table";
 import { NavItemProps } from "layouts/dashboard/nav";
+
+const ROLES = ["ADMIN", "USER", "DRIVER", "RESTAURANT", "KITCHEN"];
 
 type MelonifyProps = {
   menu: NavItemProps[];
@@ -110,7 +111,7 @@ const collections: MelonifyProps["collections"] = {
         label: "Role",
         type: "ENUM",
         config: {
-          options: ["ADMIN", "USER", "DRIVER", "RESTAURANT", "KITCHEN"],
+          options: ROLES,
         },
       },
     },

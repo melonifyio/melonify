@@ -93,6 +93,7 @@ export default function Table(props: TableProps): JSX.Element {
           collectionId={collection.id}
           schema={collection.schema}
           documentId={activeDocumentId}
+          rolesAllowed={rolesAllowed}
         />
       )}
     </>
