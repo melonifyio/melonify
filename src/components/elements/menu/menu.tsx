@@ -5,15 +5,17 @@ import { StyledNavItem, StyledNavItemIcon } from "./styles";
 import * as icons from "@mui/icons-material";
 
 type MenuProps = {
-  data: MenuItemProps[];
+  children?: React.ReactNode;
+  data?: MenuItemProps[];
   isLoading?: boolean;
   open?: boolean;
 };
 
 export default function Menu({
-  data = [],
+  data,
   isLoading,
   open,
+  children,
   ...other
 }: MenuProps) {
   return (
@@ -22,9 +24,12 @@ export default function Menu({
         {isLoading &&
           [0, 1, 2].map((item) => <MenuItemPlaceholder key={item} />)}
 
-        {data.map((item) => (
-          <MenuItem key={item.title} open={open} {...item} />
-        ))}
+        {data &&
+          data.map((item) => (
+            <MenuItem key={item.title} open={open} {...item} />
+          ))}
+
+        {children}
       </List>
     </Box>
   );
@@ -38,7 +43,7 @@ export type MenuItemProps = {
   open?: boolean;
 };
 
-function MenuItem(props: MenuItemProps) {
+export function MenuItem(props: MenuItemProps) {
   const { title, path, home, icon, open } = props;
 
   const router = useRouter();

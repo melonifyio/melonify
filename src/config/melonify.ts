@@ -1,21 +1,29 @@
 import { CollectionProps } from "components/collection/types";
-import { MenuItemProps } from "components/elements/menu/menu";
-import { WidgetProps } from "components/screen/types";
+import { ScreenProps } from "components/screen/types";
 import Table from "components/table/table";
+import { NavItemProps } from "layouts/dashboard/nav";
 
-interface IMelonify {
-  menu: MenuItemProps[];
+const ROLES = ["ADMIN", "USER", "DRIVER", "RESTAURANT", "KITCHEN"];
+
+type MelonifyProps = {
+  menu: NavItemProps[];
   collections: Record<string, CollectionProps>;
-  screen: Record<string, Record<string, WidgetProps>>;
-}
+  screen: ScreenProps;
+};
 
-const menu: IMelonify["menu"] = [
-  { path: "restaurants", title: "Restaurants", icon: "Restaurant" },
+const menu: MelonifyProps["menu"] = [
+  {
+    path: "restaurants",
+    title: "Restaurants",
+    icon: "Restaurant",
+    rolesAllowed: ["ADMIN"],
+  },
   { path: "categories", title: "Categories", icon: "Category" },
   { path: "orders", title: "Orders", icon: "ShoppingCart" },
+  { path: "users", title: "Users", icon: "People" },
 ];
 
-const collections: IMelonify["collections"] = {
+const collections: MelonifyProps["collections"] = {
   restaurants: {
     id: "Restaurants",
     schema: {
@@ -69,7 +77,7 @@ const collections: IMelonify["collections"] = {
       },
     },
   },
-  categories: { id: "Categories", schema: {} },
+  categories: { id: "categories", schema: {} },
   orders: {
     id: "Orders",
     schema: {
@@ -91,31 +99,66 @@ const collections: IMelonify["collections"] = {
       },
     },
   },
-  users: { id: "users", schema: {} },
+  users: {
+    id: "users",
+    schema: {
+      email: {
+        label: "Email",
+        type: "TEXT",
+        config: {},
+      },
+      role: {
+        label: "Role",
+        type: "ENUM",
+        config: {
+          options: ROLES,
+        },
+      },
+    },
+  },
 };
 
-const screen: IMelonify["screen"] = {
-  // screen id
+const screen: MelonifyProps["screen"] = {
   restaurants: {
-    // widget id
-    restaurantsList: {
-      component: Table,
-      props: {
-        collection: collections["restaurants"],
+    // rolesAllowed: ["ADMIN"],
+    widgets: {
+      restaurantsList: {
+        component: Table,
+        props: {
+          collection: collections["restaurants"],
+        },
+        rolesAllowed: {
+          create: ["ADMIN"],
+          view: ["ADMIN"],
+          edit: ["ADMIN"],
+          delete: ["ADMIN"],
+        },
       },
     },
   },
   orders: {
-    ordersList: {
-      component: Table,
-      props: {
-        collection: collections["orders"],
+    widgets: {
+      ordersList: {
+        component: Table,
+        props: {
+          collection: collections["orders"],
+        },
+      },
+    },
+  },
+  users: {
+    widgets: {
+      usersList: {
+        component: Table,
+        props: {
+          collection: collections["users"],
+        },
       },
     },
   },
 };
 
-const melonify: IMelonify = {
+const melonify: MelonifyProps = {
   menu,
   collections,
   screen,

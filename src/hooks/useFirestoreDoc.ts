@@ -27,6 +27,7 @@ const useFirestoreDoc = <T extends DocumentData>(
       },
       (err: Error) => {
         setError(err);
+        setIsLoading(false);
       }
     );
 
