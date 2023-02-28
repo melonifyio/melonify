@@ -16,9 +16,9 @@ import {
 } from "@mui/material";
 
 import { useColorMode } from "hooks/useColorMode";
-import useFirebaseAuth from "hooks/useFirebaseAuth";
 import { signOut } from "firebase/auth";
 import auth from "services/firebase/auth";
+import { useAuthentication } from "components/auth/authentication-context";
 
 export default function AccountPopover() {
   const theme = useTheme();
@@ -26,7 +26,7 @@ export default function AccountPopover() {
   const [open, setOpen] = useState<HTMLButtonElement | null>();
   const colorMode = useColorMode();
 
-  const { profile } = useFirebaseAuth();
+  const { profile } = useAuthentication();
 
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);

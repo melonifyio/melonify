@@ -1,18 +1,5 @@
 import * as React from "react";
-import {
-  Controller,
-  Control,
-  UseFormSetValue,
-  UseFormHandleSubmit,
-} from "react-hook-form";
-
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { Controller, Control } from "react-hook-form";
 
 import { SchemaProps } from "components/collection/types";
 import FormInput from "../form-input/form-input";
@@ -85,7 +72,7 @@ export default function FormField(props: FormFieldProps) {
         );
 
       case "SUBCOLLECTION":
-        return <></>;
+        return <></>; // should be empty. we dont need to show it as a regular field
 
       default:
         return <></>;

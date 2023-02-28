@@ -16,6 +16,7 @@ import FormFields from "components/form/form-fields/form-fields";
 import useFirestoreSetDoc from "hooks/useFirestoreSetDoc";
 import TableDrawerTabs from "./table-drawer-tabs";
 import { TableDrawerSubcollections } from "./table-drawer-subcollections";
+import { RolesAllowedProps } from "../table";
 
 type TableDrawerProps = {
   open: boolean;
@@ -23,10 +24,12 @@ type TableDrawerProps = {
   schema: CollectionProps["schema"];
   collectionId: string;
   documentId: string;
+  rolesAllowed?: RolesAllowedProps;
 };
 
 export const TableDrawer = (props: TableDrawerProps) => {
-  const { open, onClose, schema, collectionId, documentId } = props;
+  const { open, onClose, schema, collectionId, documentId, rolesAllowed } =
+    props;
   const [localIsOpen, setLocalIsOpen] = React.useState(false);
 
   const docPath = `${collectionId}/${documentId}`;
@@ -116,6 +119,7 @@ export const TableDrawer = (props: TableDrawerProps) => {
                         documentId={documentId}
                         key={1}
                         schema={schema}
+                        rolesAllowed={rolesAllowed}
                       />
                     </Box>,
                     <Box p={3} key={0}>

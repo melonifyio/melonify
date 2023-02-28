@@ -1,12 +1,11 @@
 import * as React from "react";
 
 import Nav from "./nav";
-import RequireAuth from "components/auth/private/private";
+import Private from "components/auth/private";
 
 import { StyledMain, StyledRoot } from "./styled";
 import Header from "./header";
 import melonify from "config/melonify";
-import { Box } from "@mui/system";
 
 type DashboardProps = {
   children: React.ReactNode;
@@ -41,8 +40,8 @@ export default function DashboardLayoutWrapper(props: DashboardProps) {
   const { children } = props;
 
   return (
-    <RequireAuth>
+    <Private>
       <DashboardLayout>{children}</DashboardLayout>
-    </RequireAuth>
+    </Private>
   );
 }

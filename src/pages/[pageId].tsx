@@ -8,6 +8,7 @@ import EmptyState from "components/elements/empty-state";
 
 import melonify from "config/melonify";
 import Screen from "components/screen/screen";
+import Restricted from "components/auth/restricted";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -15,16 +16,18 @@ export default function GenericPage() {
 
   const pageInfo = melonify.menu.find((x) => x.path === pageId);
 
+  const screen = melonify.screen[pageId as string] || {};
+
   return (
     <Container>
       <PageHeader title={pageInfo?.title || ""} />
 
-      {/* <EmptyState
-        title="Define schema"
-        description="Organize the collection schema"
-      /> */}
-
-      <Screen widgets={melonify.screen[pageId as string] || []} />
+      <Restricted
+        rolesAllowed={screen.rolesAllowed}
+        fallback={<EmptyState title="Permissions needed 😔" />}
+      >
+        <Screen widgets={screen?.widgets || {}} />
+      </Restricted>
     </Container>
   );
 }
