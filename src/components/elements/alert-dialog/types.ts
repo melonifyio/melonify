@@ -4,6 +4,5 @@ export type AlertDialogProps = {
   description: string;
   onConfirm: () => void;
   onClose: () => void;
-  TriggerComponent: JSX.Element;
   isSubmitting?: boolean;
 };

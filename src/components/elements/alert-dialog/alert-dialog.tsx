@@ -9,51 +9,40 @@ import LoadingButton from "@mui/lab/LoadingButton";
 
 import { AlertDialogProps } from "./types";
 
-export function AlertDialog(props: AlertDialogProps) {
-  const {
-    open,
-    onConfirm,
-    title,
-    description,
-    TriggerComponent,
-    onClose,
-    isSubmitting,
-  } = props;
+export default function AlertDialog(props: AlertDialogProps) {
+  const { open, onConfirm, title, description, onClose, isSubmitting } = props;
 
   const handleAgree = () => {
     onConfirm();
   };
 
   return (
-    <div>
-      <div>{TriggerComponent}</div>
-      <Dialog
-        open={open}
-        onClose={onClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {description}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="text" onClick={onClose}>
-            Cancel
-          </Button>
-          <LoadingButton
-            loading={isSubmitting}
-            variant="contained"
-            color="error"
-            onClick={handleAgree}
-            autoFocus
-          >
-            Confirm
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogContent sx={{ minWidth: 400 }}>
+        <DialogContentText id="alert-dialog-description">
+          {description}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button variant="text" onClick={onClose}>
+          Cancel
+        </Button>
+        <LoadingButton
+          loading={isSubmitting}
+          variant="contained"
+          color="error"
+          onClick={handleAgree}
+          autoFocus
+        >
+          Confirm
+        </LoadingButton>
+      </DialogActions>
+    </Dialog>
   );
 }

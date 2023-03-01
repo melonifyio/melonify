@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { LoadingButton } from "@mui/lab";
-import { Button, Typography } from "@mui/material";
+import { Alert, Button, Divider, Typography } from "@mui/material";
 import { CollectionProps } from "components/collection/types";
 import useFirestoreDoc from "hooks/useFirestoreDoc";
 import { doc } from "firebase/firestore";
@@ -18,6 +18,8 @@ import TableDrawerTabs from "./table-drawer-tabs";
 import { TableDrawerSubcollections } from "./table-drawer-subcollections";
 import { RolesAllowedProps } from "../table";
 import Denied from "components/auth/denied";
+import useFirestoreDelete from "hooks/useFirestoreDelete";
+import AlertDialog from "components/elements/alert-dialog/alert-dialog";
 
 type TableDrawerProps = {
   open: boolean;
@@ -31,7 +33,9 @@ type TableDrawerProps = {
 export const TableDrawer = (props: TableDrawerProps) => {
   const { open, onClose, schema, collectionId, documentId, rolesAllowed } =
     props;
+
   const [localIsOpen, setLocalIsOpen] = React.useState(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
 
   const docPath = `${collectionId}/${documentId}`;
   const docRef = doc(firestore, docPath);
@@ -39,27 +43,16 @@ export const TableDrawer = (props: TableDrawerProps) => {
   const [data, isLoading] = useFirestoreDoc([documentId], docRef);
 
   const [updateDoc, isUpdating] = useFirestoreSetDoc(docRef);
+  const [deleteDoc, isDeleting] = useFirestoreDelete(docRef, {
+    onSuccess: () => {
+      setOpenDeleteAlert(false);
+      onClose();
+    },
+  });
 
   const handleSubmit = (values: any) => {
     updateDoc(values);
   };
-
-  //   const subcollections = Object.keys(model)
-  //     .filter((fieldKey) => model[fieldKey].type === "SUBCOLLECTION")
-  //     .map((fieldKey) => {
-  //       return model[fieldKey];
-  //     });
-
-  //   const handleCloseToast = (
-  //     event: React.SyntheticEvent | Event,
-  //     reason?: string
-  //   ) => {
-  //     if (reason === "clickaway") {
-  //       return;
-  //     }
-
-  //     setOpenToast(false);
-  //   };
 
   React.useEffect(() => {
     setInterval(() => {
@@ -128,6 +121,16 @@ export const TableDrawer = (props: TableDrawerProps) => {
                         }}
                         {...fieldProps}
                       />
+
+                      <Divider sx={{ my: 2 }} />
+
+                      <Button
+                        color="error"
+                        variant="outlined"
+                        onClick={() => setOpenDeleteAlert(true)}
+                      >
+                        Delete document
+                      </Button>
                     </Box>,
                   ]}
                 />
@@ -160,27 +163,15 @@ export const TableDrawer = (props: TableDrawerProps) => {
           </Box>
         )}
       />
-      {/* {subcollections && subcollections.length > 0 && (
-            <SubcollectionTabs
-              subcollections={subcollections}
-              collectionId={collectionId}
-              documentId={documentId}
-            />
-          )} */}
 
-      {/* <Snackbar
-        open={openToast}
-        autoHideDuration={6000}
-        onClose={handleCloseToast}
-      >
-        <Alert
-          onClose={handleCloseToast}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Saved.
-        </Alert>
-      </Snackbar> */}
+      <AlertDialog
+        open={openDeleteAlert}
+        title="Delete document"
+        description="Are you sure?"
+        onClose={() => setOpenDeleteAlert(false)}
+        onConfirm={deleteDoc}
+        isSubmitting={isDeleting}
+      />
     </Drawer>
   );
 };

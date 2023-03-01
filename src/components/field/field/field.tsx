@@ -54,7 +54,7 @@ const Field = (props: FieldProps) => {
 
   const component = renderComponent(type, value, config);
 
-  if (label) {
+  if (label && type !== "SUBCOLLECTION") {
     return (
       <Stack>
         <Typography variant="caption" gutterBottom>
