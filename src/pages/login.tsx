@@ -4,8 +4,8 @@ import Head from "next/head";
 import { styled } from "@mui/material/styles";
 import { Container, Stack } from "@mui/material";
 
-import AuthLayout from "layouts/auth";
-import LoginForm from "components/auth/login-form/login-form";
+import { AuthLayout } from "features/layouts";
+import { LoginForm } from "features/auth";
 
 const StyledContent = styled("div")(({ theme }) => ({
   maxWidth: 480,

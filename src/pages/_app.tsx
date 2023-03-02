@@ -4,8 +4,8 @@ import type { NextPage } from "next";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ThemeProvider } from "theme";
-import { AuthenticationProvider } from "components/auth/authentication-context";
-import { AuthorizationProvider } from "components/auth/authorization-context";
+import { AuthenticationProvider } from "features/auth";
+import { AuthorizationProvider } from "features/auth";
 
 // Create a client
 const queryClient = new QueryClient({
