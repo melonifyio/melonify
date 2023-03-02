@@ -8,7 +8,7 @@ import EmptyState from "components/elements/empty-state";
 
 import melonify from "config/melonify";
 import Screen from "components/screen/screen";
-import Restricted from "components/auth/restricted";
+import Denied from "components/auth/denied";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -22,12 +22,12 @@ export default function GenericPage() {
     <Container>
       <PageHeader title={pageInfo?.title || ""} />
 
-      <Restricted
+      <Denied
         rolesAllowed={screen.rolesAllowed}
         fallback={<EmptyState title="Permissions needed 😔" />}
       >
         <Screen widgets={screen?.widgets || {}} />
-      </Restricted>
+      </Denied>
     </Container>
   );
 }

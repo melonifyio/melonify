@@ -1,13 +1,13 @@
 import React from "react";
 import { useAuthorization } from "./authorization-context";
 
-type RestrictedProps = {
+type DeniedProps = {
   children: React.ReactNode;
   rolesAllowed?: string[];
   fallback?: JSX.Element | null;
 };
 
-export default function Restricted(props: RestrictedProps) {
+export default function Denied(props: DeniedProps) {
   const { children, rolesAllowed, fallback = null } = props;
 
   const { role } = useAuthorization();

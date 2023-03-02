@@ -61,7 +61,7 @@ export default function Table(props: TableProps): JSX.Element {
 
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
-          <MuiTable sx={{ minWidth: 650 }}>
+          <MuiTable size="small" sx={{ minWidth: 650 }}>
             <TableHead columns={columns} />
 
             <TableBody

@@ -17,10 +17,12 @@ type FormProps = {
     control,
     setValue,
     handleSubmit,
+    initialValues,
   }: {
     control: Control;
     setValue: UseFormSetValue<any>;
     handleSubmit: UseFormHandleSubmit<any>;
+    initialValues: any;
   }) => JSX.Element;
   actionsComponent?: React.ReactNode;
   height?: number | string;
@@ -59,7 +61,7 @@ export default function Form(props: FormProps) {
   return (
     <form onSubmit={handleSubmitWithoutPropagation} style={{ height }}>
       {titleComponent && titleComponent}
-      {contentComponent({ control, setValue, handleSubmit })}
+      {contentComponent({ control, setValue, handleSubmit, initialValues })}
       {actionsComponent && actionsComponent}
     </form>
   );
