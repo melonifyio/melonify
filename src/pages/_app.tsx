@@ -4,8 +4,10 @@ import type { NextPage } from "next";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ThemeProvider } from "theme";
-import { AuthenticationProvider } from "components/auth/authentication-context";
-import { AuthorizationProvider } from "components/auth/authorization-context";
+import { AuthenticationProvider } from "features/auth";
+import { AuthorizationProvider } from "features/auth";
+import { DataProvider } from "features/data-provider";
+import { firebaseDataProvider } from "features/firebase";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -33,7 +35,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthenticationProvider>
-          <AuthorizationProvider>{mainContent}</AuthorizationProvider>
+          <DataProvider provider={firebaseDataProvider()}>
+            <AuthorizationProvider>{mainContent}</AuthorizationProvider>
+          </DataProvider>
         </AuthenticationProvider>
       </ThemeProvider>
     </QueryClientProvider>

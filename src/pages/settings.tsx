@@ -7,7 +7,7 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
-import Dashboard from "layouts/dashboard";
+import Dashboard from "features/layouts/dashboard";
 
 export default function Home() {
   const [openSuccessToast, setOpenSuccessToast] = React.useState(false);
