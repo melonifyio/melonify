@@ -1,14 +1,12 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 
-import Dashboard from "layouts/dashboard";
-import PageHeader from "components/elements/page-header";
-import Container from "components/elements/container";
-import EmptyState from "components/elements/empty-state";
+import { PageHeader } from "components/page-header";
+import { Container } from "components/container";
+
+import { DashboardLayout } from "features/layouts";
+import { Screen } from "features/screen";
 
 import melonify from "config/melonify";
-import Screen from "components/screen/screen";
-import Restricted from "components/auth/restricted";
 
 export default function GenericPage() {
   const router = useRouter();
@@ -22,16 +20,11 @@ export default function GenericPage() {
     <Container>
       <PageHeader title={pageInfo?.title || ""} />
 
-      <Restricted
-        rolesAllowed={screen.rolesAllowed}
-        fallback={<EmptyState title="Permissions needed 😔" />}
-      >
-        <Screen widgets={screen?.widgets || {}} />
-      </Restricted>
+      <Screen {...screen} />
     </Container>
   );
 }
 
 GenericPage.getLayout = function getLayout(page: React.ReactElement) {
-  return <Dashboard>{page}</Dashboard>;
+  return <DashboardLayout>{page}</DashboardLayout>;
 };

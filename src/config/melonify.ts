@@ -1,14 +1,13 @@
-import { CollectionProps } from "components/collection/types";
-import { ScreenProps } from "components/screen/types";
-import Table from "components/table/table";
-import { NavItemProps } from "layouts/dashboard/nav";
+import { CollectionProps } from "features/collections";
+import { ScreenProps, WIDGETS } from "features/screen";
+import { NavItemProps } from "features/layouts";
 
 const ROLES = ["ADMIN", "USER", "DRIVER", "RESTAURANT", "KITCHEN"];
 
 type MelonifyProps = {
   menu: NavItemProps[];
   collections: Record<string, CollectionProps>;
-  screen: ScreenProps;
+  screen: Record<string, ScreenProps>;
 };
 
 const menu: MelonifyProps["menu"] = [
@@ -123,14 +122,14 @@ const screen: MelonifyProps["screen"] = {
     // rolesAllowed: ["ADMIN"],
     widgets: {
       restaurantsList: {
-        component: Table,
+        component: WIDGETS["table"],
         props: {
           collection: collections["restaurants"],
         },
         rolesAllowed: {
           create: ["ADMIN"],
-          view: ["ADMIN"],
-          edit: ["ADMIN"],
+          read: ["ADMIN"],
+          update: ["ADMIN"],
           delete: ["ADMIN"],
         },
       },
@@ -139,7 +138,7 @@ const screen: MelonifyProps["screen"] = {
   orders: {
     widgets: {
       ordersList: {
-        component: Table,
+        component: WIDGETS["table"],
         props: {
           collection: collections["orders"],
         },
@@ -149,7 +148,7 @@ const screen: MelonifyProps["screen"] = {
   users: {
     widgets: {
       usersList: {
-        component: Table,
+        component: WIDGETS["table"],
         props: {
           collection: collections["users"],
         },
