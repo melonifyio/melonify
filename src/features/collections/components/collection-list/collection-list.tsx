@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import { CollectionListItem } from "./collection-list-item";

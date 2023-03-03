@@ -13,16 +13,11 @@ import { CollectionProps } from "features/collections";
 import { Form } from "features/forms";
 import { FormFields } from "features/forms";
 import { Denied } from "features/auth";
-import {
-  useDeleteDocument,
-  useDocumentRef,
-  useDocument,
-  useUpdateDocument,
-} from "features/widget-table";
 
 import { TableDrawerTabs } from "./table-drawer-tabs";
 import { TableDrawerSubcollections } from "./table-drawer-subcollections";
 import { RolesAllowedProps } from "../table/table";
+import { useDataProvider } from "features/data-provider";
 
 type TableDrawerProps = {
   open: boolean;
@@ -37,16 +32,22 @@ export const TableDrawer = (props: TableDrawerProps) => {
   const { open, onClose, schema, collectionId, documentId, rolesAllowed } =
     props;
 
+  const { useDocument, useDeleteDocument, useUpdateDocument } =
+    useDataProvider();
+
   const [localIsOpen, setLocalIsOpen] = React.useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
 
-  const docRef = useDocumentRef(`${collectionId}/${documentId}`);
+  const [data, isLoading] = useDocument({ collectionId, documentId });
 
-  const [data, isLoading] = useDocument([documentId], docRef);
+  const [updateDoc, isUpdating] = useUpdateDocument({
+    collectionId,
+    documentId,
+  });
 
-  const [updateDoc, isUpdating] = useUpdateDocument(docRef);
-
-  const [deleteDoc, isDeleting] = useDeleteDocument(docRef, {
+  const [deleteDoc, isDeleting] = useDeleteDocument({
+    collectionId,
+    documentId,
     onSuccess: () => {
       setOpenDeleteAlert(false);
       onClose();

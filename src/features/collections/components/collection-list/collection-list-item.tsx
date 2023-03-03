@@ -2,19 +2,14 @@ import { useRouter } from "next/router";
 
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
-  Chip,
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { collection } from "firebase/firestore";
-import firestore from "lib/firebase/firestore";
-import { ChevronRight } from "@mui/icons-material";
-import { useFirestoreCount } from "features/firebase";
+
+import { useCount } from "../../api/get-count";
 
 type CollectionListItemProps = {
   collectionKey: string;
@@ -27,10 +22,7 @@ export function CollectionListItem(props: CollectionListItemProps) {
 
   const router = useRouter();
 
-  const [count, isCounting] = useFirestoreCount(
-    ["countCollection"],
-    collection(firestore, collectionId)
-  );
+  const [count, isCounting] = useCount(collectionId);
 
   const handleClick = () => {
     router.push(`/${collectionKey}`);

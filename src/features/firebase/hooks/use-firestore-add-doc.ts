@@ -8,7 +8,7 @@ type UseFirestoreAddDocOptionsProps = {
 export const useFirestoreAddDoc = (
   collectionRef: any,
   options?: UseFirestoreAddDocOptionsProps
-) => {
+): [(data: any) => Promise<void>, boolean, Error | null] => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
 

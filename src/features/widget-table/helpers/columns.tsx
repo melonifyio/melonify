@@ -1,5 +1,6 @@
 import * as React from "react";
-import { CollectionProps } from "features/collections/types";
+
+import { CollectionProps } from "features/collections";
 import { Field, FieldType } from "features/fields";
 
 export interface IColumn {

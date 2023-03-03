@@ -1,10 +1,10 @@
 import * as React from "react";
 import { DocumentData, Query, onSnapshot, getDocs } from "firebase/firestore";
 
-export const useFirestoreQuery = <T extends DocumentData>(
+export const useFirestoreQuery = <T>(
   keys: any,
   query: Query
-) => {
+): [T[], boolean, Error | null, () => void, () => void] => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
   const [docs, setDocs] = React.useState<T[]>([]);

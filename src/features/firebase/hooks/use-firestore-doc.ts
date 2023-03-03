@@ -1,12 +1,11 @@
 import * as React from "react";
 import {
-  DocumentData,
   DocumentSnapshot,
   DocumentReference,
   onSnapshot,
 } from "firebase/firestore";
 
-export const useFirestoreDoc = <T extends DocumentData>(
+export const useFirestoreDoc = <T>(
   keys: any,
   docRef: DocumentReference
 ): [T | null, boolean, Error | null] => {

@@ -6,7 +6,6 @@ import Paper from "@mui/material/Paper";
 import { Box, LinearProgress } from "@mui/material";
 
 import { CollectionProps } from "features/collections";
-import { useDocuments } from "features/widget-table";
 
 import { TableHead } from "../table-head/table-head";
 import { getColumns } from "../../helpers/columns";
@@ -15,6 +14,7 @@ import { TableToolbar } from "../table-toolbar/table-toolbar";
 import { TablePagination } from "../table-pagination/table-pagination";
 import { TableDrawer } from "../table-drawer/table-drawer";
 import { FilterItem } from "../table-filter/table-filter-item";
+import { useDataProvider } from "features/data-provider";
 
 export type RolesAllowedProps = {
   create: string[];
@@ -30,13 +30,16 @@ type TableProps = {
 
 export function Table(props: TableProps): JSX.Element {
   const { collection, rolesAllowed } = props;
+
+  const { useDocuments } = useDataProvider();
+
   const [filters, setFilters] = React.useState<Record<string, FilterItem>>({});
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage] = React.useState(10);
   const [activeDocumentId, setActiveDocumentId] = React.useState<string>("");
 
-  const { data, isLoading, count, showNextPage, showPreviousPage } =
+  const [data, isLoading, error, count, showNextPage, showPreviousPage] =
     useDocuments({
       collectionId: collection.id,
       rowsPerPage,

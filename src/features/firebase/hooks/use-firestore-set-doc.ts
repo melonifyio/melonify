@@ -3,7 +3,7 @@ import { setDoc } from "firebase/firestore";
 
 type UseFirestoreSetDocOptionsProps = {
   onSuccess?: () => void;
-  merge: boolean;
+  merge?: boolean;
 };
 
 export const useFirestoreSetDoc = (

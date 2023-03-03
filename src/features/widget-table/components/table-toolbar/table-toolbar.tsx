@@ -7,7 +7,7 @@ import { Denied } from "features/auth";
 import { FormModal } from "features/forms";
 import { CollectionProps } from "features/collections";
 import { FormFields } from "features/forms";
-import { useCreateDocument } from "features/widget-table";
+import { useDataProvider } from "features/data-provider";
 
 import { TableFilter } from "../table-filter";
 import { FilterItem } from "../table-filter";
@@ -24,9 +24,13 @@ type TableToolbarProps = {
 export function TableToolbar(props: TableToolbarProps) {
   const { collectionId, schema, onChangeFitler, initialFilters, rolesAllowed } =
     props;
+
+  const { useCreateDocument } = useDataProvider();
+
   const [createIsOpen, setCreateOpen] = React.useState(false);
 
-  const [createDoc, creating] = useCreateDocument(collectionId, {
+  const [createDoc, creating] = useCreateDocument({
+    collectionId,
     onSuccess: () => {
       setCreateOpen(false);
     },
