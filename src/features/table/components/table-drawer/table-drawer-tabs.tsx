@@ -3,6 +3,7 @@ import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { Stack } from "@mui/material";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -19,6 +20,7 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
+      style={{ overflowY: "auto" }}
       {...other}
     >
       {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
@@ -50,7 +52,7 @@ export function TableDrawerTabs(props: TableDrawerTabsProps) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Stack sx={{ width: "100%", maxHeight: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
           {tabs.map((item, index) => (
@@ -64,6 +66,6 @@ export function TableDrawerTabs(props: TableDrawerTabsProps) {
           {item}
         </TabPanel>
       ))}
-    </Box>
+    </Stack>
   );
 }

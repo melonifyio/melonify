@@ -67,6 +67,13 @@ export function RestaurantsWidget() {
               options: ["TOP", "NEW", "OFFERING_DISCOUNT"],
             },
           },
+          test: {
+            label: "Label",
+            type: "ENUM",
+            config: {
+              options: ["TOP", "NEW", "OFFERING_DISCOUNT"],
+            },
+          },
         }}
         filterTokens={{
           title: {},

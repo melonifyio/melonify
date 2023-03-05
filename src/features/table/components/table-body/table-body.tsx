@@ -28,7 +28,7 @@ export function TableBody(props: TableBodyProps): JSX.Element {
         <TableRow>
           <TableCell colSpan={Object.keys(columns).length}>
             <EmptyState
-              title="No result. :("
+              title="No results"
               description="Please try add or fitler the table"
             />
           </TableCell>

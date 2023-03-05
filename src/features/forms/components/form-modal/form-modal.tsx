@@ -62,7 +62,7 @@ export function FormModal(props: FormProps) {
               }}
             >
               <DialogTitle>{title}</DialogTitle>
-              <DialogContent dividers sx={{ overflowY: "auto" }}>
+              <DialogContent dividers sx={{ overflowY: "auto", p: 1 }}>
                 {contentComponent(formContentProps)}
               </DialogContent>
               <DialogActions>

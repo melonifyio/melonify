@@ -93,85 +93,86 @@ export const TableDrawer = (props: TableDrawerProps) => {
         onSubmit={handleSubmit}
         contentComponent={(fieldProps: any) => (
           <Box width={680} maxWidth={800} sx={{ height: "100%" }}>
-            <Stack sx={{ height: "100%" }}>
-              <Box sx={{ flex: 1, overflowY: "auto" }}>
-                <TableDrawerTabs
-                  tabs={[
-                    { label: "General" },
-                    { label: "Subcollections" },
-                    { label: "System" },
-                  ]}
-                  panes={[
-                    <Box p={3} key={0}>
-                      <FormFields
-                        rolesAllowed={rolesAllowed}
-                        fields={{
-                          ...fields,
-                        }}
-                        {...fieldProps}
-                      />
-                    </Box>,
-                    <Box p={3} key={1}>
-                      <TableDrawerSubcollections
-                        collectionId={collectionId}
-                        documentId={documentId}
-                        subcollections={subcollections}
-                        rolesAllowed={rolesAllowed}
-                      />
-                    </Box>,
-                    <Box p={3} key={2}>
-                      <FormFields
-                        rolesAllowed={rolesAllowed}
-                        fields={{
-                          _id: {
-                            label: "ID",
-                            type: "TEXT",
-                            config: {
-                              readonly: true,
-                            },
-                          },
-                        }}
-                        {...fieldProps}
-                      />
-
-                      <Divider sx={{ my: 2 }} />
-
-                      <Button
-                        color="error"
-                        variant="outlined"
-                        onClick={() => setOpenDeleteAlert(true)}
-                      >
-                        Delete document
-                      </Button>
-                    </Box>,
-                  ]}
-                />
-              </Box>
-
-              <Denied rolesAllowed={rolesAllowed && rolesAllowed["update"]}>
-                <Box
-                  sx={{
-                    p: 2,
-                    borderTop: 1,
-                    borderColor: "divider",
-                    display: "flex",
-                  }}
-                >
-                  <Box sx={{ flex: 1 }}></Box>
-                  <Stack direction="row" gap={1}>
-                    <Button onClick={onClose}>Close</Button>
-
-                    <LoadingButton
-                      type="submit"
-                      variant="contained"
-                      loading={isUpdating as boolean}
+            <TableDrawerTabs
+              tabs={[
+                { label: "General" },
+                { label: "Subcollections" },
+                { label: "System" },
+              ]}
+              panes={[
+                <>
+                  <Box
+                    sx={{ maxHeight: "calc(100vh - 122px)", overflowY: "auto" }}
+                  >
+                    <FormFields
+                      rolesAllowed={rolesAllowed}
+                      fields={{
+                        ...fields,
+                      }}
+                      {...fieldProps}
+                    />
+                  </Box>
+                  <Denied rolesAllowed={rolesAllowed && rolesAllowed["update"]}>
+                    <Box
+                      sx={{
+                        p: 2,
+                        borderTop: 1,
+                        borderColor: "divider",
+                        display: "flex",
+                      }}
                     >
-                      Update
-                    </LoadingButton>
-                  </Stack>
-                </Box>
-              </Denied>
-            </Stack>
+                      <Box sx={{ flex: 1 }}></Box>
+                      <Stack direction="row" gap={1}>
+                        <Button onClick={onClose}>Close</Button>
+
+                        <LoadingButton
+                          type="submit"
+                          variant="contained"
+                          loading={isUpdating as boolean}
+                        >
+                          Update
+                        </LoadingButton>
+                      </Stack>
+                    </Box>
+                  </Denied>
+                </>,
+                <Box key={1}>
+                  <TableDrawerSubcollections
+                    collectionId={collectionId}
+                    documentId={documentId}
+                    subcollections={subcollections}
+                    rolesAllowed={rolesAllowed}
+                  />
+                </Box>,
+                <Box key={2}>
+                  <FormFields
+                    rolesAllowed={rolesAllowed}
+                    fields={{
+                      _id: {
+                        label: "ID",
+                        type: "TEXT",
+                        config: {
+                          readonly: true,
+                        },
+                      },
+                    }}
+                    {...fieldProps}
+                  />
+
+                  <Divider />
+
+                  <Box sx={{ p: 2 }}>
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={() => setOpenDeleteAlert(true)}
+                    >
+                      Delete document
+                    </Button>
+                  </Box>
+                </Box>,
+              ]}
+            />
           </Box>
         )}
       />
