@@ -5,8 +5,9 @@ import {
   UseFormSetValue,
   UseFormHandleSubmit,
 } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import removeEmpty from "utils/remove-empty";
+import { z, ZodType } from "zod";
 
 type FormProps = {
   initialValues: any;
@@ -25,6 +26,7 @@ type FormProps = {
   }) => JSX.Element;
   actionsComponent?: React.ReactNode;
   height?: number | string;
+  schema?: ZodType;
 };
 
 export function Form(props: FormProps) {
@@ -35,6 +37,7 @@ export function Form(props: FormProps) {
     contentComponent,
     actionsComponent,
     height,
+    schema = z.object({}),
   } = props;
 
   const {
@@ -42,23 +45,20 @@ export function Form(props: FormProps) {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<any>({
+  } = useForm<z.infer<typeof schema>>({
+    mode: "onChange",
+    resolver: zodResolver(schema),
     defaultValues: initialValues,
     shouldUnregister: true,
   });
 
-  const forwardSave = (data: any) => {
-    onSubmit(removeEmpty(data));
-  };
-
-  const handleSubmitWithoutPropagation = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleSubmit(forwardSave)(e);
-  };
-
   return (
-    <form onSubmit={handleSubmitWithoutPropagation} style={{ height }}>
+    <form
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+      })}
+      style={{ height }}
+    >
       {titleComponent && titleComponent}
       {contentComponent({ control, setValue, handleSubmit, initialValues })}
       {actionsComponent && actionsComponent}

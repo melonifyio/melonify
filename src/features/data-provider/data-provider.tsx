@@ -66,6 +66,12 @@ export type UseUpdateDocumentParams = {
   onSuccess?: () => void;
 };
 
+export type UseCountParams = {
+  collectionId: string;
+};
+
+export type UseCountResponse = number;
+
 export type IDataContext = {
   useDocuments<T>(params: UseDocumentsParams): PaginatedQueryResponse<T[]>;
   useDocument: (
@@ -74,6 +80,7 @@ export type IDataContext = {
   useCreateDocument: (params: UseCreateDocumentParams) => MutationResponse;
   useDeleteDocument: (params: UseDeleteDocumentParams) => MutationResponse;
   useUpdateDocument: (params: UseUpdateDocumentParams) => MutationResponse;
+  useCount: (params: UseCountParams) => QueryResponse<UseCountResponse>;
 };
 
 export const DataContext = React.createContext<IDataContext>({
@@ -82,6 +89,7 @@ export const DataContext = React.createContext<IDataContext>({
   useCreateDocument: () => [() => Promise.resolve(), false, null],
   useDeleteDocument: () => [() => Promise.resolve(), false, null],
   useUpdateDocument: () => [() => Promise.resolve(), false, null],
+  useCount: () => [0, false, null],
 });
 
 export type DataProviderProps = {

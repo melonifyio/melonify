@@ -6,9 +6,10 @@ import Button from "@mui/material/Button";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import { Breakpoint, DialogActions, Portal } from "@mui/material";
+import { Box, Breakpoint, DialogActions, Portal } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Form } from "features/forms";
+import { ZodType } from "zod";
 
 type FormProps = {
   title: string;
@@ -28,6 +29,7 @@ type FormProps = {
   maxWidth?: Breakpoint;
   submitButtonLabel?: string;
   isSubmitting?: boolean;
+  schema?: ZodType;
 };
 
 export function FormModal(props: FormProps) {
@@ -41,6 +43,7 @@ export function FormModal(props: FormProps) {
     maxWidth = "sm",
     submitButtonLabel = "Submit",
     isSubmitting,
+    schema,
   } = props;
 
   return (
@@ -49,22 +52,31 @@ export function FormModal(props: FormProps) {
         <Form
           initialValues={initialValues}
           onSubmit={onSubmit}
-          titleComponent={<DialogTitle>{title}</DialogTitle>}
+          schema={schema}
           contentComponent={(formContentProps) => (
-            <DialogContent>{contentComponent(formContentProps)}</DialogContent>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                maxHeight: "calc(100vh - 64px)",
+              }}
+            >
+              <DialogTitle>{title}</DialogTitle>
+              <DialogContent dividers sx={{ overflowY: "auto", p: 1 }}>
+                {contentComponent(formContentProps)}
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={onClose}>Cancel</Button>
+                <LoadingButton
+                  type="submit"
+                  loading={isSubmitting}
+                  variant="contained"
+                >
+                  {submitButtonLabel}
+                </LoadingButton>
+              </DialogActions>
+            </Box>
           )}
-          actionsComponent={
-            <DialogActions>
-              <Button onClick={onClose}>Cancel</Button>
-              <LoadingButton
-                type="submit"
-                loading={isSubmitting}
-                variant="contained"
-              >
-                {submitButtonLabel}
-              </LoadingButton>
-            </DialogActions>
-          }
         />
       </Dialog>
     </Portal>

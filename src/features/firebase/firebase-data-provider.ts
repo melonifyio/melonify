@@ -9,6 +9,7 @@ import {
   UseDeleteDocumentParams,
   MutationResponse,
   UseUpdateDocumentParams,
+  UseCountParams,
 } from "features/data-provider";
 import {
   collection,
@@ -45,7 +46,7 @@ export function firebaseDataProvider(): IDataContext {
           query(collectionRef, ...queryConstraints)
         );
 
-      const [count] = useFirestoreCount(
+      const [count] = useFirestoreCount<number>(
         [collectionRef, queryConstraints],
         query(collectionRef, ...queryConstraints)
       );
@@ -124,6 +125,16 @@ export function firebaseDataProvider(): IDataContext {
       const res = useFirestoreSetDoc(docRef, {
         onSuccess,
       });
+
+      return res;
+    },
+    useCount<T>(params: UseCountParams): QueryResponse<T> {
+      const { collectionId } = params;
+
+      const res = useFirestoreCount<T>(
+        collectionId,
+        collection(firestore, collectionId)
+      );
 
       return res;
     },
