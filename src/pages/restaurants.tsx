@@ -1,11 +1,19 @@
 import { DashboardLayout } from "layouts";
 
+import { PageHeader } from "components/page-header";
+import { Container } from "components/container";
+
 import { RestaurantsScreen } from "screens/restaurants";
 
-export default function GenericPage() {
-  return <RestaurantsScreen />;
+export default function RestaurantsPage() {
+  return (
+    <Container>
+      <PageHeader title="Restaurants" />
+      <RestaurantsScreen />
+    </Container>
+  );
 }
 
-GenericPage.getLayout = function getLayout(page: React.ReactElement) {
+RestaurantsPage.getLayout = function getLayout(page: React.ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

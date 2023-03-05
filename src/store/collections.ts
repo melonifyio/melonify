@@ -4,7 +4,7 @@ import { z, ZodType } from "zod";
 interface Collection {
   id: string;
   schema: ZodType;
-  subcollections: {
+  subcollections?: {
     id: string;
     label: string;
     schema: ZodType;
@@ -44,6 +44,13 @@ export const useCollectionsStore = create<Collections>(() => ({
           }),
         },
       ],
+    },
+    users: {
+      id: "users",
+      schema: z.object({
+        email: z.string().min(1, { message: "Required" }),
+        role: z.enum(["OWNER", "ADMIN", "MEMBER"]),
+      }),
     },
   },
 }));

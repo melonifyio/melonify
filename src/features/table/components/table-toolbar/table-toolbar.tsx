@@ -7,7 +7,7 @@ import { Add } from "@mui/icons-material";
 import { Denied } from "features/auth";
 import { FormFieldProps, FormModal } from "features/forms";
 import { FormFields } from "features/forms";
-import { useDataProvider } from "features/data-provider";
+import { useDataProvider } from "features/data";
 
 import { FilterTokenProps, TableFilter } from "../table-filter";
 import { FilterItem } from "../table-filter";

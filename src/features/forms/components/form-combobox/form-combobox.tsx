@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Autocomplete, TextField } from "@mui/material";
-import { useDataProvider } from "features/data-provider";
+import { useDataProvider } from "features/data";
 
 export type FormComboboxConfig = {
   collectionId?: string;

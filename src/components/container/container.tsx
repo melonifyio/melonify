@@ -1,17 +1,19 @@
 import React from "react";
 
 import Stack from "@mui/material/Stack";
-import MuiContainer from "@mui/material/Container";
+import MuiContainer, {
+  ContainerProps as MuiContainerProps,
+} from "@mui/material/Container";
 
-type ContainerProps = {
+type ContainerProps = MuiContainerProps & {
   children: React.ReactNode;
 };
 
 export function Container(props: ContainerProps) {
-  const { children } = props;
+  const { children, ...rest } = props;
 
   return (
-    <MuiContainer>
+    <MuiContainer {...rest}>
       <Stack gap={3}>{children}</Stack>
     </MuiContainer>
   );

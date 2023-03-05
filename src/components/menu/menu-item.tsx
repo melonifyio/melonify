@@ -21,9 +21,9 @@ export function MenuItem(props: MenuItemProps) {
 
   return (
     <StyledNavItem
-      selected={home ? router.asPath === `/` : router.asPath.includes(path)}
+      selected={home ? router.asPath === `/` : router.asPath === path}
       onClick={() => {
-        router.push(`/${path}`);
+        router.push(`${path}`);
       }}
       sx={{
         width: "100%",

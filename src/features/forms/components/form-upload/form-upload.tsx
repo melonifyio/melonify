@@ -55,7 +55,7 @@ export const FormUpload = React.forwardRef<HTMLInputElement, FormUploadProps>(
         <Stack direction="row" gap={2} alignItems="center">
           <Avatar
             src={field.value}
-            sx={{ width: 56, height: 56, borderRadius: 1 }}
+            sx={{ width: 44, height: 44, borderRadius: 1 }}
           />
           <LoadingButton
             variant="contained"
