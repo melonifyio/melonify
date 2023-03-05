@@ -10,8 +10,6 @@ export function useAuthUser(): [UserProps | null, boolean] {
   const [isLoading, setIsLoading] = React.useState(true);
   const [profile, setProfile] = React.useState<UserProps | null>(null);
 
-  console.log(profile);
-
   React.useEffect(() => {
     // Listen for auth state changes
     const unsubscribe = auth.onAuthStateChanged((user) => {
