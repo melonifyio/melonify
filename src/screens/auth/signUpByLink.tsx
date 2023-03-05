@@ -10,17 +10,17 @@ export function SignUpByLinkScreen() {
 
   const { email } = router.query;
 
-  const [signUp, isLoading] = useSignInByLink({
+  const [signIn, isLoading] = useSignInByLink({
     onSuccess: () => {
       router.push("/");
     },
   });
 
   React.useEffect(() => {
-    signUp({
+    signIn({
       email: email as string,
     });
-  }, []);
+  }, [email]);
 
   return (
     <Screen title="Members" rolesAllowed={["ADMIN"]}>
