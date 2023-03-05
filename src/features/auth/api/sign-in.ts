@@ -8,10 +8,12 @@ import auth from "lib/firebase/auth";
 
 type UseSignInByLink = {
   onSuccess: () => void;
+  onError?: () => void;
 };
 
 export function useSignInByLink({
   onSuccess,
+  onError,
 }: UseSignInByLink): [({ email }: { email: string }) => void, boolean] {
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -24,7 +26,7 @@ export function useSignInByLink({
           onSuccess();
         })
         .catch((error) => {
-          console.log(error);
+          onError && onError();
         })
         .finally(() => {
           setIsLoading(false);

@@ -14,6 +14,9 @@ export function SignUpByLinkScreen() {
     onSuccess: () => {
       router.push("/");
     },
+    onError: () => {
+      router.push("/login");
+    },
   });
 
   React.useEffect(() => {
