@@ -1,9 +1,12 @@
 import { Typography } from "@mui/material";
-import { SchemaConfig } from "features/collections";
+
+export type FieldReferenceConfig = {
+  optionLabel?: string;
+};
 
 type FieldReferenceProps = {
   value: any;
-  config?: SchemaConfig;
+  config?: FieldReferenceConfig;
 };
 
 const FieldReference = (props: FieldReferenceProps) => {

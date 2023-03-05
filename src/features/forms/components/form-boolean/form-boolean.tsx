@@ -1,11 +1,12 @@
 import * as React from "react";
 
 import { FormControlLabel, Switch } from "@mui/material";
-import { SchemaConfig } from "features/collections";
+
+export type FormBooleanConfig = {};
 
 export type FormBooleanProps = {
   label: string;
-  config: SchemaConfig;
+  config: FormBooleanConfig;
   field: {
     onChange: (value: unknown) => void;
     value: boolean;
@@ -19,7 +20,11 @@ export function FormBoolean(props: FormBooleanProps) {
   return (
     <FormControlLabel
       control={
-        <Switch required={config.required} checked={field.value} {...field} />
+        <Switch
+          // required={config.required}
+          checked={field.value}
+          {...field}
+        />
       }
       label={label}
     />

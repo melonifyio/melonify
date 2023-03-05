@@ -1,4 +1,4 @@
-import { Table } from "features/widget-table";
+import { Table } from "features/table";
 
 export const WIDGETS = {
   table: Table,

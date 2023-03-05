@@ -1,11 +1,14 @@
 import * as React from "react";
 
 import { Autocomplete, TextField } from "@mui/material";
-import { SchemaConfig } from "features/collections";
+
+export type FormEnumConfig = {
+  options?: string[];
+};
 
 export type FormEnumProps = {
   label: string;
-  config: SchemaConfig;
+  config: FormEnumConfig;
   field: {
     onChange: (value: unknown) => void;
     value: string;
@@ -20,12 +23,11 @@ export function FormEnum(props: FormEnumProps) {
   return (
     <Autocomplete
       options={config?.options || []}
+      size="small"
       renderInput={(props) => (
         <TextField
-          required={config.required}
           error={!!errors[field.name]}
-          helperText={errors[field.name]?.message || config?.helperText}
-          variant="standard"
+          helperText={errors[field.name]?.message}
           {...props}
           label={label}
         />

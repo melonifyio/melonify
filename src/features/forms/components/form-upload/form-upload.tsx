@@ -48,7 +48,7 @@ export const FormUpload = React.forwardRef<HTMLInputElement, FormUploadProps>(
 
     return (
       <Box>
-        <Typography variant="body2" mb={1}>
+        <Typography variant="body2" mb={1} sx={{ opacity: 0.6 }}>
           {label}
         </Typography>
 

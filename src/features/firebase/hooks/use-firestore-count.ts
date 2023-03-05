@@ -1,13 +1,13 @@
 import * as React from "react";
 import { getCountFromServer } from "firebase/firestore";
 
-export const useFirestoreCount = (
+export const useFirestoreCount = <T>(
   keys: any,
   collectionRef: any
-): [number, boolean, Error | null] => {
+): [T, boolean, Error | null] => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const [count, setCount] = React.useState<number>(0);
+  const [count, setCount] = React.useState(0);
 
   React.useEffect(() => {
     const getCount = async () => {
@@ -27,5 +27,5 @@ export const useFirestoreCount = (
     getCount();
   }, [JSON.stringify(keys)]);
 
-  return [count, isLoading, error];
+  return [count as T, isLoading, error];
 };
