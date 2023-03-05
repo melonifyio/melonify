@@ -17,7 +17,7 @@ import { Denied } from "features/auth";
 import { TableDrawerTabs } from "./table-drawer-tabs";
 import { TableDrawerSubcollections } from "./table-drawer-subcollections";
 import { RolesAllowedProps } from "../table/table";
-import { useDataProvider } from "features/data-provider";
+import { useDataProvider } from "features/data";
 
 type TableDrawerProps = {
   open: boolean;
@@ -91,7 +91,7 @@ export const TableDrawer = (props: TableDrawerProps) => {
         height="100%"
         initialValues={data}
         onSubmit={handleSubmit}
-        contentComponent={(fieldProps: any) => (
+        contentComponent={(fieldProps) => (
           <Box width={680} maxWidth={800} sx={{ height: "100%" }}>
             <TableDrawerTabs
               tabs={[

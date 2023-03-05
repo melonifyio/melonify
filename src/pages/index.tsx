@@ -1,11 +1,19 @@
 import { DashboardLayout } from "layouts";
 
-import DashboardScreen from "screens/dashboard";
+import { PageHeader } from "components/page-header";
+import { Container } from "components/container";
 
-export default function GenericPage() {
-  return <DashboardScreen />;
+import { DashboardScreen } from "screens/dashboard";
+
+export default function DashboardPage() {
+  return (
+    <Container>
+      <PageHeader title="Dashboard" />
+      <DashboardScreen />
+    </Container>
+  );
 }
 
-GenericPage.getLayout = function getLayout(page: React.ReactElement) {
+DashboardPage.getLayout = function getLayout(page: React.ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

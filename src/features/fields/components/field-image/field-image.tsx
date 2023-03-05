@@ -1,4 +1,5 @@
 import MuiAvatar from "@mui/material/Avatar";
+import { Avatar } from "components/avatar";
 
 import stringToColour from "utils/string-to-color";
 
@@ -7,27 +8,8 @@ type FieldImageProps = {
   src?: string;
 };
 
-const FieldImage = (props: FieldImageProps) => {
+export const FieldImage = (props: FieldImageProps) => {
   const { title, src } = props;
 
-  const image = (
-    <MuiAvatar
-      src={src}
-      sx={{
-        borderRadius: 1,
-        width: 44,
-        height: 44,
-        backgroundColor: stringToColour(title),
-        fontFamily: "Tahoma",
-        fontSize: "medium",
-        fontWeight: "bold",
-      }}
-    >
-      {title ? title.charAt(0) : ""}
-    </MuiAvatar>
-  );
-
-  return image;
+  return <Avatar src={src} title={title} />;
 };
-
-export default FieldImage;

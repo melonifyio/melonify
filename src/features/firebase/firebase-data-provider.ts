@@ -10,7 +10,7 @@ import {
   MutationResponse,
   UseUpdateDocumentParams,
   UseCountParams,
-} from "features/data-provider";
+} from "features/data";
 import {
   collection,
   doc,
@@ -77,7 +77,7 @@ export function firebaseDataProvider(): IDataContext {
         });
 
         setQueryConstraints([...initialConstraints, ...newConstraints]);
-      }, [filters]);
+      }, [JSON.stringify(filters)]);
 
       return [
         data,

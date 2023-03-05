@@ -15,7 +15,8 @@ export function DashboardLayout(props: DashboardProps) {
   const { children } = props;
   const [open, setOpen] = React.useState(false);
 
-  const menuItems = useMenuStore((state) => state.data);
+  const regularMenu = useMenuStore((state) => state.data.regular);
+  const footerMenu = useMenuStore((state) => state.data.footer);
 
   return (
     <Private>
@@ -23,8 +24,9 @@ export function DashboardLayout(props: DashboardProps) {
         <Nav
           items={[
             { path: "/", title: "Dashboard", icon: "Home", home: true },
-            ...menuItems,
+            ...regularMenu,
           ]}
+          footerItems={footerMenu}
           openNav={open}
           onOpenNav={() => setOpen(true)}
           onCloseNav={() => setOpen(false)}

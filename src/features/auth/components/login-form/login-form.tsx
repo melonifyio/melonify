@@ -1,9 +1,10 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 
-import { Typography, Stack, Button } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 
 import { useLogin } from "features/auth/api/login";
+import { Google } from "@mui/icons-material";
 
 export function LoginForm() {
   const router = useRouter();
@@ -15,14 +16,11 @@ export function LoginForm() {
   });
 
   return (
-    <>
-      <Typography variant="h4">Sign in to Melonify</Typography>
-
-      <Button size="large" variant="contained" fullWidth onClick={handleLogin}>
-        <Stack direction="row" gap={2} alignItems="center">
-          <div>Continue with Google</div>
-        </Stack>
-      </Button>
-    </>
+    <Button size="large" variant="contained" fullWidth onClick={handleLogin}>
+      <Stack direction="row" gap={1} alignItems="center">
+        <Google fontSize="small" />
+        <div>Continue with Google</div>
+      </Stack>
+    </Button>
   );
 }

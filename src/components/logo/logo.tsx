@@ -2,7 +2,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 type LogoProps = {
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const Logo = (props: LogoProps) => {

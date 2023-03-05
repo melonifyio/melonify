@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 import { ThemeProvider } from "theme";
 import { AuthenticationProvider } from "features/auth";
 import { AuthorizationProvider } from "features/auth";
-import { DataProvider } from "features/data-provider";
+import { DataProvider } from "features/data";
 import { firebaseDataProvider } from "features/firebase";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

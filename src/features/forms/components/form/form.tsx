@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  Control,
-  useForm,
-  UseFormSetValue,
-  UseFormHandleSubmit,
-} from "react-hook-form";
+import { Control, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z, ZodType } from "zod";
@@ -13,17 +8,7 @@ type FormProps = {
   initialValues: any;
   onSubmit: (values: any) => void;
   titleComponent?: React.ReactNode;
-  contentComponent: ({
-    control,
-    setValue,
-    handleSubmit,
-    initialValues,
-  }: {
-    control: Control;
-    setValue: UseFormSetValue<any>;
-    handleSubmit: UseFormHandleSubmit<any>;
-    initialValues: any;
-  }) => JSX.Element;
+  contentComponent: ({ control }: { control: Control }) => JSX.Element;
   actionsComponent?: React.ReactNode;
   height?: number | string;
   schema?: ZodType;
@@ -40,27 +25,20 @@ export function Form(props: FormProps) {
     schema = z.object({}),
   } = props;
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<z.infer<typeof schema>>({
-    mode: "onChange",
+  const { control, handleSubmit } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
     shouldUnregister: true,
   });
 
+  const handleSubitForm = (data: any) => {
+    onSubmit(data);
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        onSubmit(data);
-      })}
-      style={{ height }}
-    >
+    <form onSubmit={handleSubmit(handleSubitForm)} style={{ height }}>
       {titleComponent && titleComponent}
-      {contentComponent({ control, setValue, handleSubmit, initialValues })}
+      {contentComponent({ control })}
       {actionsComponent && actionsComponent}
     </form>
   );

@@ -3,7 +3,7 @@ import { Widget } from "features/screen";
 
 import { useCollectionsStore } from "store/collections";
 
-export function RestaurantsWidget() {
+export function RestaurantsList() {
   const { data } = useCollectionsStore();
   const { id, schema, subcollections } = data["restaurants"];
 

@@ -7,7 +7,7 @@ import { Badge, Box, Divider, Stack } from "@mui/material";
 
 import { FilterItem, TableFilterItem } from "./table-filter-item";
 import { TableFilterEmpty } from "./table-filter-empty";
-import { FilterOperator } from "features/data-provider";
+import { FilterOperator } from "features/data";
 
 export type FilterTokenProps = {
   isDefault?: boolean;

@@ -80,7 +80,7 @@ const palette = (mode: "light" | "dark") => ({
   warning: WARNING,
   error: ERROR,
   grey: GREY,
-  divider: alpha(GREY[500], 0.24),
+  divider: alpha(GREY[500], 0.08),
   text: {
     primary: mode === "light" ? GREY[800] : GREY[200],
     secondary: mode === "light" ? GREY[600] : GREY[500],
