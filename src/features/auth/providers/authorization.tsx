@@ -1,4 +1,8 @@
 import { CircularProgress, Stack } from "@mui/material";
+import { signOut } from "firebase/auth";
+import { AccountPopover } from "layouts/account-popover";
+import auth from "lib/firebase/auth";
+import { useRouter } from "next/router";
 import React from "react";
 import { useMe } from "../api/get-me";
 
@@ -22,14 +26,7 @@ export const AuthorizationProvider: React.FC<AuthorizationProviderProps> = ({
 }) => {
   const [data, isLoading, error] = useMe();
 
-  const contextValue = React.useMemo(
-    () => ({
-      role: data?.role || "",
-      isLoading,
-      error: error || undefined,
-    }),
-    [data, error, isLoading]
-  );
+  const router = useRouter();
 
   if (isLoading) {
     return (
@@ -43,6 +40,12 @@ export const AuthorizationProvider: React.FC<AuthorizationProviderProps> = ({
       </Stack>
     );
   }
+
+  const contextValue = {
+    role: data?.role || "",
+    isLoading,
+    error: error || undefined,
+  };
 
   return (
     <AuthorizationContext.Provider value={contextValue}>

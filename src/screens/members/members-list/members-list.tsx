@@ -1,8 +1,10 @@
 import { Box, Button, Divider, Grid } from "@mui/material";
 import { Stack } from "@mui/system";
 import { FormFields, FormModal } from "features/forms";
+import { Timestamp } from "firebase/firestore";
 import React from "react";
 import { z } from "zod";
+import { useCreateUser } from "../api/create-user";
 import { useUsers } from "../api/get-users";
 import { useSendLink } from "../api/sent-invite";
 import { MemberDetails } from "./member-details";
@@ -19,6 +21,18 @@ export function MembersListWidget() {
       setOpenInvite(false);
     },
   });
+
+  const [createUser] = useCreateUser();
+
+  const handleInvite = (values: any) => {
+    createUser({
+      ...values,
+      role: "MEMBER",
+      createdAt: Timestamp.now(),
+    });
+
+    sendLink(values);
+  };
 
   return (
     <Stack gap={2}>
@@ -74,9 +88,7 @@ export function MembersListWidget() {
         open={openInvite}
         onClose={() => setOpenInvite(false)}
         initialValues={{ email: "" }}
-        onSubmit={(data) => {
-          sendLink(data);
-        }}
+        onSubmit={handleInvite}
         isSubmitting={isSending}
         schema={z.object({
           email: z.string().email(),
