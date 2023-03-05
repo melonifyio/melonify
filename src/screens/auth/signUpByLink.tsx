@@ -23,7 +23,7 @@ export function SignUpByLinkScreen() {
   }, [email]);
 
   return (
-    <Screen title="Members" rolesAllowed={["ADMIN"]}>
+    <Screen>
       <Stack
         justifyContent="center"
         alignItems="center"
