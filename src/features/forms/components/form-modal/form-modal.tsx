@@ -13,15 +13,7 @@ import { ZodType } from "zod";
 
 type FormProps = {
   title: string;
-  contentComponent: ({
-    control,
-    setValue,
-    handleSubmit,
-  }: {
-    control: Control;
-    setValue: UseFormSetValue<any>;
-    handleSubmit: UseFormHandleSubmit<any>;
-  }) => JSX.Element;
+  contentComponent: ({ control }: { control: Control }) => JSX.Element;
   open: boolean;
   onClose: () => void;
   initialValues: any;
@@ -53,30 +45,32 @@ export function FormModal(props: FormProps) {
           initialValues={initialValues}
           onSubmit={onSubmit}
           schema={schema}
-          contentComponent={(formContentProps) => (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                maxHeight: "calc(100vh - 64px)",
-              }}
-            >
-              <DialogTitle>{title}</DialogTitle>
-              <DialogContent dividers sx={{ overflowY: "auto", p: 1 }}>
-                {contentComponent(formContentProps)}
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={onClose}>Cancel</Button>
-                <LoadingButton
-                  type="submit"
-                  loading={isSubmitting}
-                  variant="contained"
-                >
-                  {submitButtonLabel}
-                </LoadingButton>
-              </DialogActions>
-            </Box>
-          )}
+          contentComponent={(formContentProps) => {
+            return (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  maxHeight: "calc(100vh - 64px)",
+                }}
+              >
+                <DialogTitle>{title}</DialogTitle>
+                <DialogContent dividers sx={{ overflowY: "auto", p: 1 }}>
+                  {contentComponent(formContentProps)}
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={onClose}>Cancel</Button>
+                  <LoadingButton
+                    type="submit"
+                    loading={isSubmitting}
+                    variant="contained"
+                  >
+                    {submitButtonLabel}
+                  </LoadingButton>
+                </DialogActions>
+              </Box>
+            );
+          }}
         />
       </Dialog>
     </Portal>

@@ -5,6 +5,7 @@ import { EmptyState } from "components/empty-state";
 import { Denied } from "features/auth";
 
 import { Widget, WidgetProps } from "../widget";
+import { Box, Stack } from "@mui/material";
 
 export type ScreenProps = {
   title?: string;
@@ -21,7 +22,7 @@ export function Screen(props: ScreenProps) {
       rolesAllowed={rolesAllowed}
       fallback={<EmptyState title="Permissions needed 😔" />}
     >
-      <div id="screen">
+      <Stack>
         {Object.keys(widgets).map((key) => {
           const widget = widgets[key];
 
@@ -29,7 +30,7 @@ export function Screen(props: ScreenProps) {
         })}
 
         {children}
-      </div>
+      </Stack>
     </Denied>
   );
 }
