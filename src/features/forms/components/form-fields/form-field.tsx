@@ -1,20 +1,31 @@
 import * as React from "react";
 import { Controller, Control } from "react-hook-form";
 
-import { SchemaProps } from "features/collections";
-import { FormInput } from "../form-input/form-input";
+import { FormInput, FormInputConfig } from "../form-input/form-input";
 import { FormUpload } from "../form-upload";
-import { FormCombobox } from "../form-combobox/form-combobox";
-import { FormBoolean } from "../form-boolean/form-boolean";
-import { FormEnum } from "../form-enum/form-enum";
+import {
+  FormCombobox,
+  FormComboboxConfig,
+} from "../form-combobox/form-combobox";
+import { FormBoolean, FormBooleanConfig } from "../form-boolean/form-boolean";
+import { FormEnum, FormEnumConfig } from "../form-enum/form-enum";
+import { FieldType } from "features/fields";
 
-export type FormFieldProps = SchemaProps & {
-  fieldKey: string;
-  control: Control;
+export type FormFieldProps = {
+  fieldKey?: string;
+  type: keyof typeof FieldType;
+  label?: string;
+  config?:
+    | FormComboboxConfig
+    | FormBooleanConfig
+    | FormInputConfig
+    | FormBooleanConfig
+    | FormEnumConfig;
+  control?: Control;
 };
 
 export function FormField(props: FormFieldProps) {
-  const { fieldKey, type, label, control, config } = props;
+  const { fieldKey = "unknown", type, label = "", control, config } = props;
 
   const renderField = ({ field, formState }: any) => {
     const { errors } = formState;
@@ -83,7 +94,7 @@ export function FormField(props: FormFieldProps) {
     <Controller
       name={fieldKey}
       control={control}
-      rules={{ required: config?.required }}
+      // rules={{ required: config?.required }}
       render={renderField}
     />
   );

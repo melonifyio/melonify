@@ -1,14 +1,16 @@
 import * as React from "react";
 
 import { Autocomplete, TextField } from "@mui/material";
-import { collection, query } from "firebase/firestore";
-import firestore from "lib/firebase/firestore";
-import { SchemaConfig } from "features/collections";
-import { useFirestoreQuery } from "features/firebase";
+import { useDataProvider } from "features/data-provider";
+
+export type FormComboboxConfig = {
+  collectionId?: string;
+  optionLabel?: string;
+};
 
 export type FormComboboxProps = {
   label: string;
-  config: SchemaConfig;
+  config: FormComboboxConfig;
   field: {
     onChange: (value: unknown) => void;
     value: string;
@@ -20,23 +22,26 @@ export type FormComboboxProps = {
 export function FormCombobox(props: FormComboboxProps) {
   const { label, field, config, errors } = props;
 
-  const [data] = useFirestoreQuery(
-    [config.collectionId],
-    query(collection(firestore, config.collectionId || "unknown"))
-  );
+  const { useDocuments } = useDataProvider();
+
+  const [data] = useDocuments({
+    collectionId: config.collectionId || "unknown",
+    rowsPerPage: 100,
+    filters: {},
+  });
 
   return (
     <Autocomplete
-      options={data}
+      options={data || []}
       getOptionLabel={(option: any) =>
         config.optionLabel ? option[config.optionLabel] : option["title"]
       }
       renderInput={(props) => (
         <TextField
-          required={config.required}
+          // required={config.required}
           variant="standard"
           error={!!errors[field.name]}
-          helperText={errors[field.name]?.message || config?.helperText}
+          // helperText={errors[field.name]?.message || config?.helperText}
           {...props}
           label={label}
         />

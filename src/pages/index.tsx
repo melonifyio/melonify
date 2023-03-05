@@ -1,42 +1,11 @@
-import React from "react";
-import Head from "next/head";
+import { DashboardLayout } from "layouts";
 
-import { Container } from "components/container";
-import { PageHeader } from "components/page-header";
+import DashboardScreen from "screens/dashboard";
 
-import { Screen } from "features/screen";
-import { DashboardLayout } from "features/layouts";
-import { CollectionList } from "features/collections";
-
-import melonify from "config/melonify";
-
-export default function Home() {
-  return (
-    <Container>
-      <PageHeader title="Collections" />
-
-      <Screen
-        widgets={{
-          collectionList: {
-            component: CollectionList,
-            props: {
-              data: melonify.collections,
-            },
-          },
-        }}
-      />
-    </Container>
-  );
+export default function GenericPage() {
+  return <DashboardScreen />;
 }
 
-Home.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <>
-      <Head>
-        <title>Melonify</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <DashboardLayout>{page}</DashboardLayout>
-    </>
-  );
+GenericPage.getLayout = function getLayout(page: React.ReactElement) {
+  return <DashboardLayout>{page}</DashboardLayout>;
 };

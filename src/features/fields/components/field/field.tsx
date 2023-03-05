@@ -1,23 +1,24 @@
 import { Typography, Stack } from "@mui/material";
-import { SchemaConfig } from "features/collections";
 import { FieldType } from "features/fields/types";
 import FieldBoolean from "../field-boolean/field-boolean";
 import FieldEnum from "../field-enum/field-enum";
 import FieldImage from "../field-image/field-image";
-import FieldReference from "../field-reference/field-reference";
+import FieldReference, {
+  FieldReferenceConfig,
+} from "../field-reference/field-reference";
 import FieldText from "../field-text/field-text";
 
 type FieldProps = {
   type: keyof typeof FieldType;
   value: any;
   label?: string;
-  config?: SchemaConfig;
+  config?: FieldReferenceConfig;
 };
 
 function renderComponent(
   type: keyof typeof FieldType,
   value: any,
-  config?: SchemaConfig
+  config?: FieldReferenceConfig
 ) {
   switch (type) {
     case "TEXT":

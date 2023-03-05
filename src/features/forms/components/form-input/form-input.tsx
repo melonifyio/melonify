@@ -1,11 +1,12 @@
 import * as React from "react";
 
 import TextField from "@mui/material/TextField";
-import { SchemaConfig } from "features/collections";
+
+export type FormInputConfig = {};
 
 export type FormInputProps = {
   label: string;
-  config: SchemaConfig;
+  config: FormInputConfig;
   errors: any;
   field: {
     onChange: (value: unknown) => void;
@@ -19,13 +20,12 @@ export function FormInput(props: FormInputProps) {
 
   return (
     <TextField
-      required={config.required}
       error={!!errors[field.name]}
-      helperText={errors[field.name]?.message || config?.helperText}
-      variant="standard"
+      helperText={errors[field.name]?.message}
+      size="small"
       id={field.name}
       label={label}
-      disabled={config?.readonly}
+      // disabled={config?.readonly}
       {...field}
     />
   );

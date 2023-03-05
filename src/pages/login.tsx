@@ -4,7 +4,7 @@ import Head from "next/head";
 import { styled } from "@mui/material/styles";
 import { Container, Stack } from "@mui/material";
 
-import { AuthLayout } from "features/layouts";
+import { AuthLayout } from "layouts";
 import { LoginForm } from "features/auth";
 
 const StyledContent = styled("div")(({ theme }) => ({
