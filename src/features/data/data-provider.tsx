@@ -74,9 +74,9 @@ export type UseCountResponse = number;
 
 export type IDataContext = {
   useDocuments<T>(params: UseDocumentsParams): PaginatedQueryResponse<T[]>;
-  useDocument: (
+  useDocument: <T>(
     params: UseDocumentParams
-  ) => QueryResponse<Promise<UseDocumentResponse>>;
+  ) => QueryResponse<UseDocumentResponse<T>>;
   useCreateDocument: (params: UseCreateDocumentParams) => MutationResponse;
   useDeleteDocument: (params: UseDeleteDocumentParams) => MutationResponse;
   useUpdateDocument: (params: UseUpdateDocumentParams) => MutationResponse;
@@ -85,7 +85,7 @@ export type IDataContext = {
 
 export const DataContext = React.createContext<IDataContext>({
   useDocuments: () => [[], false, null, 0, () => {}, () => {}],
-  useDocument: () => [Promise.resolve({}), false, null],
+  useDocument: () => [null, false, null],
   useCreateDocument: () => [() => Promise.resolve(), false, null],
   useDeleteDocument: () => [() => Promise.resolve(), false, null],
   useUpdateDocument: () => [() => Promise.resolve(), false, null],

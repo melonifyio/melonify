@@ -7,10 +7,16 @@ import { Menu } from "components/menu";
 import useResponsive from "hooks/useResponsive";
 import { Logo } from "components/logo";
 import { MenuItem, MenuItemProps } from "components/menu";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Menu as MenuIcon,
+} from "@mui/icons-material";
 import { StyledDrawer } from "./styled";
 import { NAV_WIDTH } from "./header";
 import { Denied } from "features/auth";
+import { Avatar } from "components/avatar";
+import { firebaseConfig } from "lib";
 
 export type NavItemProps = { rolesAllowed?: string[] } & MenuItemProps;
 
@@ -19,11 +25,17 @@ type NavProps = {
   onOpenNav: () => void;
   onCloseNav: () => void;
   items: NavItemProps[];
-  footerItems?: MenuItemProps[];
+  footerItems?: NavItemProps[];
 };
 
 export default function Nav(props: NavProps) {
-  const { openNav, onOpenNav, onCloseNav, items = [], footerItems } = props;
+  const {
+    openNav,
+    onOpenNav,
+    onCloseNav,
+    items = [],
+    footerItems = [],
+  } = props;
   const isDesktop = useResponsive("up", "lg");
 
   const router = useRouter();
@@ -38,12 +50,17 @@ export default function Nav(props: NavProps) {
   const renderContent = (
     <Stack height="100%" gap={2} p={1}>
       <Stack direction="row" gap={0} p={0}>
-        <Box p={1}>
+        <Box p={0.4}>
           <IconButton
             size="small"
             onClick={() => (openNav ? onCloseNav() : onOpenNav())}
           >
-            <MenuIcon />
+            {/* {openNav ? <ChevronLeft /> : <ChevronRight />} */}
+            <Avatar
+              sx={{ width: 32, height: 32 }}
+              src=""
+              title={firebaseConfig.projectId || ""}
+            />
           </IconButton>
         </Box>
         <Logo onClick={() => router.push("/")} />
@@ -62,7 +79,13 @@ export default function Nav(props: NavProps) {
       <Box sx={{ flexGrow: 1 }} />
 
       <Box>
-        <Menu data={footerItems || []} />
+        <Menu open={openNav}>
+          {footerItems.map((item) => (
+            <Denied key={item.path} rolesAllowed={item.rolesAllowed}>
+              <MenuItem open={openNav} {...item} />
+            </Denied>
+          ))}
+        </Menu>
       </Box>
     </Stack>
   );
@@ -82,7 +105,7 @@ export default function Nav(props: NavProps) {
             sx: {
               width: NAV_WIDTH,
               bgcolor: "background.default",
-              borderRightStyle: "dashed",
+              borderRightColor: "divider",
             },
           }}
         >

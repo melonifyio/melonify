@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { Box, LinearProgress } from "@mui/material";
 
-import { useDataProvider } from "features/data-provider";
+import { useDataProvider } from "features/data";
 import { IColumn } from "features/table/types";
 import { FormFieldProps } from "features/forms";
 

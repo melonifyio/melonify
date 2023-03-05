@@ -1,4 +1,4 @@
-import { useDataProvider } from "features/data-provider";
+import { useDataProvider } from "features/data";
 
 type UseCollectionsCountProps = {
   collectionId: string;

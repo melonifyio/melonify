@@ -11,12 +11,11 @@ import { Field } from "features/fields";
 export type FormProps = {
   fields: Record<string, FormFieldProps>;
   control: Control;
-  initialValues?: any;
   rolesAllowed?: RolesAllowedProps;
 };
 
 export function FormFields(props: FormProps) {
-  const { fields, initialValues, rolesAllowed, ...fieldProps } = props;
+  const { fields, rolesAllowed, ...fieldProps } = props;
 
   return (
     <Stack gap={3} p={2}>

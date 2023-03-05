@@ -2,7 +2,7 @@ import { Typography, Stack } from "@mui/material";
 import { FieldType } from "features/fields/types";
 import FieldBoolean from "../field-boolean/field-boolean";
 import FieldEnum from "../field-enum/field-enum";
-import FieldImage from "../field-image/field-image";
+import { FieldImage } from "../field-image/field-image";
 import FieldReference, {
   FieldReferenceConfig,
 } from "../field-reference/field-reference";
