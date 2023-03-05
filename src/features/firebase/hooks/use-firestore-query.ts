@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DocumentData, Query, onSnapshot, getDocs } from "firebase/firestore";
+import { Query, onSnapshot } from "firebase/firestore";
 
 export const useFirestoreQuery = <T>(
   keys: any,
