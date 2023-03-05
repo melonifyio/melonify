@@ -11,7 +11,7 @@ const nextConfig = {
     return {
       "/": { page: "/" },
       "/login": { page: "/login" },
-      "/signpUpByLink": { page: "/signpUpByLink" },
+      "/signUpByLink": { page: "/signUpByLink" },
     };
   },
 };
