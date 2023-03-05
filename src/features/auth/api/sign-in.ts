@@ -15,7 +15,7 @@ export function useSignInByLink({
 }: UseSignInByLink): [({ email }: { email: string }) => void, boolean] {
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const signUpByLink = async ({ email }: { email: string }) => {
+  const signInByLink = async ({ email }: { email: string }) => {
     setIsLoading(true);
 
     if (isSignInWithEmailLink(auth, window.location.href)) {
@@ -34,5 +34,5 @@ export function useSignInByLink({
     }
   };
 
-  return [signUpByLink, isLoading];
+  return [signInByLink, isLoading];
 }
