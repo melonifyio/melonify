@@ -1,4 +1,4 @@
-import { Screen, Widget } from "features/screen";
+import { Screen } from "features/screen";
 
 import { RestaurantsWidget } from "widgets/restaurants";
 

@@ -102,7 +102,7 @@ export const TableDrawer = (props: TableDrawerProps) => {
               panes={[
                 <>
                   <Box
-                    sx={{ maxHeight: "calc(100vh - 122px)", overflowY: "auto" }}
+                    sx={{ height: "calc(100vh - 122px)", overflowY: "auto" }}
                   >
                     <FormFields
                       rolesAllowed={rolesAllowed}
