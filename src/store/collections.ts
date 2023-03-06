@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { z, ZodType } from "zod";
-import { menuSchema, restaurantSchema, userSchema } from "schema";
+import { userSchema } from "schema";
 
 interface Collection {
   id: string;
@@ -17,21 +17,5 @@ interface Collections {
 }
 
 export const useCollectionsStore = create<Collections>(() => ({
-  data: {
-    restaurants: {
-      id: "Restaurants",
-      schema: restaurantSchema,
-      subcollections: [
-        {
-          id: "Menu",
-          label: "Menu",
-          schema: menuSchema,
-        },
-      ],
-    },
-    users: {
-      id: "users",
-      schema: userSchema,
-    },
-  },
+  data: {},
 }));
