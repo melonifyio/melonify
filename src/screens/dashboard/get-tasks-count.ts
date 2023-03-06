@@ -6,7 +6,7 @@ export function useTasksCount(props?: UseTasksCountProps) {
   const { useCount } = useDataProvider();
 
   const res = useCount({
-    collectionId: "users",
+    collectionId: "tasks",
   });
 
   return res;

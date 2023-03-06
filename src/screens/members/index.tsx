@@ -4,7 +4,7 @@ import { MembersListWidget } from "./members-list";
 
 export function MembersScreen() {
   return (
-    <Screen title="Members" rolesAllowed={["OWNER", "ADMIN"]}>
+    <Screen title="Members" rolesAllowed={["OWNER", "ADMIN", "MEMBER"]}>
       <MembersListWidget />
     </Screen>
   );
