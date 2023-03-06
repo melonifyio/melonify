@@ -1,14 +1,16 @@
-import { Box, Button, Divider, Grid } from "@mui/material";
-import { Stack } from "@mui/system";
-import { FormFields, FormModal } from "features/forms";
-import { Timestamp } from "firebase/firestore";
 import React from "react";
 import { z } from "zod";
-import { useCreateUser } from "../api/create-user";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
+
+import { Box, Button, Grid } from "@mui/material";
+import { Stack } from "@mui/system";
+import { FormFields, FormModal } from "features/forms";
+import firestore from "lib/firebase/firestore";
 import { useUsers } from "../api/get-users";
-import { useSendLink } from "../api/sent-invite";
+import { useSendLink } from "../api/send-invite";
 import { MemberDetails } from "./member-details";
 import MembersListItem from "./member-item";
+import { Add } from "@mui/icons-material";
 
 export function MembersListWidget() {
   const [data] = useUsers();
@@ -22,16 +24,15 @@ export function MembersListWidget() {
     },
   });
 
-  const [createUser] = useCreateUser();
+  const handleInvite = async (values: any) => {
+    sendLink(values);
 
-  const handleInvite = (values: any) => {
-    createUser({
+    await setDoc(doc(firestore, `users/${values.email}`), {
       ...values,
+      neverLoggedIn: false,
       role: "MEMBER",
       createdAt: Timestamp.now(),
     });
-
-    sendLink(values);
   };
 
   return (
@@ -40,22 +41,22 @@ export function MembersListWidget() {
         <Box sx={{ flex: 1 }}></Box>
         <Box>
           <Button
-            size="small"
             variant="contained"
             onClick={() => setOpenInvite(true)}
+            startIcon={<Add />}
           >
             Invite
           </Button>
         </Box>
       </Stack>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={0.4}>
         {(data || []).map((item) => (
           <Grid key={item._id} item xs={12}>
             <MembersListItem
               item={item}
               onClick={() => {
-                setActiveMemberId(item._id);
+                setActiveMemberId(item._id || "");
               }}
             />
           </Grid>
