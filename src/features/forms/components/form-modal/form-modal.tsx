@@ -16,7 +16,8 @@ type FormProps = {
   contentComponent: ({ control }: { control: Control }) => JSX.Element;
   open: boolean;
   onClose: () => void;
-  initialValues: any;
+  initialValues?: any;
+  hiddenValues?: any;
   onSubmit: (values: any) => void;
   maxWidth?: Breakpoint;
   submitButtonLabel?: string;
@@ -28,6 +29,7 @@ export function FormModal(props: FormProps) {
   const {
     title,
     initialValues,
+    hiddenValues,
     open,
     onClose,
     onSubmit,
@@ -43,6 +45,7 @@ export function FormModal(props: FormProps) {
       <Dialog open={open} onClose={onClose} fullWidth maxWidth={maxWidth}>
         <Form
           initialValues={initialValues}
+          hiddenValues={hiddenValues}
           onSubmit={onSubmit}
           schema={schema}
           contentComponent={(formContentProps) => {

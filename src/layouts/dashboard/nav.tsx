@@ -54,9 +54,9 @@ export default function Nav(props: NavProps) {
         <Box p={0}>
           <IconButton onClick={() => router.push("/")}>
             <Avatar
-              sx={{ width: 32, height: 32 }}
               src=""
-              title={firebaseConfig.projectId || ""}
+              title={firebaseConfig.projectId + 'random' || ""}
+              variant="rounded"
             />
           </IconButton>
         </Box>
@@ -125,7 +125,11 @@ export default function Nav(props: NavProps) {
             keepMounted: true,
           }}
           PaperProps={{
-            sx: { width: NAV_WIDTH },
+            sx: {
+              width: NAV_WIDTH,
+              bgcolor: "background.default",
+              borderRightColor: "divider",
+            },
           }}
         >
           {renderContent}

@@ -27,10 +27,7 @@ export function TableBody(props: TableBodyProps): JSX.Element {
       {rows.length === 0 && (
         <TableRow>
           <TableCell colSpan={Object.keys(columns).length}>
-            <EmptyState
-              title="No results"
-              description="Please try add or fitler the table"
-            />
+            <EmptyState title="Empty" />
           </TableCell>
         </TableRow>
       )}
@@ -46,7 +43,12 @@ export function TableBody(props: TableBodyProps): JSX.Element {
             const renderField = columns[col].renderCell;
 
             return (
-              <TableCell key={col} align={columns[col].align}>
+              <TableCell
+                key={col}
+                align={columns[col].align}
+                width={columns[col].width}
+                sx={{ flex: columns[col].flex }}
+              >
                 {typeof renderField === "function" ? (
                   renderField(row)
                 ) : (

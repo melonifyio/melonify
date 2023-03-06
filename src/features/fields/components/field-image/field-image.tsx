@@ -11,5 +11,5 @@ type FieldImageProps = {
 export const FieldImage = (props: FieldImageProps) => {
   const { title, src } = props;
 
-  return <Avatar src={src} title={title} />;
+  return <Avatar src={src} title={title} variant="square" />;
 };

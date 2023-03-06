@@ -1,24 +1,30 @@
-import { Typography, Stack } from "@mui/material";
 import { FieldType } from "features/fields/types";
+import { FieldAvatar } from "../field-avatar";
 import FieldBoolean from "../field-boolean/field-boolean";
-import FieldEnum from "../field-enum/field-enum";
+import { FieldCheckbox } from "../field-checkbox";
+import FieldEnum from "../field-chip/field-enum";
 import { FieldImage } from "../field-image/field-image";
-import FieldReference, {
-  FieldReferenceConfig,
-} from "../field-reference/field-reference";
 import FieldText from "../field-text/field-text";
+
+const getAvatarValue = (value: string, target: any) => {
+  if (typeof target === "object") {
+    return target[value];
+  } else {
+    return value;
+  }
+};
 
 type FieldProps = {
   type: keyof typeof FieldType;
   value: any;
   label?: string;
-  config?: FieldReferenceConfig;
+  config?: any;
 };
 
 function renderComponent(
   type: keyof typeof FieldType,
   value: any,
-  config?: FieldReferenceConfig
+  config?: any
 ) {
   switch (type) {
     case "TEXT":
@@ -27,11 +33,14 @@ function renderComponent(
       return <FieldText>{value}</FieldText>;
     case "IMAGE":
       return <FieldImage src={value} title={value} />;
-    case "REFERENCE":
-      return <FieldReference value={value} config={config} />;
+    case "AVATAR":
+      const avatarValue = getAvatarValue(config.value, value);
+      return <FieldAvatar src={avatarValue} title={avatarValue} />;
     case "BOOLEAN":
       return <FieldBoolean checked={value} />;
-    case "ENUM":
+    case "CHECKBOX":
+      return <FieldCheckbox checked={value} />;
+    case "CHIP":
       return <FieldEnum label={value} />;
 
     default:
@@ -43,17 +52,6 @@ export const Field = (props: FieldProps) => {
   const { type, value, label, config } = props;
 
   const component = renderComponent(type, value, config);
-
-  if (label && type !== "SUBCOLLECTION") {
-    return (
-      <Stack>
-        <Typography variant="caption" gutterBottom>
-          {label}
-        </Typography>
-        {component}
-      </Stack>
-    );
-  }
 
   return component;
 };
