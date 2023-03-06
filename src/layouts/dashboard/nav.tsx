@@ -36,6 +36,7 @@ export default function Nav(props: NavProps) {
     items = [],
     footerItems = [],
   } = props;
+
   const isDesktop = useResponsive("up", "lg");
 
   const router = useRouter();
@@ -50,12 +51,8 @@ export default function Nav(props: NavProps) {
   const renderContent = (
     <Stack height="100%" gap={2} p={1}>
       <Stack direction="row" gap={0} p={0}>
-        <Box p={0.4}>
-          <IconButton
-            size="small"
-            onClick={() => (openNav ? onCloseNav() : onOpenNav())}
-          >
-            {/* {openNav ? <ChevronLeft /> : <ChevronRight />} */}
+        <Box p={0}>
+          <IconButton onClick={() => router.push("/")}>
             <Avatar
               sx={{ width: 32, height: 32 }}
               src=""
@@ -86,6 +83,15 @@ export default function Nav(props: NavProps) {
             </Denied>
           ))}
         </Menu>
+      </Box>
+
+      <Box sx={{ p: 0.8 }}>
+        <IconButton
+          size="small"
+          onClick={() => (openNav ? onCloseNav() : onOpenNav())}
+        >
+          {openNav ? <ChevronLeft /> : <ChevronRight />}
+        </IconButton>
       </Box>
     </Stack>
   );

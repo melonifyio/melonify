@@ -1,9 +1,7 @@
-import { CircularProgress, Stack } from "@mui/material";
-import { signOut } from "firebase/auth";
-import { AccountPopover } from "layouts/account-popover";
-import auth from "lib/firebase/auth";
-import { useRouter } from "next/router";
 import React from "react";
+
+import { CircularProgress, Stack } from "@mui/material";
+
 import { useMe } from "../api/get-me";
 
 export type IAuthorizationContext = {
@@ -25,8 +23,6 @@ export const AuthorizationProvider: React.FC<AuthorizationProviderProps> = ({
   children,
 }) => {
   const [data, isLoading, error] = useMe();
-
-  const router = useRouter();
 
   if (isLoading) {
     return (

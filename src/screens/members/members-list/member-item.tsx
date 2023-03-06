@@ -1,17 +1,15 @@
-import PropTypes from "prop-types";
-
 import {
   Box,
   Card,
-  Link,
   Typography,
   Stack,
   CardActionArea,
+  Chip,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { IUser } from "../api/get-user";
 import { Avatar } from "components/avatar";
 import React from "react";
+import { UserModel } from "schema";
 
 const StyledImg = styled("img")({
   top: 0,
@@ -22,7 +20,7 @@ const StyledImg = styled("img")({
 });
 
 type MembersListItemProps = {
-  item: IUser;
+  item: UserModel;
   onClick: () => void;
 };
 
@@ -40,13 +38,24 @@ export default function MembersListItem({
             <Avatar src={photoUrl} title={email} />
           </Box>
 
-          <Box>
+          <Box sx={{ minWidth: 0 }}>
             <Typography variant="subtitle2" noWrap>
               {email}
             </Typography>
             <Typography variant="caption" sx={{ opacity: 0.6 }} noWrap>
               {role}
             </Typography>
+          </Box>
+
+          <Box>
+            {!item.neverLoggedIn && (
+              <Chip
+                size="small"
+                label="Pending"
+                color="warning"
+                variant="outlined"
+              />
+            )}
           </Box>
         </Stack>
       </CardActionArea>

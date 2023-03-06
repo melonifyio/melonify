@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { z, ZodType } from "zod";
+import { menuSchema, restaurantSchema, userSchema } from "schema";
 
 interface Collection {
   id: string;
@@ -19,38 +20,18 @@ export const useCollectionsStore = create<Collections>(() => ({
   data: {
     restaurants: {
       id: "Restaurants",
-      schema: z.object({
-        title: z.string().min(1, { message: "Required" }),
-        image: z.string().optional(),
-        cover: z.string().optional(),
-        available: z.boolean().optional(),
-        rating: z.number().optional(),
-        address: z.string().optional(),
-        catgory: z
-          .object({
-            _id: z.string(),
-            title: z.string(),
-          })
-          .optional(),
-        label: z.enum(["", "TOP", "NEW", "OFFERING_DISCOUNT"]).optional(),
-      }),
+      schema: restaurantSchema,
       subcollections: [
         {
           id: "Menu",
           label: "Menu",
-          schema: z.object({
-            title: z.string(),
-            price: z.number(),
-          }),
+          schema: menuSchema,
         },
       ],
     },
     users: {
       id: "users",
-      schema: z.object({
-        email: z.string().min(1, { message: "Required" }),
-        role: z.enum(["OWNER", "ADMIN", "MEMBER"]),
-      }),
+      schema: userSchema,
     },
   },
 }));

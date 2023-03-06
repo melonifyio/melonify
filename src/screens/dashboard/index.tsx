@@ -7,7 +7,7 @@ import { RestaurantsList } from "screens/restaurants/restaurants-list";
 
 export function DashboardScreen() {
   return (
-    <Screen title="Dashboard" rolesAllowed={["ADMIN"]}>
+    <Screen title="Dashboard">
       <Grid2 container spacing={2}>
         <Grid2 xs={3}>
           <SalesSummary color="info" />

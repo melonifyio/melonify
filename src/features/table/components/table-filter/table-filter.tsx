@@ -80,12 +80,7 @@ export function TableFilter(props: TableFilterProps) {
   return (
     <div>
       <Badge badgeContent={Object.keys(initialFilters).length} color="primary">
-        <Button
-          size="small"
-          startIcon={<FilterList />}
-          variant="text"
-          onClick={handleClick}
-        >
+        <Button startIcon={<FilterList />} variant="text" onClick={handleClick}>
           Filter
         </Button>
       </Badge>
