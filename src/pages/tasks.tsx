@@ -2,14 +2,13 @@ import { DashboardLayout } from "layouts";
 
 import { PageHeader } from "components/page-header";
 import { Container } from "components/container";
-
-import { RestaurantsScreen } from "screens/restaurants";
+import { TasksScreen } from "screens/tasks";
 
 export default function RestaurantsPage() {
   return (
     <Container>
-      <PageHeader title="Restaurants" />
-      <RestaurantsScreen />
+      <PageHeader title="Tasks" />
+      <TasksScreen />
     </Container>
   );
 }

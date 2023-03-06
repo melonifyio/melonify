@@ -32,6 +32,7 @@ export function FormCombobox(props: FormComboboxProps) {
 
   return (
     <Autocomplete
+      size="small"
       options={data || []}
       getOptionLabel={(option: any) =>
         config.optionLabel ? option[config.optionLabel] : option["title"]
@@ -39,7 +40,6 @@ export function FormCombobox(props: FormComboboxProps) {
       renderInput={(props) => (
         <TextField
           // required={config.required}
-          variant="standard"
           error={!!errors[field.name]}
           // helperText={errors[field.name]?.message || config?.helperText}
           {...props}

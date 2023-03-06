@@ -9,11 +9,11 @@ import {
 } from "../form-combobox/form-combobox";
 import { FormBoolean, FormBooleanConfig } from "../form-boolean/form-boolean";
 import { FormEnum, FormEnumConfig } from "../form-enum/form-enum";
-import { FieldType } from "features/fields";
+import { FormFieldType } from "features/forms/types";
 
 export type FormFieldProps = {
   fieldKey?: string;
-  type: keyof typeof FieldType;
+  type: keyof typeof FormFieldType;
   label?: string;
   config?:
     | FormComboboxConfig

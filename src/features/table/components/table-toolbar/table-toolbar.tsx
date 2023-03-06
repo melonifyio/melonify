@@ -12,6 +12,8 @@ import { useDataProvider } from "features/data";
 import { FilterTokenProps, TableFilter } from "../table-filter";
 import { FilterItem } from "../table-filter";
 import { RolesAllowedProps } from "../table/table";
+import { useMe } from "features/auth/api/get-me";
+import { Timestamp } from "firebase/firestore";
 
 type TableToolbarProps = {
   collectionId: string;
@@ -21,6 +23,8 @@ type TableToolbarProps = {
   initialFilters: Record<string, FilterItem>;
   onChangeFitler: (values: Record<string, FilterItem>) => void;
   rolesAllowed?: RolesAllowedProps;
+  hasCreatedBy?: boolean;
+  hasTimestamps?: boolean;
 };
 
 export function TableToolbar(props: TableToolbarProps) {
@@ -32,7 +36,11 @@ export function TableToolbar(props: TableToolbarProps) {
     initialFilters,
     rolesAllowed,
     schema,
+    hasCreatedBy,
+    hasTimestamps,
   } = props;
+
+  const [me] = useMe();
 
   const { useCreateDocument } = useDataProvider();
 
@@ -75,7 +83,10 @@ export function TableToolbar(props: TableToolbarProps) {
         open={createIsOpen}
         onClose={() => setCreateOpen(false)}
         title="New document"
-        initialValues={{}}
+        hiddenValues={{
+          createdBy: hasCreatedBy ? me : {},
+          createdAt: hasTimestamps ? Timestamp.now() : "none",
+        }}
         isSubmitting={creating as boolean}
         schema={schema}
         contentComponent={(params) => (

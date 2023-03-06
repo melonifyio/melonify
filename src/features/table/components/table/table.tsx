@@ -33,6 +33,8 @@ type TableProps = {
   fields?: Record<string, FormFieldProps>;
   filterTokens?: Record<string, FilterTokenProps>;
   rolesAllowed?: RolesAllowedProps;
+  hasCreatedBy?: boolean;
+  hasTimestamps?: boolean;
 };
 
 export function Table(props: TableProps): JSX.Element {
@@ -44,6 +46,8 @@ export function Table(props: TableProps): JSX.Element {
     filterTokens,
     subcollections,
     rolesAllowed,
+    hasCreatedBy = true,
+    hasTimestamps = true,
   } = props;
 
   const { useDocuments } = useDataProvider();
@@ -78,6 +82,8 @@ export function Table(props: TableProps): JSX.Element {
         onChangeFitler={setFilters}
         rolesAllowed={rolesAllowed}
         schema={schema}
+        hasCreatedBy={hasCreatedBy}
+        hasTimestamps={hasTimestamps}
       />
 
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -110,6 +116,7 @@ export function Table(props: TableProps): JSX.Element {
       {!!activeDocumentId && (
         <TableDrawer
           open={Boolean(activeDocumentId)}
+          schema={schema}
           onClose={() => setActiveDocumentId("")}
           collectionId={collectionId}
           fields={fields}

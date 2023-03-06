@@ -6,6 +6,7 @@ import { z, ZodType } from "zod";
 
 type FormProps = {
   initialValues: any;
+  hiddenValues?: any;
   onSubmit: (values: any) => void;
   titleComponent?: React.ReactNode;
   contentComponent: ({ control }: { control: Control }) => JSX.Element;
@@ -16,7 +17,8 @@ type FormProps = {
 
 export function Form(props: FormProps) {
   const {
-    initialValues,
+    initialValues = {},
+    hiddenValues = {},
     onSubmit,
     titleComponent,
     contentComponent,
@@ -25,14 +27,19 @@ export function Form(props: FormProps) {
     schema = z.object({}),
   } = props;
 
-  const { control, handleSubmit } = useForm<z.infer<typeof schema>>({
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
     shouldUnregister: true,
   });
 
   const handleSubitForm = (data: any) => {
-    onSubmit(data);
+    onSubmit({ ...data });
   };
 
   return (
@@ -40,6 +47,19 @@ export function Form(props: FormProps) {
       {titleComponent && titleComponent}
       {contentComponent({ control })}
       {actionsComponent && actionsComponent}
+
+      <>
+        {Object.keys(hiddenValues).map((fieldKey) => {
+          return (
+            <input
+              key={fieldKey}
+              {...register(fieldKey)}
+              type="hidden"
+              value={hiddenValues[fieldKey]}
+            />
+          );
+        })}
+      </>
     </form>
   );
 }

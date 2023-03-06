@@ -1,13 +1,13 @@
 import { Chip } from "@mui/material";
 
-type FieldEnumProps = {
+type FieldChipProps = {
   label: string;
 };
 
-const FieldEnum = (props: FieldEnumProps) => {
+const FieldChip = (props: FieldChipProps) => {
   const { label } = props;
 
   return <Chip label={label} />;
 };
 
-export default FieldEnum;
+export default FieldChip;

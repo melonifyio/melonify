@@ -15,7 +15,7 @@ export function useSendLink({
     setIsLoading(true);
 
     sendSignInLinkToEmail(auth, email, {
-      url: `https://melonify.app/signUpByLink?email=${email}`,
+      url: `https://todo.melonify.io/signUpByLink?email=${email}`,
       handleCodeInApp: true,
     })
       .then(() => {
