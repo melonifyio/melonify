@@ -22,7 +22,7 @@ export const useMenuStore = create<Menu>(() => ({
         path: "/tasks",
         title: "Tasks",
         icon: "Task",
-        rolesAllowed: ["OWNER", "ADMIN"],
+        rolesAllowed: ["OWNER", "ADMIN", "MEMBER"],
       },
     ],
     footer: [
