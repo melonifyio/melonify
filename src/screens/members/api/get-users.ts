@@ -1,13 +1,12 @@
 import { useDataProvider } from "features/data";
-
-import { IUser } from "./get-user";
+import { UserModel } from "schema";
 
 type UseUsersProps = {};
 
 export function useUsers(props?: UseUsersProps) {
   const { useDocuments } = useDataProvider();
 
-  const res = useDocuments<IUser>({
+  const res = useDocuments<UserModel>({
     collectionId: "users",
     rowsPerPage: 100,
     filters: {},

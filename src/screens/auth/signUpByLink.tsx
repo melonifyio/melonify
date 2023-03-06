@@ -1,6 +1,6 @@
 import { Screen } from "features/screen";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import { CircularProgress, Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSignInByLink } from "./api/signup-by-link";

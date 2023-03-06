@@ -14,7 +14,7 @@ type HeaderProps = {
   onCloseNav: () => void;
 };
 
-export const NAV_WIDTH = 260;
+export const NAV_WIDTH = 240;
 
 const HEADER_MOBILE = 64;
 

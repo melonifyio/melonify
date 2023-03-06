@@ -5,7 +5,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-export const useFirestoreDoc = <T>(
+export const useFirestoreDoc = <T = { _id: string }>(
   keys: any,
   docRef: DocumentReference
 ): [T | null, boolean, Error | null] => {

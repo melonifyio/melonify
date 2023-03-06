@@ -61,7 +61,6 @@ export function TableToolbar(props: TableToolbarProps) {
 
           <Denied rolesAllowed={rolesAllowed && rolesAllowed["create"]}>
             <Button
-              size="small"
               startIcon={<Add />}
               variant="contained"
               onClick={() => setCreateOpen(true)}
