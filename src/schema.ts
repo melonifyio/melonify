@@ -1,32 +1,27 @@
 import { z } from "zod";
 
+// USER
 export const userSchema = z.object({
   _id: z.string().optional(),
   email: z.string().min(1, { message: "Required" }),
   role: z.enum(["OWNER", "ADMIN", "MEMBER"]),
-  photoUrl: z.string(),
-  neverLoggedIn: z.boolean(),
+  photoUrl: z.string().optional(),
+  neverLoggedIn: z.boolean().optional(),
+  createdAt: z.any().optional(),
 });
-
 export type UserModel = z.infer<typeof userSchema>;
 
-export const restaurantSchema = z.object({
-  title: z.string().min(1, { message: "Required" }),
-  image: z.string().optional(),
-  cover: z.string().optional(),
-  available: z.boolean().optional(),
-  rating: z.number().optional(),
-  address: z.string().optional(),
-  catgory: z
-    .object({
-      _id: z.string(),
-      title: z.string(),
-    })
-    .optional(),
-  label: z.enum(["", "TOP", "NEW", "OFFERING_DISCOUNT"]).optional(),
-});
+// ROLE
+export const roleSchema = z.enum(["OWNER", "ADMIN", "MEMBER"]);
+export type RoleModel = z.infer<typeof roleSchema>;
 
-export const menuSchema = z.object({
-  title: z.string(),
-  price: z.number(),
+// TASK
+export const taskSchema = z.object({
+  title: z.string().min(1, { message: "Required" }),
+  description: z.string().optional(),
+  done: z.boolean().optional(),
+  createdAt: z.any().optional(),
+  createdBy: userSchema.optional(),
+  assignedTo: userSchema,
 });
+export type TaskModel = z.infer<typeof taskSchema>;

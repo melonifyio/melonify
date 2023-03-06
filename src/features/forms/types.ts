@@ -1,0 +1,11 @@
+export enum FormFieldType {
+  TEXT = "TEXT",
+  NUMBER = "NUMBER",
+  IMAGE = "IMAGE",
+  ENUM = "ENUM",
+  MAP = "MAP",
+  // DATE = "DATE",
+  BOOLEAN = "BOOLEAN",
+  REFERENCE = "REFERENCE",
+  SUBCOLLECTION = "SUBCOLLECTION",
+}

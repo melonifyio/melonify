@@ -14,7 +14,9 @@ export function EmptyState(props: EmptyStateProps) {
 
   return (
     <Stack justifyContent="center" alignItems="center" p={12} gap={2}>
-      <Typography variant="subtitle1">{title}</Typography>
+      <Typography variant="subtitle2" sx={{ opacity: 0.2 }}>
+        {title}
+      </Typography>
       {description && (
         <Typography variant="caption" sx={{ opacity: 0.6 }}>
           {description}

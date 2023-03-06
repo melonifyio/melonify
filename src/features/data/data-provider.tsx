@@ -63,6 +63,7 @@ export type UseDeleteDocumentResponse = void;
 export type UseUpdateDocumentParams = {
   collectionId: string;
   documentId: string;
+  merge?: boolean;
   onSuccess?: () => void;
 };
 

@@ -6,3 +6,5 @@ export * from "./components/form-fields";
 export * from "./components/form-input";
 export * from "./components/form-modal";
 export * from "./components/form-upload";
+
+export * from "./types";

@@ -25,6 +25,7 @@ type TableDrawerProps = {
   fields?: Record<string, FormFieldProps>;
   collectionId: string;
   documentId: string;
+  schema?: ZodType;
   rolesAllowed?: RolesAllowedProps;
   subcollections?: { id: string; label: string; schema: ZodType }[];
 };
@@ -38,6 +39,7 @@ export const TableDrawer = (props: TableDrawerProps) => {
     documentId,
     subcollections,
     rolesAllowed,
+    schema,
   } = props;
 
   const { useDocument, useDeleteDocument, useUpdateDocument } =
@@ -51,6 +53,7 @@ export const TableDrawer = (props: TableDrawerProps) => {
   const [updateDoc, isUpdating] = useUpdateDocument({
     collectionId,
     documentId,
+    merge: true,
   });
 
   const [deleteDoc, isDeleting] = useDeleteDocument({
@@ -89,6 +92,7 @@ export const TableDrawer = (props: TableDrawerProps) => {
     <Drawer anchor="right" open={localIsOpen} onClose={onClose}>
       <Form
         height="100%"
+        schema={schema}
         initialValues={data}
         onSubmit={handleSubmit}
         contentComponent={(fieldProps) => (

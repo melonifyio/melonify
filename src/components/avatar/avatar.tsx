@@ -13,7 +13,6 @@ export const Avatar = (props: AvatarProps) => {
     <MuiAvatar
       src={src}
       sx={{
-        borderRadius: 1,
         width: 34,
         height: 34,
         backgroundColor: stringToColour(title),

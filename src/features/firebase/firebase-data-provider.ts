@@ -118,11 +118,12 @@ export function firebaseDataProvider(): IDataContext {
       return res;
     },
     useUpdateDocument(params: UseUpdateDocumentParams): MutationResponse {
-      const { collectionId, documentId, onSuccess } = params;
+      const { collectionId, documentId, onSuccess, merge } = params;
 
       const docRef = doc(firestore, `${collectionId}/${documentId}`);
 
       const res = useFirestoreSetDoc(docRef, {
+        merge,
         onSuccess,
       });
 

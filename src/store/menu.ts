@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import * as icons from "@mui/icons-material";
+import { RoleModel } from "schema";
 
 interface IMenuItem {
   path: string;
   title: string;
   icon: keyof typeof icons;
-  rolesAllowed?: ["ADMIN"];
+  rolesAllowed?: RoleModel[];
 }
 interface Menu {
   data: {
@@ -18,13 +19,11 @@ export const useMenuStore = create<Menu>(() => ({
   data: {
     regular: [
       {
-        path: "/restaurants",
-        title: "Restaurants",
-        icon: "Restaurant",
-        rolesAllowed: ["ADMIN"],
+        path: "/tasks",
+        title: "Tasks",
+        icon: "Task",
+        rolesAllowed: ["OWNER", "ADMIN"],
       },
-      { path: "/categories", title: "Categories", icon: "Category" },
-      { path: "/orders", title: "Orders", icon: "ShoppingCart" },
     ],
     footer: [
       { path: "/settings/members", title: "Members", icon: "People" },
