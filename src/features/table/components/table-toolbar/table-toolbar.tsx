@@ -25,6 +25,7 @@ type TableToolbarProps = {
   rolesAllowed?: RolesAllowedProps;
   hasCreatedBy?: boolean;
   hasTimestamps?: boolean;
+  initialValues?: any;
 };
 
 export function TableToolbar(props: TableToolbarProps) {
@@ -38,6 +39,7 @@ export function TableToolbar(props: TableToolbarProps) {
     schema,
     hasCreatedBy,
     hasTimestamps,
+    initialValues,
   } = props;
 
   const [me] = useMe();
@@ -83,9 +85,10 @@ export function TableToolbar(props: TableToolbarProps) {
         open={createIsOpen}
         onClose={() => setCreateOpen(false)}
         title="New document"
-        hiddenValues={{
-          createdBy: hasCreatedBy ? me : {},
-          createdAt: hasTimestamps ? Timestamp.now() : "none",
+        initialValues={{
+          ...initialValues,
+          createdBy: hasCreatedBy ? me : null,
+          createdAt: hasTimestamps ? Timestamp.now() : null,
         }}
         isSubmitting={creating as boolean}
         schema={schema}
