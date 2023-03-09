@@ -1,5 +1,6 @@
 export enum FormFieldType {
   TEXT = "TEXT",
+  TEXTAREA = "TEXTAREA",
   NUMBER = "NUMBER",
   IMAGE = "IMAGE",
   ENUM = "ENUM",

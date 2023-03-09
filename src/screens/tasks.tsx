@@ -34,6 +34,10 @@ export function TasksScreen() {
               label: "Title",
               type: "TEXT",
             },
+            description: {
+              label: "Description",
+              type: "TEXTAREA",
+            },
             assignedTo: {
               label: "Assigned to",
               type: "REFERENCE",
