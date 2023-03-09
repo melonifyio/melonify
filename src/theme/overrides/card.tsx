@@ -5,6 +5,9 @@ export default function Card(theme: Theme) {
     MuiCard: {
       styleOverrides: {
         root: {},
+        paper: {
+          boxShadow: "none",
+        },
       },
     },
   };
