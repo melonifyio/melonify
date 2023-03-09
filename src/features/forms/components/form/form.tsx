@@ -3,6 +3,7 @@ import { Control, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z, ZodType } from "zod";
+import removeEmpty from "utils/remove-empty";
 
 type FormProps = {
   initialValues: any;
@@ -31,6 +32,7 @@ export function Form(props: FormProps) {
     register,
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -39,7 +41,7 @@ export function Form(props: FormProps) {
   });
 
   const handleSubitForm = (data: any) => {
-    onSubmit({ ...initialValues, ...data });
+    onSubmit({ ...initialValues, ...removeEmpty(data) });
   };
 
   return (

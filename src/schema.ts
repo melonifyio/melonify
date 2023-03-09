@@ -23,5 +23,6 @@ export const taskSchema = z.object({
   createdAt: z.any().optional(),
   createdBy: userSchema.optional(),
   assignedTo: userSchema,
+  dueTo: z.any().optional(),
 });
 export type TaskModel = z.infer<typeof taskSchema>;
