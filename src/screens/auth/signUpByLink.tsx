@@ -26,7 +26,6 @@ export function SignUpByLinkScreen() {
         sx={{ minHeight: "100vh" }}
         gap={4}
       >
-        {/* <Typography>Signing in...</Typography> */}
         {isLoading && <CircularProgress size={24} />}
       </Stack>
     </Screen>

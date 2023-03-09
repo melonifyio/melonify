@@ -29,7 +29,7 @@ export function MembersListWidget() {
 
     await setDoc(doc(firestore, `users/${values.email}`), {
       ...values,
-      neverLoggedIn: false,
+      neverLoggedIn: true,
       role: "MEMBER",
       createdAt: Timestamp.now(),
     });
