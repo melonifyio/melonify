@@ -7,6 +7,7 @@ import { AuthenticationProvider } from "features/auth";
 import { AuthorizationProvider } from "features/auth";
 import { DataProvider } from "features/data";
 import { firebaseDataProvider } from "features/firebase";
+import { ToastProvider } from "features/toast";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -24,9 +25,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <DataProvider provider={firebaseDataProvider()}>
       <ThemeProvider>
-        <AuthenticationProvider>
-          <AuthorizationProvider>{mainContent}</AuthorizationProvider>
-        </AuthenticationProvider>
+        <ToastProvider>
+          <AuthenticationProvider>
+            <AuthorizationProvider>{mainContent}</AuthorizationProvider>
+          </AuthenticationProvider>
+        </ToastProvider>
       </ThemeProvider>
     </DataProvider>
   );

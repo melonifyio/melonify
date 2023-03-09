@@ -14,6 +14,7 @@ import { FilterItem } from "../table-filter";
 import { RolesAllowedProps } from "../table/table";
 import { useMe } from "features/auth/api/get-me";
 import { Timestamp } from "firebase/firestore";
+import { useToast } from "features/toast";
 
 type TableToolbarProps = {
   collectionId: string;
