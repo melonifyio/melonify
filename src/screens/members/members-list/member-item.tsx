@@ -48,7 +48,7 @@ export default function MembersListItem({
           </Box>
 
           <Box>
-            {!item.neverLoggedIn && (
+            {item.neverLoggedIn && (
               <Chip
                 size="small"
                 label="Pending"
