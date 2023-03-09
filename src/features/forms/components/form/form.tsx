@@ -39,11 +39,16 @@ export function Form(props: FormProps) {
   });
 
   const handleSubitForm = (data: any) => {
-    onSubmit({ ...data });
+    onSubmit({ ...initialValues, ...data });
   };
 
   return (
-    <form onSubmit={handleSubmit(handleSubitForm)} style={{ height }}>
+    <form
+      onSubmit={handleSubmit(handleSubitForm, (err) => {
+        console.log("Error:", err);
+      })}
+      style={{ height }}
+    >
       {titleComponent && titleComponent}
       {contentComponent({ control })}
       {actionsComponent && actionsComponent}

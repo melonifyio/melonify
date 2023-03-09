@@ -16,8 +16,8 @@ export type PaginatedQueryResponse<T> = [
   () => void | undefined
 ];
 
-export type MutationResponse = [
-  (data?: any) => Promise<void>,
+export type MutationResponse<T> = [
+  (data?: T) => Promise<void>,
   boolean,
   Error | null
 ];
@@ -78,9 +78,11 @@ export type IDataContext = {
   useDocument: <T>(
     params: UseDocumentParams
   ) => QueryResponse<UseDocumentResponse<T>>;
-  useCreateDocument: (params: UseCreateDocumentParams) => MutationResponse;
-  useDeleteDocument: (params: UseDeleteDocumentParams) => MutationResponse;
-  useUpdateDocument: (params: UseUpdateDocumentParams) => MutationResponse;
+  useCreateDocument: (params: UseCreateDocumentParams) => MutationResponse<any>;
+  useDeleteDocument: (params: UseDeleteDocumentParams) => MutationResponse<any>;
+  useUpdateDocument: <T>(
+    params: UseUpdateDocumentParams
+  ) => MutationResponse<T>;
   useCount: (params: UseCountParams) => QueryResponse<UseCountResponse>;
 };
 

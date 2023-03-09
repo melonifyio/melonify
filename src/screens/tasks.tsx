@@ -52,6 +52,9 @@ export function TasksScreen() {
               defaultOperator: "==",
             },
           }}
+          initialValues={{
+            done: false,
+          }}
         />
       </Widget>
     </Screen>
