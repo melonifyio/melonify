@@ -50,6 +50,10 @@ export function TasksScreen() {
               label: "Completed",
               type: "BOOLEAN",
             },
+            dueTo: {
+              label: "Due to",
+              type: "DATE",
+            },
           }}
           filterTokens={{
             title: {
@@ -59,6 +63,7 @@ export function TasksScreen() {
           initialValues={{
             description: "",
             done: false,
+            dueTo: null,
           }}
         />
       </Widget>
