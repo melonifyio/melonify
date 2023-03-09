@@ -29,6 +29,7 @@ import { useFirestoreDoc } from "./hooks/use-firestore-doc";
 import { useFirestoreAddDoc } from "./hooks/use-firestore-add-doc";
 import { useFirestoreDelete } from "./hooks/use-firestore-delete";
 import { useFirestoreSetDoc } from "./hooks/use-firestore-set-doc";
+import { useToast } from "features/toast";
 
 export function firebaseDataProvider(): IDataContext {
   return {
@@ -103,8 +104,13 @@ export function firebaseDataProvider(): IDataContext {
     useCreateDocument(params: UseCreateDocumentParams): MutationResponse<any> {
       const { collectionId, onSuccess } = params;
 
+      const toast = useToast();
+
       const res = useFirestoreAddDoc(collection(firestore, collectionId), {
-        onSuccess,
+        onSuccess: () => {
+          onSuccess && onSuccess();
+          toast.success("Successfully created");
+        },
       });
 
       return res;
@@ -112,10 +118,15 @@ export function firebaseDataProvider(): IDataContext {
     useDeleteDocument(params: UseDeleteDocumentParams): MutationResponse<any> {
       const { collectionId, documentId, onSuccess } = params;
 
+      const toast = useToast();
+
       const docRef = doc(firestore, `${collectionId}/${documentId}`);
 
       const res = useFirestoreDelete(docRef, {
-        onSuccess,
+        onSuccess: () => {
+          onSuccess && onSuccess();
+          toast.success("Successfully deleted");
+        },
       });
 
       return res;
@@ -123,11 +134,16 @@ export function firebaseDataProvider(): IDataContext {
     useUpdateDocument(params: UseUpdateDocumentParams): MutationResponse<any> {
       const { collectionId, documentId, onSuccess, merge } = params;
 
+      const toast = useToast();
+
       const docRef = doc(firestore, `${collectionId}/${documentId}`);
 
       const res = useFirestoreSetDoc(docRef, {
         merge,
-        onSuccess,
+        onSuccess: () => {
+          onSuccess && onSuccess();
+          toast.success("Successfully updated");
+        },
       });
 
       return res;
