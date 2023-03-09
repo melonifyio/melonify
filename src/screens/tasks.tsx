@@ -57,6 +57,7 @@ export function TasksScreen() {
             },
           }}
           initialValues={{
+            description: "",
             done: false,
           }}
         />
