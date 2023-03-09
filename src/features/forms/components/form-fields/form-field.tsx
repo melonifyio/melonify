@@ -11,6 +11,7 @@ import { FormBoolean, FormBooleanConfig } from "../form-boolean/form-boolean";
 import { FormEnum, FormEnumConfig } from "../form-enum/form-enum";
 import { FormFieldType } from "features/forms/types";
 import { FormTextarea } from "../form-textarea";
+import { FormDate } from "../form-date";
 
 export type FormFieldProps = {
   fieldKey?: string;
@@ -44,6 +45,15 @@ export function FormField(props: FormFieldProps) {
       case "TEXTAREA":
         return (
           <FormTextarea
+            field={field}
+            label={label}
+            config={config || {}}
+            errors={errors}
+          />
+        );
+      case "DATE":
+        return (
+          <FormDate
             field={field}
             label={label}
             config={config || {}}
