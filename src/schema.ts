@@ -3,7 +3,7 @@ import { z } from "zod";
 // USER
 export const userSchema = z.object({
   _id: z.string().optional(),
-  email: z.string().min(1, { message: "Required" }),
+  email: z.string().min(1),
   role: z.enum(["OWNER", "ADMIN", "MEMBER"]),
   photoUrl: z.string().optional(),
   neverLoggedIn: z.boolean().optional(),
@@ -17,7 +17,7 @@ export type RoleModel = z.infer<typeof roleSchema>;
 
 // TASK
 export const taskSchema = z.object({
-  title: z.string().min(1, { message: "Required" }),
+  title: z.string().min(1),
   description: z.string().optional(),
   done: z.boolean().optional(),
   createdAt: z.any().optional(),

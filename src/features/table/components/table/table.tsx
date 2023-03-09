@@ -35,6 +35,7 @@ type TableProps = {
   rolesAllowed?: RolesAllowedProps;
   hasCreatedBy?: boolean;
   hasTimestamps?: boolean;
+  initialValues?: any;
 };
 
 export function Table(props: TableProps): JSX.Element {
@@ -48,6 +49,7 @@ export function Table(props: TableProps): JSX.Element {
     rolesAllowed,
     hasCreatedBy = true,
     hasTimestamps = true,
+    initialValues = {},
   } = props;
 
   const { useDocuments } = useDataProvider();
@@ -84,6 +86,7 @@ export function Table(props: TableProps): JSX.Element {
         schema={schema}
         hasCreatedBy={hasCreatedBy}
         hasTimestamps={hasTimestamps}
+        initialValues={initialValues}
       />
 
       <Paper sx={{ width: "100%", mb: 2 }}>

@@ -35,7 +35,10 @@ export function firebaseDataProvider(): IDataContext {
     useDocuments<T>(params: UseDocumentsParams): PaginatedQueryResponse<T[]> {
       const { collectionId, rowsPerPage, filters } = params;
 
-      const initialConstraints = [orderBy("createdAt"), limit(rowsPerPage)];
+      const initialConstraints = [
+        orderBy("createdAt", "desc"),
+        limit(rowsPerPage),
+      ];
       const collectionRef = collection(firestore, collectionId);
       const [queryConstraints, setQueryConstraints] =
         React.useState<QueryConstraint[]>(initialConstraints);
@@ -97,7 +100,7 @@ export function firebaseDataProvider(): IDataContext {
 
       return res;
     },
-    useCreateDocument(params: UseCreateDocumentParams): MutationResponse {
+    useCreateDocument(params: UseCreateDocumentParams): MutationResponse<any> {
       const { collectionId, onSuccess } = params;
 
       const res = useFirestoreAddDoc(collection(firestore, collectionId), {
@@ -106,7 +109,7 @@ export function firebaseDataProvider(): IDataContext {
 
       return res;
     },
-    useDeleteDocument(params: UseDeleteDocumentParams): MutationResponse {
+    useDeleteDocument(params: UseDeleteDocumentParams): MutationResponse<any> {
       const { collectionId, documentId, onSuccess } = params;
 
       const docRef = doc(firestore, `${collectionId}/${documentId}`);
@@ -117,7 +120,7 @@ export function firebaseDataProvider(): IDataContext {
 
       return res;
     },
-    useUpdateDocument(params: UseUpdateDocumentParams): MutationResponse {
+    useUpdateDocument(params: UseUpdateDocumentParams): MutationResponse<any> {
       const { collectionId, documentId, onSuccess, merge } = params;
 
       const docRef = doc(firestore, `${collectionId}/${documentId}`);
