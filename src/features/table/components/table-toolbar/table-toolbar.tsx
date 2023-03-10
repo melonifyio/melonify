@@ -11,10 +11,10 @@ import { useDataProvider } from "features/data";
 
 import { FilterTokenProps, TableFilter } from "../table-filter";
 import { FilterItem } from "../table-filter";
-import { RolesAllowedProps } from "../table/table";
 import { useMe } from "features/auth/api/get-me";
 import { Timestamp } from "firebase/firestore";
 import { useToast } from "features/toast";
+import { TableRolesAllowedProps } from "../table/table";
 
 type TableToolbarProps = {
   collectionId: string;
@@ -23,7 +23,7 @@ type TableToolbarProps = {
   schema?: ZodType;
   initialFilters: Record<string, FilterItem>;
   onChangeFitler: (values: Record<string, FilterItem>) => void;
-  rolesAllowed?: RolesAllowedProps;
+  rolesAllowed?: TableRolesAllowedProps;
   hasCreatedBy?: boolean;
   hasTimestamps?: boolean;
   initialValues?: any;

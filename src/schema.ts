@@ -17,6 +17,7 @@ export type RoleModel = z.infer<typeof roleSchema>;
 
 // TASK
 export const taskSchema = z.object({
+  _id: z.string().optional(),
   title: z.string().min(1),
   description: z.string().optional(),
   done: z.boolean().optional(),
@@ -26,3 +27,12 @@ export const taskSchema = z.object({
   dueTo: z.any().optional(),
 });
 export type TaskModel = z.infer<typeof taskSchema>;
+
+// COMMENTS
+export const commentSchema = z.object({
+  _id: z.string().optional(),
+  content: z.string().min(1),
+  createdBy: userSchema.optional(),
+  createdAt: z.any().optional(),
+});
+export type CommentModel = z.infer<typeof commentSchema>;

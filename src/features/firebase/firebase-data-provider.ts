@@ -34,12 +34,15 @@ import { useToast } from "features/toast";
 export function firebaseDataProvider(): IDataContext {
   return {
     useDocuments<T>(params: UseDocumentsParams): PaginatedQueryResponse<T[]> {
-      const { collectionId, rowsPerPage, filters } = params;
+      const {
+        collectionId,
+        rowsPerPage = 10,
+        filters = {},
+        sort = [{ field: "createdAt", dir: "desc" }],
+      } = params;
 
-      const initialConstraints = [
-        orderBy("createdAt", "desc"),
-        limit(rowsPerPage),
-      ];
+      const initialConstraints = [limit(rowsPerPage)];
+
       const collectionRef = collection(firestore, collectionId);
       const [queryConstraints, setQueryConstraints] =
         React.useState<QueryConstraint[]>(initialConstraints);
@@ -80,8 +83,12 @@ export function firebaseDataProvider(): IDataContext {
           );
         });
 
+        sort.map((sortItem) => {
+          newConstraints.push(orderBy(sortItem.field, sortItem.dir));
+        });
+
         setQueryConstraints([...initialConstraints, ...newConstraints]);
-      }, [JSON.stringify(filters)]);
+      }, [JSON.stringify(filters), JSON.stringify(sort)]);
 
       return [
         data,
