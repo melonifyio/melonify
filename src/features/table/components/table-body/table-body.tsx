@@ -12,14 +12,14 @@ import { Field } from "features/fields";
 type TableBodyProps = {
   columns: Record<string, IColumn>;
   rows: any;
-  onItemClick: (name: string) => void;
+  onItemClick?: (_id: string) => void;
 };
 
 export function TableBody(props: TableBodyProps): JSX.Element {
   const { columns, rows, onItemClick } = props;
 
   const handleClick = (event: React.MouseEvent<unknown>, _id: string) => {
-    onItemClick(_id);
+    onItemClick && onItemClick(_id);
   };
 
   return (

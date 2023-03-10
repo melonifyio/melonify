@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Tabs from "@mui/material/Tabs";
+import MuiTabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Stack } from "@mui/material";
@@ -23,7 +23,9 @@ function TabPanel(props: TabPanelProps) {
       style={{ overflowY: "auto" }}
       {...other}
     >
-      {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
+      {value === index && (
+        <Box sx={{ py: 4, px: 2, minWidth: 480 }}>{children}</Box>
+      )}
     </div>
   );
 }
@@ -35,14 +37,14 @@ function a11yProps(index: number) {
   };
 }
 
-type TableDrawerTabsProps = {
+type TabsProps = {
   tabs: {
     label: string;
   }[];
   panes: JSX.Element[];
 };
 
-export function TableDrawerTabs(props: TableDrawerTabsProps) {
+export function Tabs(props: TabsProps) {
   const { tabs, panes } = props;
 
   const [value, setValue] = React.useState(0);
@@ -54,11 +56,11 @@ export function TableDrawerTabs(props: TableDrawerTabsProps) {
   return (
     <Stack sx={{ width: "100%", maxHeight: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
+        <MuiTabs value={value} onChange={handleChange} aria-label="basic tabs">
           {tabs.map((item, index) => (
             <Tab key={index} label={item.label} {...a11yProps(index)} />
           ))}
-        </Tabs>
+        </MuiTabs>
       </Box>
 
       {panes.map((item, index) => (

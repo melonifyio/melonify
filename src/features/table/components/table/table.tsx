@@ -14,11 +14,10 @@ import { TableHead } from "../table-head/table-head";
 import { TableBody } from "../table-body/table-body";
 import { TableToolbar } from "../table-toolbar/table-toolbar";
 import { TablePagination } from "../table-pagination/table-pagination";
-import { TableDrawer } from "../table-drawer/table-drawer";
 import { FilterItem } from "../table-filter/table-filter-item";
 import { FilterTokenProps } from "../table-filter";
 
-export type RolesAllowedProps = {
+export type TableRolesAllowedProps = {
   create: string[];
   view: string[];
   update: string[];
@@ -28,14 +27,14 @@ export type RolesAllowedProps = {
 type TableProps = {
   collectionId: string;
   schema: ZodType;
-  subcollections?: { id: string; label: string; schema: ZodType }[];
   columns: Record<string, IColumn>;
   fields?: Record<string, FormFieldProps>;
   filterTokens?: Record<string, FilterTokenProps>;
-  rolesAllowed?: RolesAllowedProps;
+  rolesAllowed?: TableRolesAllowedProps;
   hasCreatedBy?: boolean;
   hasTimestamps?: boolean;
   initialValues?: any;
+  onItemClick?: (_id: string) => void;
 };
 
 export function Table(props: TableProps): JSX.Element {
@@ -45,11 +44,11 @@ export function Table(props: TableProps): JSX.Element {
     schema,
     fields,
     filterTokens,
-    subcollections,
     rolesAllowed,
     hasCreatedBy = true,
     hasTimestamps = true,
     initialValues = {},
+    onItemClick,
   } = props;
 
   const { useDocuments } = useDataProvider();
@@ -58,13 +57,13 @@ export function Table(props: TableProps): JSX.Element {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage] = React.useState(10);
-  const [activeDocumentId, setActiveDocumentId] = React.useState<string>("");
 
   const [data, isLoading, error, count, showNextPage, showPreviousPage] =
     useDocuments({
       collectionId,
       rowsPerPage,
       filters,
+      sort: [{ field: "createdAt", dir: "desc" }],
     });
 
   // const columns = getColumns(collection.schema);
@@ -97,7 +96,7 @@ export function Table(props: TableProps): JSX.Element {
             <TableBody
               columns={columns}
               rows={data}
-              onItemClick={(_id) => setActiveDocumentId(_id)}
+              onItemClick={onItemClick}
             />
           </MuiTable>
         </TableContainer>
@@ -115,19 +114,6 @@ export function Table(props: TableProps): JSX.Element {
         onPageChange={handleChangePage}
         count={count as number}
       />
-
-      {!!activeDocumentId && (
-        <TableDrawer
-          open={Boolean(activeDocumentId)}
-          schema={schema}
-          onClose={() => setActiveDocumentId("")}
-          collectionId={collectionId}
-          fields={fields}
-          documentId={activeDocumentId}
-          rolesAllowed={rolesAllowed}
-          subcollections={subcollections}
-        />
-      )}
     </>
   );
 }
