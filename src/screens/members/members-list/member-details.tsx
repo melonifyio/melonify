@@ -12,15 +12,15 @@ import { useUser } from "../api/get-user";
 import { Denied } from "features/auth";
 import { Button, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { RolesAllowedProps } from "features/table";
 import { useUpdateUser } from "../api/update-user";
+import { TableRolesAllowedProps } from "features/table";
 
 type MemberDetailsProps = {
   open: boolean;
   onClose: () => void;
   documentId: string;
   fields?: Record<string, FormFieldProps>;
-  rolesAllowed?: RolesAllowedProps;
+  rolesAllowed?: TableRolesAllowedProps;
 };
 
 export const MemberDetails = (props: MemberDetailsProps) => {
