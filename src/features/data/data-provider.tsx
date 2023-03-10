@@ -32,8 +32,9 @@ export type LogicalFilter = {
 
 export type UseDocumentsParams = {
   collectionId: string;
-  rowsPerPage: number;
-  filters: Record<string, LogicalFilter>;
+  rowsPerPage?: number;
+  filters?: Record<string, LogicalFilter>;
+  sort?: { field: string; dir: "asc" | "desc" }[];
 };
 
 export type UseDocumentsResponse<TData = BaseDocument> = TData[];

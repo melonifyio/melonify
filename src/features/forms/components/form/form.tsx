@@ -14,6 +14,7 @@ type FormProps = {
   actionsComponent?: React.ReactNode;
   height?: number | string;
   schema?: ZodType;
+  resetOnSubmit?: boolean;
 };
 
 export function Form(props: FormProps) {
@@ -26,6 +27,7 @@ export function Form(props: FormProps) {
     actionsComponent,
     height,
     schema = z.object({}),
+    resetOnSubmit,
   } = props;
 
   const {
@@ -33,6 +35,7 @@ export function Form(props: FormProps) {
     control,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors },
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -42,6 +45,7 @@ export function Form(props: FormProps) {
 
   const handleSubitForm = (data: any) => {
     onSubmit({ ...initialValues, ...removeEmpty(data) });
+    resetOnSubmit && reset();
   };
 
   return (

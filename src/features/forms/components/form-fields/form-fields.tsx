@@ -1,24 +1,23 @@
 import * as React from "react";
-import { Control, UseFormSetValue, UseFormHandleSubmit } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 import { Stack } from "@mui/material";
 
 import { FormField, FormFieldProps } from "./form-field";
 import { Denied } from "features/auth";
-import { RolesAllowedProps } from "features/table";
-import { Field } from "features/fields";
+import { TableRolesAllowedProps } from "features/table";
 
 export type FormProps = {
   fields: Record<string, FormFieldProps>;
-  control: Control;
-  rolesAllowed?: RolesAllowedProps;
+  rolesAllowed?: TableRolesAllowedProps;
+  control?: Control;
 };
 
 export function FormFields(props: FormProps) {
   const { fields, rolesAllowed, ...fieldProps } = props;
 
   return (
-    <Stack gap={3} p={2}>
+    <Stack gap={3}>
       <Denied
         rolesAllowed={rolesAllowed && rolesAllowed["update"]}
         fallback={

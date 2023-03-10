@@ -2,7 +2,7 @@ import { DashboardLayout } from "layouts";
 
 import { PageHeader } from "components/page-header";
 import { Container } from "components/container";
-import { TasksScreen } from "screens/tasks";
+import { TasksScreen } from "screens/tasks/tasks";
 
 export default function RestaurantsPage() {
   return (
