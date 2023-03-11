@@ -2,7 +2,7 @@ import * as React from "react";
 import { ZodType } from "zod";
 
 import Box from "@mui/material/Box";
-import { Button, Divider } from "@mui/material";
+import { Button, CircularProgress, Divider, Stack } from "@mui/material";
 
 import { ConfirmationDialog } from "components/confirmation-dialog";
 
@@ -24,7 +24,7 @@ type TasksDetailsSecurityProps = {
 export const TasksDetailsSecurity = (props: TasksDetailsSecurityProps) => {
   const { onClose, collectionId, documentId, rolesAllowed } = props;
 
-  const { useDeleteDocument } = useDataProvider();
+  const { useDeleteDocument, useDocument } = useDataProvider();
 
   const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
 
@@ -37,11 +37,26 @@ export const TasksDetailsSecurity = (props: TasksDetailsSecurityProps) => {
     },
   });
 
+  const [data, isLoading] = useDocument({ collectionId, documentId });
+
+  if (isLoading) {
+    return (
+      <Stack
+        direction="row"
+        height="100%"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <CircularProgress size={24} />
+      </Stack>
+    );
+  }
+
   return (
     <Box key={2}>
       <Form
         height="100%"
-        initialValues={{}}
+        initialValues={data}
         onSubmit={() => {}}
         contentComponent={(fieldProps) => (
           <FormFields
@@ -51,6 +66,21 @@ export const TasksDetailsSecurity = (props: TasksDetailsSecurityProps) => {
                 label: "ID",
                 type: "TEXT",
                 config: {
+                  readonly: true,
+                },
+              },
+              createdAt: {
+                label: "Created at",
+                type: "DATE",
+                config: {
+                  readonly: true,
+                },
+              },
+              createdBy: {
+                label: "Created by",
+                type: "REFERENCE",
+                config: {
+                  optionLabel: "email",
                   readonly: true,
                 },
               },
