@@ -6,6 +6,7 @@ import { useDataProvider } from "features/data";
 export type FormComboboxConfig = {
   collectionId?: string;
   optionLabel?: string;
+  readonly?: boolean;
 };
 
 export type FormComboboxProps = {
@@ -33,6 +34,7 @@ export function FormCombobox(props: FormComboboxProps) {
   return (
     <Autocomplete
       size="small"
+      disabled={config?.readonly}
       options={data || []}
       getOptionLabel={(option: any) =>
         config.optionLabel ? option[config.optionLabel] : option["title"]

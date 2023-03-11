@@ -4,7 +4,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { Timestamp } from "firebase/firestore";
 
-export type FormDateConfig = {};
+export type FormDateConfig = {
+  readonly?: boolean;
+};
 
 export type FormDateProps = {
   label: string;
@@ -23,6 +25,7 @@ export function FormDate(props: FormDateProps) {
   return (
     <DatePicker
       label={label}
+      disabled={config?.readonly}
       slotProps={{
         textField: {
           id: field.name,
