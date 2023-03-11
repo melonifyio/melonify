@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Box, IconButton, Stack } from "@mui/material";
+import { Box, Drawer, IconButton, Stack } from "@mui/material";
 
 import { Menu } from "components/menu";
 import useResponsive from "hooks/useResponsive";
@@ -55,7 +55,7 @@ export default function Nav(props: NavProps) {
           <IconButton onClick={() => router.push("/")}>
             <Avatar
               src=""
-              title={firebaseConfig.projectId + 'random' || ""}
+              title={firebaseConfig.projectId + "random" || ""}
               variant="rounded"
             />
           </IconButton>
@@ -118,7 +118,7 @@ export default function Nav(props: NavProps) {
           {renderContent}
         </StyledDrawer>
       ) : (
-        <StyledDrawer
+        <Drawer
           open={openNav}
           onClose={onCloseNav}
           ModalProps={{
@@ -133,7 +133,7 @@ export default function Nav(props: NavProps) {
           }}
         >
           {renderContent}
-        </StyledDrawer>
+        </Drawer>
       )}
     </Box>
   );
