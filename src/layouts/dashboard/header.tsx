@@ -49,7 +49,9 @@ export default function Header(props: HeaderProps) {
     <StyledRoot position="fixed">
       <StyledToolbar open={open}>
         <IconButton
-          onClick={onOpenNav}
+          onClick={() => {
+            onOpenNav();
+          }}
           size="small"
           sx={{
             mr: 1,
