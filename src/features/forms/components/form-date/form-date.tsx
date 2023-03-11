@@ -3,6 +3,7 @@ import * as React from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { Timestamp } from "firebase/firestore";
+import { convertTimestampToDate } from "utils/date";
 
 export type FormDateConfig = {
   readonly?: boolean;
@@ -13,14 +14,18 @@ export type FormDateProps = {
   config: FormDateConfig;
   errors: any;
   field: {
-    onChange: (value: unknown) => void;
-    value: { nanoseconds: number; seconds: number };
+    onChange: (value: any) => void;
+    value: any;
     name: string;
   };
 };
 
 export function FormDate(props: FormDateProps) {
   const { label, field, config, errors } = props;
+
+  const dateValue = field.value
+    ? dayjs(convertTimestampToDate(field.value))
+    : null;
 
   return (
     <DatePicker
@@ -34,14 +39,9 @@ export function FormDate(props: FormDateProps) {
           helperText: errors[field.name]?.message,
         },
       }}
-      value={
-        field.value?.seconds
-          ? dayjs(new Date(field?.value?.seconds * 1000))
-          : null
-      }
+      value={dateValue}
       onChange={(val) => {
-        const dateString = dayjs(val).format();
-        return field.onChange(Timestamp.fromDate(new Date(dateString)));
+        val && field.onChange(Timestamp.fromDate(val.toDate()));
       }}
     />
   );

@@ -30,7 +30,7 @@ export function Comments(props: CommentsProps) {
       <Typography variant="subtitle1">Comments</Typography>
 
       {(data || []).map((item) => (
-        <Comment key={item._id} item={item} />
+        <Comment key={item._id} item={item} collectionId={collectionId} />
       ))}
 
       <Box sx={{ mt: 2 }}>

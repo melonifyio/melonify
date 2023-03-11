@@ -1,12 +1,16 @@
 import * as React from "react";
 
 import Typography from "@mui/material/Typography";
-import { formatDate } from "utils/format_date";
+import { convertTimestampToDate } from "utils/date";
+import { Timestamp } from "firebase/firestore";
+import dayjs from "dayjs";
 
 export interface DateProps {
-  children: object;
+  children: Timestamp;
 }
 
 export const Date = ({ children }: DateProps) => {
-  return <Typography>{formatDate(children)}</Typography>;
+  return (
+    <Typography>{dayjs(convertTimestampToDate(children)).format()}</Typography>
+  );
 };

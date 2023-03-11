@@ -1,4 +1,5 @@
 import { FieldType } from "features/fields/types";
+import { convertTimestampToDate } from "utils/date";
 import { FieldAvatar } from "../field-avatar";
 import FieldBoolean from "../field-boolean/field-boolean";
 import { FieldCheckbox } from "../field-checkbox";
@@ -17,7 +18,6 @@ const getAvatarValue = (value: string, target: any) => {
 type FieldProps = {
   type: keyof typeof FieldType;
   value: any;
-  label?: string;
   config?: any;
 };
 
@@ -42,6 +42,12 @@ function renderComponent(
       return <FieldCheckbox checked={value} />;
     case "CHIP":
       return <FieldEnum label={value} />;
+    case "REFERENCE":
+      return <FieldText>{value[config?.optionLabel] || ""}</FieldText>;
+    case "DATE":
+      return (
+        <FieldText>{convertTimestampToDate(value).toDateString()}</FieldText>
+      );
 
     default:
       return <></>;
@@ -49,7 +55,7 @@ function renderComponent(
 }
 
 export const Field = (props: FieldProps) => {
-  const { type, value, label, config } = props;
+  const { type, value, config } = props;
 
   const component = renderComponent(type, value, config);
 

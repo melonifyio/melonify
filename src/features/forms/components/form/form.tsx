@@ -3,14 +3,19 @@ import { Control, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z, ZodType } from "zod";
-import removeEmpty from "utils/remove-empty";
 
 type FormProps = {
   initialValues: any;
   hiddenValues?: any;
   onSubmit: (values: any) => void;
   titleComponent?: React.ReactNode;
-  contentComponent: ({ control }: { control: Control }) => JSX.Element;
+  contentComponent: ({
+    control,
+    initialValues,
+  }: {
+    control: Control;
+    initialValues?: any;
+  }) => JSX.Element;
   actionsComponent?: React.ReactNode;
   height?: number | string;
   schema?: ZodType;
@@ -44,7 +49,10 @@ export function Form(props: FormProps) {
   });
 
   const handleSubitForm = (data: any) => {
-    onSubmit({ ...initialValues, ...removeEmpty(data) });
+    onSubmit({
+      ...initialValues,
+      ...data,
+    });
     resetOnSubmit && reset();
   };
 
@@ -56,7 +64,7 @@ export function Form(props: FormProps) {
       style={{ height }}
     >
       {titleComponent && titleComponent}
-      {contentComponent({ control })}
+      {contentComponent({ control, initialValues })}
       {actionsComponent && actionsComponent}
 
       <>
