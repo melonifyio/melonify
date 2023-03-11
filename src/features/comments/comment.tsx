@@ -1,10 +1,15 @@
 import { Box, Card, Stack, Typography } from "@mui/material";
 import { Avatar } from "components/avatar";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 import React from "react";
 import { CommentModel } from "schema";
-import { formatDate } from "utils/format_date";
+import { convertTimestampToDate } from "utils/date";
 import { CommentActions } from "./comment-actions";
 import { CommentForm } from "./comment-form";
+
+dayjs.extend(relativeTime);
 
 type CommentProps = {
   item: CommentModel;
@@ -37,7 +42,11 @@ export function Comment(props: CommentProps) {
               <Stack direction="row" alignItems="center" gap={1}>
                 <Typography variant="subtitle2">{createdBy?.email}</Typography>
                 <Typography variant="caption" sx={{ opacity: 0.34 }}>
-                  {formatDate(createdBy?.createdAt)}
+                  {createdBy?.createdAt
+                    ? dayjs(
+                        convertTimestampToDate(createdBy.createdAt)
+                      ).fromNow()
+                    : ""}
                 </Typography>
               </Stack>
               <Typography variant="body2">{content}</Typography>
