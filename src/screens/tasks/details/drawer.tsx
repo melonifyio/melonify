@@ -8,12 +8,11 @@ import Drawer from "@mui/material/Drawer";
 
 import { FormFieldProps } from "features/forms";
 
-import { Tabs } from "components/tabs";
 import { TableRolesAllowedProps } from "features/table";
 import { TasksDetailsForm } from "./form";
 import { TasksDetailsSecurity } from "./security";
 import { Comments } from "features/comments";
-import { IconButton, Stack, Typography } from "@mui/material";
+import { Divider, IconButton, Stack, Typography } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
 type TasksDetailsDrawerProps = {
@@ -93,6 +92,8 @@ export const TasksDetailsDrawer = (props: TasksDetailsDrawerProps) => {
               schema={schema}
               fields={fields}
             />
+
+            <Divider sx={{ my: 2 }} />
 
             <Comments collectionId={`${collectionId}/${documentId}/comments`} />
           </Box>

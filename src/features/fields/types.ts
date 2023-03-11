@@ -6,4 +6,6 @@ export enum FieldType {
   BOOLEAN = "BOOLEAN",
   CHECKBOX = "CHECKBOX",
   CHIP = "CHIP",
+  REFERENCE = "REFERENCE",
+  DATE = "DATE",
 }

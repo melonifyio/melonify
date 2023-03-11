@@ -36,3 +36,10 @@ export const commentSchema = z.object({
   createdAt: z.any().optional(),
 });
 export type CommentModel = z.infer<typeof commentSchema>;
+
+// SETTINGS
+export const settingsSchema = z.object({
+  _id: z.string().optional(),
+  title: z.string().min(1),
+});
+export type SettingsModel = z.infer<typeof settingsSchema>;

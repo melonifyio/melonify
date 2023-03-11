@@ -7,9 +7,9 @@ type FieldTextProps = {
 const FieldText = (props: FieldTextProps & TypographyProps) => {
   const { children } = props;
 
-  const image = <Typography>{children}</Typography>;
+  const text = <Typography>{children.toString()}</Typography>;
 
-  return image;
+  return text;
 };
 
 export default FieldText;
