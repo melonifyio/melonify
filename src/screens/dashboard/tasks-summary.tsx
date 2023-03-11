@@ -11,7 +11,7 @@ export function TasksSummary() {
 
   return (
     <Grid2 container spacing={2}>
-      <Grid2 xs={3}>
+      <Grid2 xs={6} md={3}>
         <Summary
           title="Tasks"
           total={totalTasks || 0}
