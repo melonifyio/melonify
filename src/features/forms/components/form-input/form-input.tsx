@@ -2,7 +2,9 @@ import * as React from "react";
 
 import TextField from "@mui/material/TextField";
 
-export type FormInputConfig = {};
+export type FormInputConfig = {
+  readonly?: boolean;
+};
 
 export type FormInputProps = {
   label: string;
@@ -25,7 +27,7 @@ export function FormInput(props: FormInputProps) {
       size="small"
       id={field.name}
       label={label}
-      // disabled={config?.readonly}
+      disabled={config?.readonly}
       {...field}
     />
   );

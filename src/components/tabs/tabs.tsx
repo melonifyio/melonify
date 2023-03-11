@@ -23,9 +23,7 @@ function TabPanel(props: TabPanelProps) {
       style={{ overflowY: "auto" }}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ py: 4, px: 2, minWidth: 540 }}>{children}</Box>
-      )}
+      {value === index && <Box sx={{ py: 4, px: 2 }}>{children}</Box>}
     </div>
   );
 }

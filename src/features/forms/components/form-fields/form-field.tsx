@@ -11,7 +11,7 @@ import { FormBoolean, FormBooleanConfig } from "../form-boolean/form-boolean";
 import { FormEnum, FormEnumConfig } from "../form-enum/form-enum";
 import { FormFieldType } from "features/forms/types";
 import { FormTextarea } from "../form-textarea";
-import { FormDate } from "../form-date";
+import { FormDate, FormDateConfig } from "../form-date";
 
 export type FormFieldProps = {
   fieldKey?: string;
@@ -22,7 +22,8 @@ export type FormFieldProps = {
     | FormBooleanConfig
     | FormInputConfig
     | FormBooleanConfig
-    | FormEnumConfig;
+    | FormEnumConfig
+    | FormDateConfig;
   control?: Control;
 };
 
