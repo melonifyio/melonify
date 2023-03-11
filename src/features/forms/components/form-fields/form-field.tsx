@@ -10,7 +10,7 @@ import {
 import { FormBoolean, FormBooleanConfig } from "../form-boolean/form-boolean";
 import { FormEnum, FormEnumConfig } from "../form-enum/form-enum";
 import { FormFieldType } from "features/forms/types";
-import { FormTextarea } from "../form-textarea";
+import { FormTextarea, FormTextareaConfig } from "../form-textarea";
 import { FormDate, FormDateConfig } from "../form-date";
 
 export type FormFieldProps = {
@@ -23,7 +23,8 @@ export type FormFieldProps = {
     | FormInputConfig
     | FormBooleanConfig
     | FormEnumConfig
-    | FormDateConfig;
+    | FormDateConfig
+    | FormTextareaConfig;
   control?: Control;
 };
 

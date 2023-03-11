@@ -13,7 +13,7 @@ type FormProps = {
   contentComponent: ({ control }: { control: Control }) => JSX.Element;
   actionsComponent?: React.ReactNode;
   height?: number | string;
-  schema?: ZodType;
+  schema: ZodType;
   resetOnSubmit?: boolean;
 };
 

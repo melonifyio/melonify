@@ -2,7 +2,10 @@ import * as React from "react";
 
 import TextField from "@mui/material/TextField";
 
-export type FormTextareaConfig = {};
+export type FormTextareaConfig = {
+  readonly?: boolean;
+  autofocus?: boolean;
+};
 
 export type FormTextareaProps = {
   label: string;
@@ -18,18 +21,22 @@ export type FormTextareaProps = {
 export function FormTextarea(props: FormTextareaProps) {
   const { label, field, config, errors } = props;
 
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
   return (
     <TextField
+      inputRef={inputRef}
       error={!!errors[field.name]}
       helperText={errors[field.name]?.message}
       size="small"
       multiline
       id={field.name}
       label={label}
-      // disabled={config?.readonly}
-      minRows={4}
+      minRows={3}
       maxRows={20}
       {...field}
+      disabled={config?.readonly}
+      autoFocus={config?.autofocus}
     />
   );
 }
