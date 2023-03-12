@@ -1,18 +1,20 @@
-import { DashboardLayout } from "layouts";
+import {
+  DashboardLayout,
+  Container,
+  PageHeader,
+} from "core/ui/dashboard-layout";
+import { TasksScreen } from "features/tasks";
 
-import { PageHeader } from "components/page-header";
-import { Container } from "components/container";
-import { TasksScreen } from "screens/tasks/tasks";
-
-export default function RestaurantsPage() {
+export default function TasksPage() {
   return (
     <Container>
       <PageHeader title="Tasks" />
+
       <TasksScreen />
     </Container>
   );
 }
 
-RestaurantsPage.getLayout = function getLayout(page: React.ReactElement) {
+TasksPage.getLayout = function getLayout(page: React.ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

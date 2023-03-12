@@ -1,14 +1,16 @@
-import { DashboardLayout } from "layouts";
+import {
+  DashboardLayout,
+  Container,
+  PageHeader,
+} from "core/ui/dashboard-layout";
 
-import { PageHeader } from "components/page-header";
-import { Container } from "components/container";
-
-import { DashboardScreen } from "screens/dashboard";
+import { DashboardScreen } from "features/dashboard";
 
 export default function DashboardPage() {
   return (
     <Container>
       <PageHeader title="Dashboard" />
+
       <DashboardScreen />
     </Container>
   );

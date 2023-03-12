@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { CommentModel } from "schema";
 import { Delete, Edit, MoreVert } from "@mui/icons-material";
-import { useDataProvider } from "features/data";
+import { useDataProvider } from "core/data";
 
 type CommentActionsProps = {
   item: CommentModel;

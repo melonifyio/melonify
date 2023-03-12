@@ -2,13 +2,15 @@ import * as React from "react";
 import Link from "next/link";
 
 import { Box, Tab, Tabs } from "@mui/material";
-import { Container } from "components/container";
 
-import { DashboardLayout } from "layouts";
-import { PageHeader } from "components/page-header";
-import { SettingsScreen } from "screens/settings";
-import { MembersScreen } from "screens/members";
+import { SettingsScreen } from "features/settings";
+import { MembersScreen } from "features/members";
 import { useRouter } from "next/router";
+import {
+  Container,
+  DashboardLayout,
+  PageHeader,
+} from "core/ui/dashboard-layout";
 
 function getIndexFromSlug(slug?: string[]): number {
   if (!slug) return 0;
