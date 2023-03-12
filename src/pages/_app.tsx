@@ -2,15 +2,7 @@ import React from "react";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
 
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
-import { ThemeProvider } from "theme";
-import { AuthenticationProvider } from "features/auth";
-import { AuthorizationProvider } from "features/auth";
-import { DataProvider } from "features/data";
-import { firebaseDataProvider } from "features/firebase";
-import { ToastProvider } from "features/toast";
+import Melonify from "core/melonify";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
@@ -26,16 +18,23 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const mainContent = getLayout(<Component {...pageProps} />);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DataProvider provider={firebaseDataProvider()}>
-        <ThemeProvider>
-          <ToastProvider>
-            <AuthenticationProvider>
-              <AuthorizationProvider>{mainContent}</AuthorizationProvider>
-            </AuthenticationProvider>
-          </ToastProvider>
-        </ThemeProvider>
-      </DataProvider>
-    </LocalizationProvider>
+    <Melonify
+      menu={{
+        regular: [
+          {
+            path: "/tasks",
+            title: "Tasks",
+            icon: "Task",
+            rolesAllowed: ["OWNER", "ADMIN", "MEMBER"],
+          },
+        ],
+        footer: [
+          { path: "/settings/members", title: "Members", icon: "People" },
+          { path: "/settings", title: "Settings", icon: "Settings" },
+        ],
+      }}
+    >
+      {mainContent}
+    </Melonify>
   );
 }

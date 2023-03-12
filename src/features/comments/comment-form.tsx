@@ -2,9 +2,9 @@ import React from "react";
 
 import { LoadingButton } from "@mui/lab";
 import { Stack, Button } from "@mui/material";
-import { useDataProvider } from "features/data";
-import { Form, FormFields } from "features/forms";
 import { CommentModel, commentSchema } from "schema";
+import { useDataProvider } from "core/data";
+import { Form, FormFields } from "core/ui/form";
 
 type CommentFormProps = {
   item: CommentModel;
