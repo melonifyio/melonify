@@ -11,6 +11,7 @@ import MembersListItem from "./member-item";
 import { Add } from "@mui/icons-material";
 import firestore from "core/firebase/lib/firestore";
 import { FormFields, FormModal } from "core/ui/form";
+import { useUpdateUser } from "../api/update-user";
 
 export function MembersListWidget() {
   const [data] = useUsers();
@@ -26,13 +27,6 @@ export function MembersListWidget() {
 
   const handleInvite = async (values: any) => {
     sendLink(values);
-
-    await setDoc(doc(firestore, `users/${values.email}`), {
-      ...values,
-      neverLoggedIn: true,
-      role: "MEMBER",
-      createdAt: Timestamp.now(),
-    });
   };
 
   return (

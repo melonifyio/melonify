@@ -3,7 +3,7 @@ import * as React from "react";
 import TableCell from "@mui/material/TableCell";
 import MuiTableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { IColumn } from "../../types";
+import { IColumn } from "../types";
 
 type TableHeadProps = {
   columns: Record<string, IColumn>;

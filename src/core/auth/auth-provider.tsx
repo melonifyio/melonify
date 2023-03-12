@@ -13,6 +13,11 @@ export type AuthContextProps = {
   useSendLink: (options?: {
     onSuccess?: () => void;
   }) => [(props: { email: string }) => Promise<void>, boolean, Error | null];
+  useSignInByLink: (options: {
+    email: string;
+    onSuccess: () => void;
+    onError?: () => void;
+  }) => [boolean, boolean, Error | null];
 };
 
 export const AuthContext = React.createContext<AuthContextProps>({
@@ -24,6 +29,7 @@ export const AuthContext = React.createContext<AuthContextProps>({
   useProfile: () => [null, false, null],
   useCheckIfLoggedIn: () => [false, false, null],
   useSendLink: () => [() => Promise.resolve(), false, null],
+  useSignInByLink: () => [false, false, null],
 });
 
 export type AuthProviderProps = {

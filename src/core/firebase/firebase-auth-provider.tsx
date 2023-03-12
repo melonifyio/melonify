@@ -3,6 +3,7 @@ import { useAuthUser } from "./hooks/use-auth-user";
 import { useSendInvitationLink } from "./hooks/use-send-invitation-link";
 import { useFirebaseSignInViaGoogle } from "./hooks/use-sign-in";
 import { useFirebaseSignOut } from "./hooks/use-sign-out";
+import { useSignInWithEmailLink } from "./hooks/use-sign-with-email-link";
 
 export function firebaseAuthProvider(): AuthContextProps {
   return {
@@ -31,6 +32,11 @@ export function firebaseAuthProvider(): AuthContextProps {
 
       return [!!profile, isLoading, null];
     },
-    useSendLink: () => useSendInvitationLink(),
+    useSendLink: (options?: { onSuccess?: () => void }) => {
+      return useSendInvitationLink(options);
+    },
+    useSignInByLink: (options) => {
+      return useSignInWithEmailLink(options);
+    },
   };
 }

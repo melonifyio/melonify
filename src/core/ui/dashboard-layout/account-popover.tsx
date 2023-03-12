@@ -29,8 +29,6 @@ export function AccountPopover() {
 
   const [profile] = useProfile();
 
-  console.log(profile);
-
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
   };
