@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
-import { useDataProvider } from "features/data";
+import { useDataProvider } from "core/data";
 import { CommentModel } from "schema";
 import { Comment } from "./comment";
 import { Compose } from "./compose";

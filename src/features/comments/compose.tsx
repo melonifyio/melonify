@@ -1,8 +1,8 @@
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
-import { useMe } from "features/auth/api/get-me";
-import { useDataProvider } from "features/data";
-import { Form, FormFields } from "features/forms";
+import { useAuthProvider } from "core/auth";
+import { useDataProvider } from "core/data";
+import { Form, FormFields } from "core/ui/form";
 import { Timestamp } from "firebase/firestore";
 import { commentSchema } from "schema";
 
@@ -13,7 +13,9 @@ type ComposeProps = {
 export function Compose(props: ComposeProps) {
   const { collectionId } = props;
 
-  const [me] = useMe();
+  const { useProfile } = useAuthProvider();
+
+  const [profile] = useProfile();
 
   const { useCreateDocument } = useDataProvider();
 
@@ -29,7 +31,7 @@ export function Compose(props: ComposeProps) {
       schema={commentSchema}
       initialValues={{
         content: "",
-        createdBy: me,
+        createdBy: profile,
         createdAt: Timestamp.now(),
       }}
       onSubmit={handleSubmit}
